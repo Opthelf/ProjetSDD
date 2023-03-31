@@ -120,9 +120,3 @@ List * ftol(char * path){
 	fgets(buff,1000,f);
 	return stol(buff);
 }
-
-
-
-
-
-	
