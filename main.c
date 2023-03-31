@@ -7,7 +7,6 @@
 #include "exo2.h"
 #include "exo3.h"
 
-
 //Bloc 1 :
 
 /*List * initList();
@@ -47,9 +46,10 @@ int main(int argc, char ** argv){
 	List * L3 = ftol("TestLtof.txt");
 	
 	//Bloc 2 :
-	List * L4 = listdir(get_current_dir_name());
-	printf("%s\n",ltos(stol(ltos(L4))));
+	char cwd[50];
+	List * L4 = listdir(getcwd(cwd, sizeof(cwd)));
+	//printf("%s\n",ltos(stol(ltos(L4))));
 	return 0;
 }
 
-//Update : On ne peut pas tester listdir car récupérer repertoire courant
+//Update : Listdir testé, mais échoue -> message d'erreur : bad address
