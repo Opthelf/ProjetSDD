@@ -49,8 +49,8 @@ int main(int argc, char ** argv){
 	char cwd[50];
 	List * L4 = listdir(getcwd(cwd, sizeof(cwd)));
 
-	printf("%s\n",ltos(L4));
+	printf("%s\n",ltos(stol(ltos(L4))));
 	return 0;
 }
 
-//Update : Listdir testé, mais échoue -> message d'erreur : bad address + ltos fait des trucs bizarres au premier element de la liste
+//Update : Listdir testé, mais échoue -> message d'erreur : bad address + ltos est valide je suis trop fort
