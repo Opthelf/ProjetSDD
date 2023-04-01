@@ -28,6 +28,17 @@ List * listdir(char * root_dir){
 	return L;
 }
 
+int file_exists(char * file){
+	List * L = listdir(".");
+	Cell * temp = *L;
+	while (temp != NULL){
+		if (strcmp(file,temp->data) == 0){
+			return 1;
+		}
+		temp = temp->next;
+	}
+	return 0;
+}
 
 char * hashToPath(char *hash){
 	int l=strlen(hash);
@@ -44,17 +55,6 @@ char * hashToPath(char *hash){
 	}
 	path[i]='\0';
 	return path;
-}
-int file_exists(char * file){
-	List * L = listdir(".");
-	Cell * temp = *L;
-	while (temp != NULL){
-		if (strcmp(file,temp->data) == 0){
-			return 1;
-		}
-		temp = temp->next;
-	}
-	return 0;
 }
 
 void cp(char *to, char *from){
