@@ -42,13 +42,13 @@ int main(int argc, char ** argv){
 	Cell * C5 = searchList(L1,"Chaine1");
 	List * L2 = stol("Je|suis|heureux");
 	//printf("%s\n",ltos(stol(ltos(L2)))); //Utiliser deux fois sinon à l'envers
-	ltof(L1,"TestLtof.txt");
-	List * L3 = ftol("TestLtof.txt");
+	//ltof(L1,"TestLtof.txt");
+	//List * L3 = ftol("TestLtof.txt");
 	
 	//Bloc 2 :
 	char cwd[50];
 	List * L4 = listdir(getcwd(cwd, sizeof(cwd)));
-	//printf("%s\n",ltos(stol(ltos(L4))));
+	printf("%s\n",ltos(stol(ltos(L4))));
 	return 0;
 }
 
