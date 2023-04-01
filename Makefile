@@ -15,3 +15,6 @@ exo3.o : exo3.c exo1.h exo2.h exo3.h
 
 clean :
 	rm -f *.o all
+
+cleanM : 
+	rm main 
