@@ -3,6 +3,7 @@
 #include <string.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include "exo1.h"
 #include "exo2.h"
 #include "exo3.h"
@@ -27,6 +28,23 @@ List * listdir(char * root_dir){
 	return L;
 }
 
+
+char * hashToPath(char *hash){
+	int l=strlen(hash);
+	char *path=malloc(sizeof(char)*(l+2));
+	path[0]=hash[0];
+	path[1]=hash[1];
+	path[2]='/';
+	int i=3;
+	int j=2;
+	while( hash[j]!='\0'){
+		path[i]=hash[j];
+		i++;
+		j++;
+	}
+	path[i]='\0';
+	return path;
+}
 int file_exists(char * file){
 	List * L = listdir(".");
 	Cell * temp = *L;

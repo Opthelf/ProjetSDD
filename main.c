@@ -25,6 +25,8 @@ List * ftol(char * path);*/
 /*Bloc 2 :
 List * listdir(char * root_dir);
 int file_exists(char *file);
+
+char * hashToPath(char* hash);
 */
 
 
@@ -49,8 +51,9 @@ int main(int argc, char ** argv){
 	
 	//Bloc 2 :
 	char cwd[50];
-	List * L4 = listdir(getcwd(cwd, sizeof(cwd)));
+	List * L4 = listdir(".");
 	printf("%s\n",ltos(stol(ltos(L4))));
+	printf("%s\n",hashToPath(sha256file("main.c")));
 	return 0;
 }
 
