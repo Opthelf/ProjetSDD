@@ -33,3 +33,6 @@ List * listdir(char * root_dir){
  void deLaMerde(){
 	printf("caca\n");
  }
+int random(int a, int b){
+	return a+b;
+}
