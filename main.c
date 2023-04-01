@@ -6,6 +6,8 @@
 #include "exo1.h"
 #include "exo2.h"
 #include "exo3.h"
+#include "exo4.h"
+
 
 //Bloc 1 :
 
@@ -58,4 +60,3 @@ int main(int argc, char ** argv){
 	return 0;
 }
 
-//Update : Listdir testé et fonctionnel

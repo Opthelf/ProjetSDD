@@ -1,5 +1,5 @@
-all : exo3.o exo2.o main.o exo1.o
-	gcc exo3.o exo2.o main.o exo1.o -o main
+all : exo4.o exo3.o exo2.o main.o exo1.o
+	gcc exo4.o exo3.o exo2.o main.o exo1.o -o main
 	
 main.o :  main.c exo3.h exo2.h exo1.h
 	gcc -c main.c -o main.o
@@ -12,6 +12,9 @@ exo2.o : exo2.c exo2.h exo1.h
 
 exo3.o : exo3.c exo1.h exo2.h exo3.h
 	gcc -c exo3.c -o exo3.o
+
+exo4.o : exo4.c exo1.h exo2.h exo3.h
+	gcc -c exo4.c -o exo4.o
 
 clean :
 	rm -f *.o all
