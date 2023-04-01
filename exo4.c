@@ -24,7 +24,19 @@ char* wfts(WorkFile* wf){
     sprintf(res,"%s\t%s\t%d",wf->name,wf->hash,wf->mode);
     return res;
 }
-WorkTree initWorkTree(){
+
+WorkFile* stwf(char* ch){
+    int mode;
+    char * name = malloc(sizeof(char)*1000);
+    char * hash = malloc(sizeof(char)*1000);
+    sscanf(ch,"%s\t%s\t%d",name,hash,&mode);
+    WorkFile * WF = createWorkFile(name);
+    WF->hash = hash;
+    WF->mode = mode;
+    return WF;
+}
+
+WorkTree * initWorkTree(){
     WorkTree * WT = (WorkTree *)malloc(sizeof(WorkTree));
     WT->size = TAILLE;
     WT->tab = (WorkFile *)malloc(TAILLE*sizeof(WorkFile));
@@ -33,7 +45,7 @@ WorkTree initWorkTree(){
 }
 
 
-int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
+/*int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
     WorkFile *WF = createWorkFile(n);
     WF->hash = strdup(hash);
     WF->mode = mode;
@@ -52,3 +64,4 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
     printf("Fichier ajouté (appendWorkTree)\n");
     return 1;
 }
+*/

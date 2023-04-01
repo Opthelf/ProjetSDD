@@ -60,17 +60,24 @@ int main(int argc, char ** argv){
 	List * L4 = listdir(".");
 	//printf("%s\n",ltos(stol(ltos(L4))));
 	//printf("%s\n",hashToPath(sha256file("main.c")));
-	//cp("fichier2.txt","fichier1.txt");
-	//blobFile("main.c");
-	
+	cp("fichier2.txt","fichier1.txt");
+	blobFile("exo1.c");
+
 	//Bloc 3 :
-	WorkFile * WF1 = createWorkFile("main.c");
-	printf("%s\n",wfts(WF1));
-	WorkTree * WT1 = initWorkTree();
-	appendWorkTree(WT1,"main.c",sha256file("main.c"),0);
-	printf("%s\n",WT1->tab[0]->name);
+
+	WorkFile * WF = createWorkFile("fichier1.txt");
+	WF->hash = sha256file(WF->name);
+	printf("%s\n",WF->name);
+	WF->mode = 777;
+	char * chaineWorkFile = wfts(WF);
+	WF = stwf(chaineWorkFile);
+	printf("%s\n",WF->hash);
+
+	//WorkTree * WT1 = initWorkTree();
+	//appendWorkTree(WT1,"main.c",sha256file("main.c"),0);
+	//printf("%s\n",WT1->tab[0]->name);
 	return 0;
 
 }
 
-//Update : Bloc 2 terminé
+//Update : Bloc 3 work in progress (appendWorkTree)
