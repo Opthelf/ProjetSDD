@@ -55,4 +55,4 @@ int main(int argc, char ** argv){
 	return 0;
 }
 
-//Update : Listdir testé, mais échoue -> message d'erreur : bad address + ltos est valide je suis trop fort
+//Update : Listdir testé et fonctionnel
