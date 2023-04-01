@@ -26,13 +26,3 @@ List * listdir(char * root_dir){
 	}
 	return L;
 }
- int multiplicateur(int a, int b){
- 	return a*b;
- }
-
- void deLaMerde(){
-	printf("caca\n");
- }
-int random(int a, int b){
-	return a+b;
-}
