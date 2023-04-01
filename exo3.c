@@ -26,11 +26,6 @@ List * listdir(char * root_dir){
 	}
 	return L;
 }
-
-int somme(int a, int b){
-	return a+b;
-}
-
-int somme2(int a, int b){
-	return a+b;
-}
+ int multiplicateur(int a, int b){
+ 	return a*b;
+ }
