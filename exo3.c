@@ -28,9 +28,6 @@ List * listdir(char * root_dir){
 	return L;
 }
 
-<<<<<<< HEAD
 int file_exists(char *file){
 	
 }
-=======
->>>>>>> bf713722a3f04a443d8d884e7ee3c36dc4ae18ce
