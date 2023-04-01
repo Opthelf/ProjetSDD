@@ -25,8 +25,9 @@ List * ftol(char * path);*/
 /*Bloc 2 :
 List * listdir(char * root_dir);
 int file_exists(char *file);
-
+void cp(char * to, char * from);
 char * hashToPath(char* hash);
+void blobFile(char * file);
 */
 
 
@@ -55,7 +56,8 @@ int main(int argc, char ** argv){
 	printf("%s\n",ltos(stol(ltos(L4))));
 	printf("%s\n",hashToPath(sha256file("main.c")));
 	cp("fichier2.txt","fichier1.txt");
+	blobFile("main.c");
 	return 0;
 }
 
-//Update : Listdir testé et fonctionnel
+//Update : Bloc 2 terminé

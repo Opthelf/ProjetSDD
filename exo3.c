@@ -57,11 +57,30 @@ char * hashToPath(char *hash){
 	return path;
 }
 
-void cp(char *to, char *from){
-	if (file_exists(from) == 0){
-		printf("Le fichier entré en paramètre n'est pas dans ce répertoire !(cp)\n");
-		return;
-	}
-	FILE * 
+void cp(char* to, char* from){
+    if (file_exists(from) == 0){
+        printf("Le fichier entré en paramètre n'est pas dans ce répertoire !(cp)\n");
+        return;
+    }
+    FILE * f_depart = fopen(from,"r");
+    FILE * f_arrivee = fopen(to,"w");
+    char buff[256];
+    while(fgets(buff,256,f_depart) != NULL){
+        fprintf(f_arrivee,"%s",buff);
+    }
+    fclose(f_depart);
+    fclose(f_arrivee);
 }
 
+void blobFile(char* file){
+	char * hash = sha256file(file);
+	char * ch2 = strdup(hash);
+	ch2[2]= '\0';
+	if (!file_exists(ch2)){
+		char buff[100];
+		sprintf(buff,"mkdir %s",ch2);
+		system(buff);
+	}
+	char * ch = hashToPath(hash);
+	cp(ch,file);
+}

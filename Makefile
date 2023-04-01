@@ -14,5 +14,5 @@ exo3.o : exo3.c exo1.h exo2.h exo3.h
 	gcc -c exo3.c -o exo3.o
 
 clean :
-	rm -f *.o all ; rm main ; rm -f *.txt all
+	rm -f *.o all ; rm main 
 
