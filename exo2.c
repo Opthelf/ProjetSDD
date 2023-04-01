@@ -41,6 +41,7 @@ char * ltos(List * L){
 		if (temp != NULL){
 			strcat(res,"|");
 		}
+		strcat(res,"\0");
 	}
 	return res;
 }

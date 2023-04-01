@@ -37,7 +37,7 @@ int main(int argc, char ** argv){
 	insertFirst(L1,C2);
 	insertFirst(L1,C3);
 	char * recup = ctos(C1);
-	char * recupT = ltos(L1);
+	//char * recupT = ltos(L1);
 	Cell * C4 = listGet(L1,0);
 	Cell * C5 = searchList(L1,"Chaine1");
 	List * L2 = stol("Je|suis|heureux");
@@ -48,8 +48,9 @@ int main(int argc, char ** argv){
 	//Bloc 2 :
 	char cwd[50];
 	List * L4 = listdir(getcwd(cwd, sizeof(cwd)));
-	printf("%s\n",ltos(stol(ltos(L4))));
+
+	printf("%s\n",ltos(L4));
 	return 0;
 }
 
-//Update : Listdir testé, mais échoue -> message d'erreur : bad address
+//Update : Listdir testé, mais échoue -> message d'erreur : bad address + ltos fait des trucs bizarres au premier element de la liste
