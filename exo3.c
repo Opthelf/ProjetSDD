@@ -62,5 +62,12 @@ void cp(char *to, char *from){
 		printf("Le fichier entré en paramètre n'est pas dans ce répertoire !(cp)\n");
 		return;
 	}
-	FILE * 
+	FILE * f_depart = fopen(from,"r");
+	FILE * f_arrivee = fopen(to,"w");
+	char buff[256];
+	while(fgets(buff,256,f_depart) != NULL){
+		fprintf(f_arrivee,"%s",buff);
+	}
+	fclose(f_depart);
+	fclose(f_arrivee);
 }
