@@ -48,9 +48,8 @@ int main(int argc, char ** argv){
 	//List * L3 = ftol("TestLtof.txt");
 	
 	//Bloc 2 :
-	char cwd[50];
-	List * L4 = listdir(getcwd(cwd, sizeof(cwd)));
-
+	char * cwd = NULL;
+	List * L4 = listdir(getcwd(cwd, 30));
 	printf("%s\n",ltos(stol(ltos(L4))));
 	return 0;
 }
