@@ -8,6 +8,8 @@
 #include "exo2.h"
 #include "exo3.h"
 #include "exo4.h"
+# define TAILLE 10
+
 
 WorkFile* createWorkFile(char* name){
     WorkFile * WF = (WorkFile *)malloc(sizeof(WorkFile));
@@ -32,4 +34,12 @@ WorkFile* stwf(char* ch){
     WF->hash = hash;
     WF->mode = mode;
     return WF;
+}
+
+WorkTree * initWorkTree(){
+    WorkTree * WT = (WorkTree *)malloc(sizeof(WorkTree));
+    WT->size = TAILLE;
+    WT->tab = (WorkFile *)malloc(TAILLE*sizeof(WorkFile));
+    WT->n = 0;
+    return WT;
 }

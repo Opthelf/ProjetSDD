@@ -32,6 +32,9 @@ char * hashToPath(char* hash);
 void blobFile(char * file);
 */
 
+/*Bloc 3 :
+
+*/
 
 int main(int argc, char ** argv){
 
@@ -63,16 +66,16 @@ int main(int argc, char ** argv){
 	//Bloc 3 :
 
 	WorkFile * WF = createWorkFile("fichier1.txt");
-	printf("test1\n");
 	WF->hash = sha256file(WF->name);
 	printf("%s\n",WF->name);
 	WF->mode = 777;
-	printf("test3\n");
 	char * chaineWorkFile = wfts(WF);
-	printf("test4\n");
 	WF = stwf(chaineWorkFile);
-
+	WorkFile * WF1 = createWorkFile("main.c");
+	printf("%s\n",wfts(WF1));
+	WorkTree * WT1 = initWorkTree();
 	return 0;
+
 }
 
 //Update : Bloc 2 terminé
