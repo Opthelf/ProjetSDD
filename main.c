@@ -54,6 +54,7 @@ int main(int argc, char ** argv){
 	List * L4 = listdir(".");
 	printf("%s\n",ltos(stol(ltos(L4))));
 	printf("%s\n",hashToPath(sha256file("main.c")));
+	cp("fichier2.txt","fichier1.txt");
 	return 0;
 }
 

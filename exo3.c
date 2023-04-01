@@ -65,9 +65,3 @@ void cp(char *to, char *from){
 	FILE * 
 }
 
-void blobFile(char * file){
-	if (file_exists(file) == 0){
-		printf("Le fichier entré en paramètre n'est pas dans ce répertoire !(blobFile)\n");
-		return;
-	}
-	char * hash = sha256file(file);
