@@ -29,3 +29,7 @@ List * listdir(char * root_dir){
  int multiplicateur(int a, int b){
  	return a*b;
  }
+
+int random(int a, int b){
+	return a+b;
+}
