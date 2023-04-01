@@ -28,29 +28,3 @@ List * listdir(char * root_dir){
 	return L;
 }
 
-void afficherRep(char * root_dir){
-	DIR *dp;
-	struct dirent *ep;
-	dp = opendir(root_dir);
-	if(dp != NULL){
-		while((ep = readdir(dp)) != NULL){
-			char * temp = strdup(ep->d_name);
-			printf("%s\n ",temp);
-		}
-		(void)closedir(dp);
-	}
-	else{
-		perror("On a pas pu ouvrir le repertoire\n");
-	}
-}	
-
-void afficheL(List * L){
-	if (*L == NULL){
-		printf("Liste NULL(afficheL)\n");
-	}
-	Cell * temp = *L;
-	while( temp != NULL ){
-		printf("%s\n",ctos(temp));
-		temp = temp->next;
-	}
-}

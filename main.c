@@ -22,8 +22,10 @@ List * ftol(char * path);*/
 
 
 
-//Bloc 2 :
-
+/*Bloc 2 :
+List * listdir(char * root_dir);
+int file_exists(char *file);
+*/
 
 
 int main(int argc, char ** argv){
