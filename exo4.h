@@ -1,13 +1,13 @@
 #ifndef EXO4_H
 #define EXO4_H
 
-typedef struct { 
+typedef struct workfile { 
     char* name; 
     char* hash;
     int mode; 
 }WorkFile;
 
-typedef struct { 
+typedef struct worktree { 
     WorkFile* tab;
     int size;
     int n;
@@ -16,5 +16,6 @@ typedef struct {
 WorkFile* createWorkFile(char* name);
 char* wfts(WorkFile* wf);
 WorkTree* initWorkTree();
+int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
 
 #endif

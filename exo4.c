@@ -33,3 +33,22 @@ WorkTree initWorkTree(){
 }
 
 
+int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
+    WorkFile *WF = createWorkFile(n);
+    WF->hash = strdup(hash);
+    WF->mode = mode;
+    if(wt->n == wt->size){
+        printf("Worktree plein (appendWorkTree)\n");
+        return 0;
+    }
+    for(int i=0;i<wt->n;i++){
+        if(strcmp(wt->tab[i]->name,name)==0 && strcmp(wt->tab[i]->hash,hash)==0 && wt->tab[i]->mode == mode){
+            printf("Fichier déjà présent (appendWorkTree)\n");
+            return 0;
+        }
+    }
+    (wt->tab[wt->n]) = WF ;
+    wt->n++;
+    printf("Fichier ajouté (appendWorkTree)\n");
+    return 1;
+}

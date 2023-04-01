@@ -67,6 +67,8 @@ int main(int argc, char ** argv){
 	WorkFile * WF1 = createWorkFile("main.c");
 	printf("%s\n",wfts(WF1));
 	WorkTree * WT1 = initWorkTree();
+	appendWorkTree(WT1,"main.c",sha256file("main.c"),0);
+	printf("%s\n",WT1->tab[0]->name);
 	return 0;
 
 }
