@@ -33,14 +33,20 @@ char * ltos(List * L){
 		printf("Liste NULL(ltos)\n");
 		return "";
 	}
-	char * res = malloc(1000*sizeof(char));
+	char * res = malloc(sizeof(char)*1000);
 	Cell * temp = *L;
+	strcpy(res,ctos(temp));
+	if (temp != NULL){
+			strcat(res,"|");
+		}
+	temp = temp->next;
 	while( temp != NULL ){
 		strcat(res,ctos(temp));
 		temp = temp->next;
 		if (temp != NULL){
 			strcat(res,"|");
 		}
+		strcat(res,"\0");
 	}
 	return res;
 }
