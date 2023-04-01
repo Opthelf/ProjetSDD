@@ -13,5 +13,7 @@ typedef struct {
     int n;
 }WorkTree;
 
+WorkFile* createWorkFile(char* name);
+char* wfts(WorkFile* wf);
 
 #endif

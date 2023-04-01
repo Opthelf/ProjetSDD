@@ -9,3 +9,16 @@
 #include "exo3.h"
 #include "exo4.h"
 
+WorkFile* createWorkFile(char* name){
+    WorkFile * WF = (WorkFile *)malloc(sizeof(WorkFile));
+    WF->name = strdup(name);
+    WF->hash = NULL;
+    WF->mode = 0;
+    return WF;
+}
+
+char* wfts(WorkFile* wf){
+    char * res = malloc(1000*sizeof(char));
+    sprintf(res,"%s\t%s\t%d\n",wf->name,wf->hash,wf->mode);
+    return res;
+}
