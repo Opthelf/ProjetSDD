@@ -15,5 +15,6 @@ typedef struct {
 
 WorkFile* createWorkFile(char* name);
 char* wfts(WorkFile* wf);
+WorkFile* stwf(char* ch);
 
 #endif

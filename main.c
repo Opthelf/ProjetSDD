@@ -55,10 +55,23 @@ int main(int argc, char ** argv){
 	//Bloc 2 :
 	char cwd[50];
 	List * L4 = listdir(".");
-	printf("%s\n",ltos(stol(ltos(L4))));
-	printf("%s\n",hashToPath(sha256file("main.c")));
+	//printf("%s\n",ltos(stol(ltos(L4))));
+	//printf("%s\n",hashToPath(sha256file("main.c")));
 	cp("fichier2.txt","fichier1.txt");
-	blobFile("main.c");
+	blobFile("exo1.c");
+
+	//Bloc 3 :
+
+	WorkFile * WF = createWorkFile("fichier1.txt");
+	printf("test1\n");
+	WF->hash = sha256file(WF->name);
+	printf("%s\n",WF->name);
+	WF->mode = 777;
+	printf("test3\n");
+	char * chaineWorkFile = wfts(WF);
+	printf("test4\n");
+	WF = stwf(chaineWorkFile);
+
 	return 0;
 }
 

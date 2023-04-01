@@ -19,6 +19,17 @@ WorkFile* createWorkFile(char* name){
 
 char* wfts(WorkFile* wf){
     char * res = malloc(1000*sizeof(char));
-    sprintf(res,"%s\t%s\t%d\n",wf->name,wf->hash,wf->mode);
+    sprintf(res,"%s\t%s\t%d",wf->name,wf->hash,wf->mode);
     return res;
+}
+
+WorkFile* stwf(char* ch){
+    int mode;
+    char * name = malloc(sizeof(char)*1000);
+    char * hash = malloc(sizeof(char)*1000);
+    sscanf(ch,"%s\t%s\t%d",name,hash,&mode);
+    WorkFile * WF = createWorkFile(name);
+    WF->hash = hash;
+    WF->mode = mode;
+    return WF;
 }
