@@ -26,3 +26,23 @@ List * listdir(char * root_dir){
 	}
 	return L;
 }
+
+int file_exists(char * file){
+	List * L = listdir(".");
+	Cell * temp = *L;
+	while (temp != NULL){
+		if (strcmp(file,temp->data) == 0){
+			return 1;
+		}
+		temp = temp->next;
+	}
+	return 0;
+}
+
+void cp(char *to, char *from){
+	if (file_exists(from) == 0){
+		printf("Le fichier entré en paramètre n'est pas dans ce répertoire !(cp)\n");
+		return;
+	}
+	FILE * 
+}
