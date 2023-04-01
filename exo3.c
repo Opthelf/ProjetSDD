@@ -29,3 +29,7 @@ List * listdir(char * root_dir){
  int multiplicateur(int a, int b){
  	return a*b;
  }
+
+ void deLaMerde(){
+	printf("caca\n");
+ }
