@@ -15,5 +15,6 @@ typedef struct {
 
 WorkFile* createWorkFile(char* name);
 char* wfts(WorkFile* wf);
+WorkTree* initWorkTree();
 
 #endif

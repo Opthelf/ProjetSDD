@@ -32,6 +32,9 @@ char * hashToPath(char* hash);
 void blobFile(char * file);
 */
 
+/*Bloc 3 :
+
+*/
 
 int main(int argc, char ** argv){
 
@@ -55,11 +58,17 @@ int main(int argc, char ** argv){
 	//Bloc 2 :
 	char cwd[50];
 	List * L4 = listdir(".");
-	printf("%s\n",ltos(stol(ltos(L4))));
-	printf("%s\n",hashToPath(sha256file("main.c")));
-	cp("fichier2.txt","fichier1.txt");
-	blobFile("main.c");
+	//printf("%s\n",ltos(stol(ltos(L4))));
+	//printf("%s\n",hashToPath(sha256file("main.c")));
+	//cp("fichier2.txt","fichier1.txt");
+	//blobFile("main.c");
+	
+	//Bloc 3 :
+	WorkFile * WF1 = createWorkFile("main.c");
+	printf("%s\n",wfts(WF1));
+	WorkTree * WT1 = initWorkTree();
 	return 0;
+
 }
 
 //Update : Bloc 2 terminé
