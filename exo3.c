@@ -27,7 +27,3 @@ List * listdir(char * root_dir){
 	}
 	return L;
 }
-
-int fonctionTestCommit(){
-	return 0;
-}
