@@ -61,23 +61,19 @@ int inWorkTree(WorkTree* wt, char* name){
     return -1;
 }
 
-/*int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
-    WorkFile *WF = createWorkFile(n);
-    WF->hash = strdup(hash);
-    WF->mode = mode;
-    if(wt->n == wt->size){
-        printf("Worktree plein (appendWorkTree)\n");
+int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
+    if ( inWorkTree(wt,n) != -1){
+        printf("Le fichier est déjà dans le WorkTree !\n");
         return 0;
     }
-    for(int i=0;i<wt->n;i++){
-        if(strcmp(wt->tab[i]->name,name)==0 && strcmp(wt->tab[i]->hash,hash)==0 && wt->tab[i]->mode == mode){
-            printf("Fichier déjà présent (appendWorkTree)\n");
-            return 0;
-        }
+    if (wt->size > wt->n){
+        WorkFile * WF = createWorkFile(n);
+        WF->hash = strdup(h);
+        WF->mode = m;
+        wt->tab[wt->n] = *WF;
+        wt->n ++;
+        return 1;
     }
-    (wt->tab[wt->n]) = WF ;
-    wt->n++;
-    printf("Fichier ajouté (appendWorkTree)\n");
-    return 1;
+    printf("La taille du WorkTree est au maximum !\n");
+    return 0;
 }
-*/
