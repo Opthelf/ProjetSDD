@@ -17,6 +17,7 @@ WorkFile* createWorkFile(char* name);
 char* wfts(WorkFile* wf);
 WorkFile* stwf(char* ch);
 WorkTree* initWorkTree();
+int inWorkTree(WorkTree* wt, char* name);
 int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
 
 

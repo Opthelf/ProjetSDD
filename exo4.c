@@ -44,6 +44,22 @@ WorkTree * initWorkTree(){
     return WT;
 }
 
+int inWorkTree(WorkTree* wt, char* name){
+    if (wt == NULL){
+        printf("Le WorkTree est NULL(inWorkTree)\n");
+        return 0;
+    }
+    WorkFile * WF = wt->tab;
+    int i = 0;
+    while(i < (wt->n)){
+        if (strcmp(name,WF[i].name) == 0){
+            return i;
+        }
+        i++;
+    }
+    printf("Le fichier passé en paramètre n'est pas dans le WorkTree\n");
+    return -1;
+}
 
 /*int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
     WorkFile *WF = createWorkFile(n);

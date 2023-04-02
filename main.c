@@ -65,15 +65,22 @@ int main(int argc, char ** argv){
 
 	//Bloc 3 :
 
-	WorkFile * WF = createWorkFile("fichier1.txt");
-	WF->hash = sha256file(WF->name);
-	printf("%s\n",WF->name);
-	WF->mode = 777;
-	char * chaineWorkFile = wfts(WF);
-	WF = stwf(chaineWorkFile);
-	printf("%s\n",WF->hash);
-
-	//WorkTree * WT1 = initWorkTree();
+	WorkFile * WF1 = createWorkFile("exo1.c"); 
+	WF1->hash = sha256file(WF1->name); //Sur mac ne marche pas avec un fichier txt
+	WF1->mode = 777;
+	WorkFile * WF2 = createWorkFile("exo2.c"); 
+	WF2->hash = sha256file(WF2->name); //Sur mac ne marche pas avec un fichier txt
+	WF2->mode = 777;
+	char * chaineWorkFile = wfts(WF1);
+	WF1 = stwf(chaineWorkFile);
+	printf("%s\n",WF1->hash);
+	WorkTree * WT1 = initWorkTree();
+	WT1->tab[0] = *WF1;
+	WT1->n ++;
+	WT1->tab[1] = *WF2;
+	WT1->n ++;
+	//printf("%d\n",inWorkTree(WT1,"exo2.c"));
+	
 	//appendWorkTree(WT1,"main.c",sha256file("main.c"),0);
 	//printf("%s\n",WT1->tab[0]->name);
 	return 0;
