@@ -77,3 +77,14 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
     printf("La taille du WorkTree est au maximum !\n");
     return 0;
 }
+
+char* wtts(WorkTree* wt){
+    int i = 0;
+    char * res = malloc(sizeof(char)*1000);
+    while(i < wt->n){
+        strcat(res,wfts(&(wt->tab[i])));
+        strcat(res,"\n");
+        i++;
+    }
+    return res;
+}

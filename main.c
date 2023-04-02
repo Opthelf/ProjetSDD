@@ -80,10 +80,13 @@ int main(int argc, char ** argv){
 	WT1->n ++;
 	//printf("%d\n",inWorkTree(WT1,"exo2.c"));
 
-	appendWorkTree(WT1,"main.c",sha256file("main.c"),0);
+	appendWorkTree(WT1,"main.c",sha256file("main.c"),777);
 	printf("%s\n",WT1->tab[WT1->n-1].name);
+	printf("%d\n",WT1->n);
+	char * chaineWorkTree = wtts(WT1);
+	printf("%s",chaineWorkTree);
+	
 	return 0;
-
 }
 
 //Update : Bloc 3 work in progress (appendWorkTree)
