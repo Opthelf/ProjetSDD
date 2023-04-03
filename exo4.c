@@ -88,6 +88,7 @@ char* wtts(WorkTree* wt){
         strcat(res,"\n");
         i++;
     }
+    strcat(res,"\0");
     return res;
 }
 
