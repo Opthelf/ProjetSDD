@@ -91,4 +91,4 @@ int main(int argc, char ** argv){
 	return 0;
 }
 
-//Update : Bloc 3 work in progress (appendWorkTree)
+//Update : Bloc 3 work in progress (wtts testé et fonctionnel)

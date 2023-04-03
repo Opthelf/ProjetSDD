@@ -87,7 +87,6 @@ char* wtts(WorkTree* wt){
     int i = 0;
     char * res = malloc(sizeof(char)*1000);
     strcpy(res,wfts(&(wt->tab[i])));
-    printf("%s\n",res);
     i++;
     while(i < wt->n){
         strcat(res,wfts(&(wt->tab[i])));
