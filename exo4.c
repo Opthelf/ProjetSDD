@@ -21,11 +21,13 @@ WorkFile* createWorkFile(char* name){
 
 char* wfts(WorkFile* wf){
     char * res = malloc(1000*sizeof(char));
-    strcpy(res,wf->name);
+    /*strcpy(res,wf->name);
     strcat(res,"\t");
     strcat(res,wf->hash);
-    strcat(res,"\t");
-    res[strlen(res)] = '\0';
+    printf("%s\n",wf->hash);*/
+    strcpy(res,"    ");
+    sprintf(res,"%s\t%s\n%d",wf->name,wf->hash,wf->mode);
+    //res[strlen(res)] = '\0';
     return res;
 }
 
@@ -87,12 +89,20 @@ char* wtts(WorkTree* wt){
     int i = 0;
     char * res = malloc(sizeof(char)*1000);
     strcpy(res,wfts(&(wt->tab[i])));
+    strcat(res,"\n");
     i++;
-    while(i < wt->n){
+    strcat(res,wfts(&(wt->tab[i])));
+    /*while(i < wt->n){
         strcat(res,wfts(&(wt->tab[i])));
-        strcat(res,"\n");
+        //strcat(res,"\n");
         i++;
-    }
-    strcat(res,"\0");
+    }*/
     return res;
 }
+
+/*WorkTree* stwt(char* ch){
+    WorkTree * WT = initWorkTree();
+    char * name = malloc(sizeof(char)*1000);
+    char * hash = malloc(sizeof(char)*1000);
+    int mode;
+}*/

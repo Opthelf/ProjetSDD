@@ -18,5 +18,8 @@ char * sha256file(char * file){
 	int fd = mkstemp(fname);
 	hashFile(file,fname);
 	FILE* f=fopen(fname,"r");
-	return (fgets(buff,1000,f));
+	char * res = malloc(1000*sizeof(char));
+	res =fgets(buff,1000,f);
+	res[strlen(res)-2] = ' ';
+	return (res);
 }
