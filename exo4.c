@@ -21,7 +21,7 @@ WorkFile* createWorkFile(char* name){
 
 char* wfts(WorkFile* wf){
     char * res = malloc(1000*sizeof(char));
-    sprintf(res,"%s\t%s\t%d",wf->name,wf->hash,wf->mode);
+    sprintf(res,"%s\t%d\t%s",wf->name,wf->mode,wf->hash);
     res[strlen(res)] = '\0';
     return res;
 }
@@ -83,14 +83,16 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
 char* wtts(WorkTree* wt){
     int i = 0;
     char * res = malloc(sizeof(char)*1000);
-    while(i < wt->n){
+    while(i < wt->n-1){
         strcat(res,wfts(&(wt->tab[i])));
-        strcat(res,"\n");
+        //strcat(res,"\n");
         i++;
     }
+    strcat(res,wfts(&(wt->tab[i])));
     strcat(res,"\0");
     return res;
 }
+
 
 void afficheWorkTreeHash1(WorkTree* wt){
     int i = 0;
@@ -106,3 +108,5 @@ void afficheWorkTreeHash2(WorkTree* wt){
         i++;
     }
 }
+
+    

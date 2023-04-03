@@ -88,7 +88,6 @@ int main(int argc, char ** argv){
 
 	char * chaineWorkTree = wtts(WT1);
 	printf("%s\n",chaineWorkTree);
-	
 	return 0;
 }
 
