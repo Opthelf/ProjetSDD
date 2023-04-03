@@ -20,7 +20,8 @@ WorkTree* initWorkTree();
 int inWorkTree(WorkTree* wt, char* name);
 int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
 char* wtts(WorkTree* wt);
-WorkTree* stwt(char* ch);
+void afficheWorkTreeHash1(WorkTree* wt);
+void afficheWorkTreeHash2(WorkTree* wt);
 
 
 #endif

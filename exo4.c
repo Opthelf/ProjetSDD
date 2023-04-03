@@ -21,13 +21,8 @@ WorkFile* createWorkFile(char* name){
 
 char* wfts(WorkFile* wf){
     char * res = malloc(1000*sizeof(char));
-    /*strcpy(res,wf->name);
-    strcat(res,"\t");
-    strcat(res,wf->hash);
-    printf("%s\n",wf->hash);*/
-    strcpy(res,"    ");
-    sprintf(res,"%s\t%s\n%d",wf->name,wf->hash,wf->mode);
-    //res[strlen(res)] = '\0';
+    sprintf(res,"%s\t%s\t%d",wf->name,wf->hash,wf->mode);
+    res[strlen(res)] = '\0';
     return res;
 }
 
@@ -88,21 +83,25 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
 char* wtts(WorkTree* wt){
     int i = 0;
     char * res = malloc(sizeof(char)*1000);
-    strcpy(res,wfts(&(wt->tab[i])));
-    strcat(res,"\n");
-    i++;
-    strcat(res,wfts(&(wt->tab[i])));
-    /*while(i < wt->n){
+    while(i < wt->n){
         strcat(res,wfts(&(wt->tab[i])));
-        //strcat(res,"\n");
+        strcat(res,"\n");
         i++;
-    }*/
+    }
     return res;
 }
 
-/*WorkTree* stwt(char* ch){
-    WorkTree * WT = initWorkTree();
-    char * name = malloc(sizeof(char)*1000);
-    char * hash = malloc(sizeof(char)*1000);
-    int mode;
-}*/
+void afficheWorkTreeHash1(WorkTree* wt){
+    int i = 0;
+    while(i < wt->n){
+        printf("%s %s\n",wt->tab[i].name,sha256file(wt->tab[i].name));
+        i++;
+    }
+}
+void afficheWorkTreeHash2(WorkTree* wt){
+    int i = 0;
+    while(i < wt->n){
+        printf("%s %s\n",wt->tab[i].name,wt->tab[i].hash);
+        i++;
+    }
+}
