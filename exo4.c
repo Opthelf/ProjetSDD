@@ -21,7 +21,11 @@ WorkFile* createWorkFile(char* name){
 
 char* wfts(WorkFile* wf){
     char * res = malloc(1000*sizeof(char));
-    sprintf(res,"%s\t%s\t%d",wf->name,wf->hash,wf->mode);
+    strcpy(res,wf->name);
+    strcat(res,"\t");
+    strcat(res,wf->hash);
+    strcat(res,"\t");
+    res[strlen(res)] = '\0';
     return res;
 }
 
@@ -35,6 +39,7 @@ WorkFile* stwf(char* ch){
     WF->mode = mode;
     return WF;
 }
+
 
 WorkTree * initWorkTree(){
     WorkTree * WT = (WorkTree *)malloc(sizeof(WorkTree));
@@ -57,7 +62,7 @@ int inWorkTree(WorkTree* wt, char* name){
         }
         i++;
     }
-    printf("Le fichier passé en paramètre n'est pas dans le WorkTree\n");
+    printf("Le fichier passé en paramètre n'est pas dans le WorkTree(inWorkTree)\n");
     return -1;
 }
 
@@ -81,10 +86,14 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
 char* wtts(WorkTree* wt){
     int i = 0;
     char * res = malloc(sizeof(char)*1000);
+    strcpy(res,wfts(&(wt->tab[i])));
+    printf("%s\n",res);
+    i++;
     while(i < wt->n){
         strcat(res,wfts(&(wt->tab[i])));
         strcat(res,"\n");
         i++;
     }
+    strcat(res,"\0");
     return res;
 }
