@@ -7,6 +7,7 @@
 #include "exo2.h"
 #include "exo3.h"
 #include "exo4.h"
+#include "exo5.h"
 
 
 //Bloc 1 :
@@ -97,13 +98,19 @@ int main(int argc, char ** argv){
 	//printf("%d\n",WT1->n);
 
 	char * chaineWorkTree = wtts(WT1);
-	printf("%s\n",chaineWorkTree);
+	//printf("%s\n",chaineWorkTree);
 	WorkTree* WT3 = stwt(chaineWorkTree);
 	//printf("%s",wtts(WT3));
 	wttf(WT1,"fichier1.txt");
 	WorkTree *WT4 = ftwt("fichier1.txt");
-	printf("%s",wtts(WT4));
+	//printf("%s",wtts(WT4));
+	
+
+
+	//BLoc 4 :
+	printf("%s\n",blobWorkTree(WT1));
+	printf("%d\n",isFile("Test"));
+	printf("%d\n",isFile("exo1.c"));
 	return 0;
 }
-
 //Update : Bloc3 terminé mais leak de mémoire (à voir plus tard).
