@@ -33,6 +33,16 @@ void blobFile(char * file);
 */
 
 /*Bloc 3 :
+WorkFile* createWorkFile(char* name);
+char* wfts(WorkFile* wf);
+WorkFile* stwf(char* ch);
+WorkTree* initWorkTree();
+int inWorkTree(WorkTree* wt, char* name);
+int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
+char* wtts(WorkTree* wt);
+WorkTree* stwt(char* ch);
+WorkTree * ftwt(char * file);
+int wttf(WorkTree* wt, char* file);
 
 */
 
@@ -96,4 +106,4 @@ int main(int argc, char ** argv){
 	return 0;
 }
 
-//Update : Bloc 3 work in progress (stwt testé mais bizarre avec free, ftwt marche, enlever commentaire dans inWorkTree pour voir plus clair dans le terminal)
+//Update : Bloc3 terminé mais leak de mémoire (à voir plus tard).
