@@ -108,9 +108,10 @@ int main(int argc, char ** argv){
 
 
 	//BLoc 4 :
-	printf("%s\n",blobWorkTree(WT1));
+	//printf("%s\n",blobWorkTree(WT1));
 	printf("%d\n",isFile("Test"));
 	printf("%d\n",isFile("exo1.c"));
+	printf("%s\n",saveWorkTree(WT1,"."));
 	return 0;
 }
 //Update : Bloc3 terminé mais leak de mémoire (à voir plus tard).

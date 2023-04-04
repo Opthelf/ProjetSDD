@@ -10,6 +10,16 @@
 #include "exo3.h"
 #include "exo4.h"
 #include "exo5.h"
+
+int getChmod(const char * path){
+    struct stat ret;
+    if(stat(path,&ret)==-1){
+        return -1;
+    }
+    return (ret.st_mode & S_IRUSR)|(ret.st_mode & S_IWUSR)|(ret.st_mode & S_IXUSR)|(ret.st_mode & S_IRGRP)|(ret.st_mode & S_IWGRP)|(ret.st_mode & S_IXGRP)|(ret.st_mode & S_IROTH)|(ret.st_mode & S_IWOTH)|(ret.st_mode & S_IXOTH);
+}
+
+
 char * hashToFile(char *hash){
     char * ch2 = strdup(hash);
     ch2[2]='\0';
@@ -49,9 +59,25 @@ int isFile(const char *path){
     return S_ISREG(path_stat.st_mode);
 }
 
-/*char * saveWorkTree(WorkTree *wt,char * path){
+char * saveWorkTree(WorkTree *wt,char * path){
     for(int i=0;i<wt->n;i++){
         char * absPath= concat_paths(path,wt->tab[i].name);
-        if(isFile)
+        if(isFile(absPath)==1){
+            blobFile(absPath);
+            wt->tab[i].hash=sha256file(absPath);
+            wt->tab[i].mode = getChmod(absPath);
+        }else{
+            WorkTree *wt2 = initWorkTree();
+            List * L = listdir(absPath);
+            for(Cell * ptr = *L;ptr !=NULL ; ptr = ptr->next){
+                if(ptr->data[0]=='.'){
+                    continue;
+                }
+                appendWorkTree(wt2,ptr->data,NULL,0);
+            }
+            wt->tab[i].hash = saveWorkTree(wt2,absPath);
+            wt->tab[i].mode = getChmod(absPath);
+        }
     }
-}*/
+    return blobWorkTree(wt);
+}
