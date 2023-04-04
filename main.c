@@ -87,8 +87,9 @@ int main(int argc, char ** argv){
 	//printf("%d\n",WT1->n);
 
 	char * chaineWorkTree = wtts(WT1);
-	printf("%s\n",chaineWorkTree);
-
+	//printf("%s\n",chaineWorkTree);
+	WorkTree* WT3 = stwt(chaineWorkTree);
+	printf("%s",wtts(WT3));
 	wttf(WT1,"fichier1.txt");
 
 	return 0;

@@ -82,7 +82,7 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
 
 char* wtts(WorkTree* wt){
     int i = 0;
-    char * res = malloc(sizeof(char)*1000);
+    char * res = (char*)malloc(sizeof(char)*1000);
     while(i < wt->n-1){
         strcat(res,wfts(&(wt->tab[i])));
         //strcat(res,"\n");
@@ -107,6 +107,31 @@ void afficheWorkTreeHash2(WorkTree* wt){
         printf("%s %s\n",wt->tab[i].name,wt->tab[i].hash);
         i++;
     }
+}
+
+WorkTree* stwt(char* ch){
+    WorkTree * WT= initWorkTree();
+    int pos = 0;
+    int n_pos = 0;
+    int size = strlen(ch);
+    int i = 0;
+    char * resname = malloc(sizeof(char)*1000);
+    char * reshash = malloc(sizeof(char)*1000);
+    int resmode = 0;
+    while(ch[i]!='\0'){
+        sscanf(ch,"%s\t%d\t%s",resname,&resmode,reshash);
+        strcat(reshash,"\n");
+        strcat(resname,"\0");
+        strcat(reshash,"\0");
+        //printf("%s\t%d\t%s",resname,resmode,reshash);
+        appendWorkTree(WT,resname,reshash,resmode);
+        ch=strchr(ch,'\n')+1;
+    }
+    //free(resname);
+    //free(reshash);
+    //printf("Après free:\n%s",wtts(WT));
+    return WT;
+
 }
 
 int wttf(WorkTree* wt, char* file){

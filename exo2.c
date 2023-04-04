@@ -91,7 +91,6 @@ List * stol(char * s){
 	char sep = '|';
 	char * ptr;
 	char * result = malloc(sizeof(char)*1000);
-	int end = 0;
 	List * L = initList();
 	while(pos < strlen(s)){
 		ptr = strchr(s+pos,sep);
