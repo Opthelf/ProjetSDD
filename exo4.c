@@ -109,4 +109,14 @@ void afficheWorkTreeHash2(WorkTree* wt){
     }
 }
 
-    
+int wttf(WorkTree* wt, char* file){
+    FILE * f = fopen(file,"w");
+    if (f != NULL){
+        char * chaine = wtts(wt);
+        fprintf(f,"%s",chaine);
+        fclose(f);
+        return 1;
+    }
+    printf("Problème d'ouverture du fichier(wttf)\n");
+    return 0;
+}

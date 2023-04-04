@@ -88,7 +88,10 @@ int main(int argc, char ** argv){
 
 	char * chaineWorkTree = wtts(WT1);
 	printf("%s\n",chaineWorkTree);
+
+	wttf(WT1,"fichier1.txt");
+
 	return 0;
 }
 
-//Update : Bloc 3 work in progress (wtts testé et fonctionnel)
+//Update : Bloc 3 work in progress (wttf testé et fonctionnel)
