@@ -22,7 +22,6 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
 char* wtts(WorkTree* wt);
 WorkTree* stwt(char* ch);
 WorkTree * ftwt(char * file);
-//memcpy(destination,source,size_t size);
 void afficheWorkTreeHash1(WorkTree* wt);
 void afficheWorkTreeHash2(WorkTree* wt);
 int wttf(WorkTree* wt, char* file);

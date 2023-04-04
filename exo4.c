@@ -59,7 +59,7 @@ int inWorkTree(WorkTree* wt, char* name){
         }
         i++;
     }
-    printf("Le fichier passé en paramètre n'est pas dans le WorkTree(inWorkTree)\n");
+    //printf("Le fichier passé en paramètre n'est pas dans le WorkTree(inWorkTree)\n");
     return -1;
 }
 
@@ -146,7 +146,7 @@ int wttf(WorkTree* wt, char* file){
     return 0;
 }
 
-/*WorkTree* ftwt(char* file){
+WorkTree* ftwt(char* file){
     WorkTree * WT = initWorkTree();
     FILE * f = fopen(file,"r");
     char * buff = malloc(sizeof(char)*1000);
@@ -158,4 +158,4 @@ int wttf(WorkTree* wt, char* file){
     free(buff);
     free(chaineWT);
     return WT;
-}*/
+}

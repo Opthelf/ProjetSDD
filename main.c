@@ -87,12 +87,13 @@ int main(int argc, char ** argv){
 	//printf("%d\n",WT1->n);
 
 	char * chaineWorkTree = wtts(WT1);
-	//printf("%s\n",chaineWorkTree);
+	printf("%s\n",chaineWorkTree);
 	WorkTree* WT3 = stwt(chaineWorkTree);
-	printf("%s",wtts(WT3));
+	//printf("%s",wtts(WT3));
 	wttf(WT1,"fichier1.txt");
-
+	WorkTree *WT4 = ftwt("fichier1.txt");
+	printf("%s",wtts(WT4));
 	return 0;
 }
 
-//Update : Bloc 3 work in progress (stwt à faire (oubliée de la faire sorry) puis tester ftwt (besoin de stwt))
+//Update : Bloc 3 work in progress (stwt testé mais bizarre avec free, ftwt marche, enlever commentaire dans inWorkTree pour voir plus clair dans le terminal)
