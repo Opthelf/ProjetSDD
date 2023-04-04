@@ -120,3 +120,17 @@ int wttf(WorkTree* wt, char* file){
     printf("Problème d'ouverture du fichier(wttf)\n");
     return 0;
 }
+
+/*WorkTree* ftwt(char* file){
+    WorkTree * WT = initWorkTree();
+    FILE * f = fopen(file,"r");
+    char * buff = malloc(sizeof(char)*1000);
+    char * chaineWT = malloc(sizeof(char)*1000*TAILLE);
+    while(fgets(buff,1000,f) != NULL){
+        strcat(chaineWT,buff);
+    }
+    WT = stwt(chaineWT);
+    free(buff);
+    free(chaineWT);
+    return WT;
+}*/

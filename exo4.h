@@ -22,6 +22,7 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
 char* wtts(WorkTree* wt);
 WorkTree* stwt(char* ch);
 int wttf(WorkTree* wt, char* file);
+WorkTree* ftwt(char* file);
 
 void afficheWorkTreeHash1(WorkTree* wt);
 void afficheWorkTreeHash2(WorkTree* wt);
