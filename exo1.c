@@ -12,7 +12,7 @@ int hashFile(char * source, char * dest){
 
 char * sha256file(char * file){
 	char static buff[1000];
-	sprintf(buff,"/tmp/%sXXXXXX",file); //sans le /tmp/ à la maison.
+	sprintf(buff,"%sXXXXXX",file); //sans le /tmp/ à la maison et avec /tmp/ au début de la chaine à la fac j'imagine
 	char fname[1000];
 	strcpy(fname,buff);
 	int fd = mkstemp(fname);
