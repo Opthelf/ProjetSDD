@@ -21,5 +21,8 @@ char * sha256file(char * file){
 	char * res = malloc(1000*sizeof(char));
 	res =fgets(buff,1000,f);
 	res[strlen(res)-2] = ' ';
+	char remove[1000] = "rm ";
+	strcat(remove,fname);
+	system(remove);
 	return (res);
 }
