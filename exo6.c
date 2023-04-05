@@ -46,6 +46,7 @@ Commit* initCommit(){
         c->T[i]=NULL;
     }
     c->n=0;
+    return c;
 }
 
 unsigned long   hash(unsigned char *str){

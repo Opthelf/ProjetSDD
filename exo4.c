@@ -19,6 +19,19 @@ WorkFile* createWorkFile(char* name){
     return WF;
 }
 
+void freeWorkFile(WorkFile * WF){
+    free(WF->name);
+    free(WF->hash);
+    free(WF);
+}
+
+void freeWorkTree(WorkTree * WT){
+    for (int i = 0; i < WT->n; i++){
+        freeWorkFile(&(WT->tab[i]));
+    }
+    free(WT->tab);
+    free(WT);
+}
 char* wfts(WorkFile* wf){
     char * res = malloc(1000*sizeof(char));
     sprintf(res,"%s\t%d\t%s",wf->name,wf->mode,wf->hash);
@@ -69,16 +82,18 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
         return 0;
     }
     if (wt->size > wt->n){
-        WorkFile * WF = createWorkFile(n);
-        WF->hash = strdup(h);
-        WF->mode = m;
-        wt->tab[wt->n] = *WF;
-        wt->n ++;
+        wt->tab[wt->n].mode = m;
+        wt->tab[wt->n].name = strdup(n);
+        if(h!=NULL){
+            wt->tab[wt->n++].hash = strdup(h);
+        }
+        else{
+            wt->tab[wt->n++].hash = NULL;
+        }
         return 1;
     }
-    printf("La taille du WorkTree est au maximum !\n");
-    return 0;
 }
+
 
 char* wtts(WorkTree* wt){
     int i = 0;

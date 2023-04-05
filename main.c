@@ -79,13 +79,13 @@ int main(int argc, char ** argv){
 	WorkFile * WF1 = createWorkFile("exo1.c"); 
 	WF1->hash = sha256file(WF1->name); //Sur mac ne marche pas avec un fichier txt
 	WF1->mode = 777;
-
+	freeWorkFile(WF1);
 	WorkFile * WF2 = createWorkFile("exo2.c"); 
 	WF2->hash = sha256file(WF2->name); //Sur mac ne marche pas avec un fichier txt
 	WF2->mode = 777;
-
+	freeWorkFile(WF2);
 	char * chaineWorkFile = wfts(WF1);
-	WF1 = stwf(chaineWorkFile);
+	//WF1 = stwf(chaineWorkFile);
 
 	WorkTree * WT1 = initWorkTree();
 	//printf("%d\n",inWorkTree(WT1,"exo2.c"));
@@ -93,18 +93,21 @@ int main(int argc, char ** argv){
 	appendWorkTree(WT1,"exo3.c",sha256file("exo3.c"),777);
 	appendWorkTree(WT1,"exo1.c",sha256file("exo1.c"),777);
 	appendWorkTree(WT1,"exo2.c",sha256file("exo2.c"),777);
+	
 	//printf("%s\n",WT1->tab[WT1->n-2].hash);
 	//printf("%s\n",WT1->tab[WT1->n-2].name);
 	//printf("%d\n",WT1->n);
 
-	char * chaineWorkTree = wtts(WT1);
+	//char * chaineWorkTree = wtts(WT1);
 	//printf("%s\n",chaineWorkTree);
-	WorkTree* WT3 = stwt(chaineWorkTree);
+	//WorkTree* WT3 = stwt(chaineWorkTree);
 	//printf("%s",wtts(WT3));
-	wttf(WT1,"fichier1.txt");
-	WorkTree *WT4 = ftwt("fichier1.txt");
+	//wttf(WT1,"fichier1.txt");
+	//WorkTree *WT4 = ftwt("fichier1.txt");
 	//printf("%s",wtts(WT4));
-	
+	freeWorkTree(WT1);
+	freeWorkFile(WF1);
+	freeWorkFile(WF2);
 
 
 	//BLoc 4 :
