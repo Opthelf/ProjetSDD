@@ -90,7 +90,7 @@ int main(int argc, char ** argv){
 	WorkTree * WT1 = initWorkTree();
 	//printf("%d\n",inWorkTree(WT1,"exo2.c"));
 
-	appendWorkTree(WT1,"main.c",sha256file("main.c"),777);
+	appendWorkTree(WT1,"exo3.c",sha256file("exo3.c"),777);
 	appendWorkTree(WT1,"exo1.c",sha256file("exo1.c"),777);
 	appendWorkTree(WT1,"exo2.c",sha256file("exo2.c"),777);
 	//printf("%s\n",WT1->tab[WT1->n-2].hash);
@@ -108,10 +108,19 @@ int main(int argc, char ** argv){
 
 
 	//BLoc 4 :
+	//printf("%d\n",getChmod("fichier1.txt"));
+	//printf("%s\n",sha256file("exo1.c"));
+	//printf("%s\n",hashToFile(sha256file("exo1.c")));
 	//printf("%s\n",blobWorkTree(WT1));
-	printf("%d\n",isFile("Test"));
+	/*printf("%d\n",isFile("Test"));
 	printf("%d\n",isFile("exo1.c"));
-	printf("%s\n",saveWorkTree(WT1,"."));
+	printf("%s\n",saveWorkTree(WT1,"."));*/
+
+
+	//Bloc 5 :
+
+
+
 	return 0;
 }
 //Update : Bloc3 terminé mais leak de mémoire (à voir plus tard).

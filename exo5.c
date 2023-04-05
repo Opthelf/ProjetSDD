@@ -19,6 +19,11 @@ int getChmod(const char * path){
     return (ret.st_mode & S_IRUSR)|(ret.st_mode & S_IWUSR)|(ret.st_mode & S_IXUSR)|(ret.st_mode & S_IRGRP)|(ret.st_mode & S_IWGRP)|(ret.st_mode & S_IXGRP)|(ret.st_mode & S_IROTH)|(ret.st_mode & S_IWOTH)|(ret.st_mode & S_IXOTH);
 }
 
+void setMode(int mode, char * path){
+    char buff[100];
+    sprintf(buff,"chmod %d %s",mode,path);
+    system(buff);
+}
 
 char * hashToFile(char *hash){
     char * ch2 = strdup(hash);
@@ -29,6 +34,7 @@ char * hashToFile(char *hash){
     }
     return hashToPath(hash);
 }
+
 char * blobWorkTree(WorkTree *wt){
     char fname[100]= "myfileXXXXXX"; //avec le /tmp/ à la fac.
     int fd = mkstemp(fname);
@@ -38,12 +44,12 @@ char * blobWorkTree(WorkTree *wt){
     strcat(ch,".t");
     cp(ch,fname);
     return hash;
-    }
+}
 
 
 char * concat_paths(char * path1,char * path2){
-    char * result= malloc((strlen(path1)+strlen(path2)+1)*sizeof(char));
-    if (result ==NULL){
+    char * result = malloc((strlen(path1)+strlen(path2)+1)*sizeof(char));
+    if (result == NULL){
         printf("Erreur d'allocation mémoire\n");
         return NULL;
     }
