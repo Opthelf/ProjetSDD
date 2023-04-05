@@ -47,3 +47,22 @@ Commit* initCommit(){
     }
     c->n=0;
 }
+
+unsigned long   hash(unsigned char *str){
+	unsigned int hash = 0;
+	int c;
+
+	while (c = *str++)
+	    hash += c;
+
+	return hash;
+}
+
+void commitSet(Commit *c,char *key,char *val){
+    int p=hash(key)%c->size;
+    while(c->T[p]!=NULL){
+        p=(p+1)%c->size;
+    }
+    c->T[p]=createKeyVal(key,val);
+    c->n++;
+}

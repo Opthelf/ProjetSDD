@@ -17,5 +17,12 @@ typedef HashTable Commit;
 kvp* createKeyVal(char *key,char *val);
 void freeKeyVal(kvp *kv);
 char * kvts(kvp* k);
+kvp * stkv(char* str);
+Commit* initCommit();
+unsigned long hash(unsigned char *str);
+void commitSet(Commit *c,char *key,char *val);
+
+
+
 
 #endif
