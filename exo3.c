@@ -4,6 +4,8 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h> 
+#include <stdbool.h>
 #include "exo1.h"
 #include "exo2.h"
 #include "exo3.h"
@@ -28,28 +30,23 @@ List * listdir(char * root_dir){
 	return L;
 }
 
-int file_exists(char * file){
-	List * L = listdir(".");
-	Cell * temp = *L;
-	while (temp != NULL){
-		if (strcmp(file,temp->data) == 0){
-			return 1;
-		}
-		temp = temp->next;
-	}
-	return 0;
+struct stat st = {0};
+
+int file_exists (char *file){ 
+	struct stat buffer;
+	return (stat(file, &buffer) == 0);
 }
 
 char * hashToPath(char *hash){
-	int l=strlen(hash);
-	char *path=malloc(sizeof(char)*(l+2));
-	path[0]=hash[0];
-	path[1]=hash[1];
-	path[2]='/';
-	int i=3;
-	int j=2;
+	int l = strlen(hash);
+	char * path = malloc(sizeof(char)*(l+2));
+	path[0] = hash[0];
+	path[1] = hash[1];
+	path[2] = '/';
+	int i = 3;
+	int j = 2;
 	while( hash[j]!='\0'){
-		path[i]=hash[j];
+		path[i] = hash[j];
 		i++;
 		j++;
 	}
@@ -83,4 +80,7 @@ void blobFile(char* file){
 	}
 	char * ch = hashToPath(hash);
 	cp(ch,file);
+	free(hash);
+	free(ch2);
+	free(ch);
 }

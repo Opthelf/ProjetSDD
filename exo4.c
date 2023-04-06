@@ -8,7 +8,7 @@
 #include "exo2.h"
 #include "exo3.h"
 #include "exo4.h"
-# define TAILLE 10
+#define TAILLE 10
 
 
 WorkFile* createWorkFile(char* name){
@@ -19,9 +19,14 @@ WorkFile* createWorkFile(char* name){
     return WF;
 }
 
+void freeWorkFile(WorkFile * WF){
+    free(WF->name);
+    free(WF->hash);
+}
+
 char* wfts(WorkFile* wf){
     char * res = malloc(1000*sizeof(char));
-    sprintf(res,"%s\t%d\t%s",wf->name,wf->mode,wf->hash);
+    sprintf(res,"%s\t%s\t%d",wf->name,wf->hash,wf->mode);
     res[strlen(res)] = '\0';
     return res;
 }
@@ -37,13 +42,20 @@ WorkFile* stwf(char* ch){
     return WF;
 }
 
-
 WorkTree * initWorkTree(){
     WorkTree * WT = (WorkTree *)malloc(sizeof(WorkTree));
     WT->size = TAILLE;
     WT->tab = (WorkFile *)malloc(TAILLE*sizeof(WorkFile));
     WT->n = 0;
     return WT;
+}
+
+void freeWorkTree(WorkTree * WT){
+    for (int i = 0; i < WT->n; i++){
+        freeWorkFile(&(WT->tab[i]));
+    }
+    free(WT->tab);
+    free(WT);
 }
 
 int inWorkTree(WorkTree* wt, char* name){
@@ -69,30 +81,32 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
         return 0;
     }
     if (wt->size > wt->n){
-        WorkFile * WF = createWorkFile(n);
-        WF->hash = strdup(h);
-        WF->mode = m;
-        wt->tab[wt->n] = *WF;
-        wt->n ++;
+        wt->tab[wt->n].mode = m;
+        wt->tab[wt->n].name = strdup(n);
+        if(h != NULL){
+            wt->tab[wt->n++].hash = strdup(h);
+        }
+        else{
+            wt->tab[wt->n++].hash = NULL;
+        }
         return 1;
     }
-    printf("La taille du WorkTree est au maximum !\n");
     return 0;
 }
+
 
 char* wtts(WorkTree* wt){
     int i = 0;
     char * res = (char*)malloc(sizeof(char)*1000);
     while(i < wt->n-1){
         strcat(res,wfts(&(wt->tab[i])));
-        //strcat(res,"\n");
+        strcat(res,"\n");
         i++;
     }
     strcat(res,wfts(&(wt->tab[i])));
     strcat(res,"\0");
     return res;
 }
-
 
 void afficheWorkTreeHash1(WorkTree* wt){
     int i = 0;
@@ -111,25 +125,18 @@ void afficheWorkTreeHash2(WorkTree* wt){
 
 WorkTree* stwt(char* ch){
     WorkTree * WT= initWorkTree();
-    int pos = 0;
-    int n_pos = 0;
-    int size = strlen(ch);
-    int i = 0;
     char * resname = malloc(sizeof(char)*1000);
     char * reshash = malloc(sizeof(char)*1000);
     int resmode = 0;
-    while(ch[i]!='\0'){
-        sscanf(ch,"%s\t%d\t%s",resname,&resmode,reshash);
-        strcat(reshash,"\n");
+    while(ch -1 != NULL){ //ch -1 et usage de strchr unclear mais fonctionnel en apparence ici
+        sscanf(ch,"%s\t%s\t%d",resname,reshash,&resmode);
         strcat(resname,"\0");
         strcat(reshash,"\0");
-        //printf("%s\t%d\t%s",resname,resmode,reshash);
         appendWorkTree(WT,resname,reshash,resmode);
-        ch=strchr(ch,'\n')+1;
+        ch = strchr(ch,'\n')+1;
     }
-    //free(resname);
-    //free(reshash);
-    //printf("Après free:\n%s",wtts(WT));
+    free(resname);
+    free(reshash);
     return WT;
 
 }

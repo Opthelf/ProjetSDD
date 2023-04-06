@@ -14,9 +14,14 @@ typedef struct worktree {
 }WorkTree;
 
 WorkFile* createWorkFile(char* name);
+void freeWorkFile(WorkFile * WF);
+
+WorkTree* initWorkTree();
+void freeWorkTree(WorkTree * WT);
+
 char* wfts(WorkFile* wf);
 WorkFile* stwf(char* ch);
-WorkTree* initWorkTree();
+
 int inWorkTree(WorkTree* wt, char* name);
 int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
 char* wtts(WorkTree* wt);

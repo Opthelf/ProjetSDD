@@ -1,5 +1,5 @@
-all : exo6.o exo5.o exo4.o exo3.o exo2.o  exo1.o main.o
-	gcc exo6.o exo5.o exo4.o exo3.o exo2.o  exo1.o main.o -o main
+all : exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o main.o
+	gcc exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o main.o -o main
 	
 main.o :  main.c exo5.h exo4.h exo3.h exo2.h exo1.h
 	gcc -c main.c -o main.o

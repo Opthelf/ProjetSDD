@@ -43,6 +43,10 @@ char * blobWorkTree(WorkTree *wt){
     char * ch = hashToFile(hash);
     strcat(ch,".t");
     cp(ch,fname);
+
+    char remove[1000] = "rm ";
+	strcat(remove,fname);
+	system(remove);
     return hash;
 }
 
@@ -67,19 +71,20 @@ int isFile(const char *path){
 
 char * saveWorkTree(WorkTree *wt,char * path){
     for(int i=0;i<wt->n;i++){
-        char * absPath= concat_paths(path,wt->tab[i].name);
+        char * absPath = concat_paths(path,wt->tab[i].name);
         if(isFile(absPath)==1){
             blobFile(absPath);
-            wt->tab[i].hash=sha256file(absPath);
-            wt->tab[i].mode = getChmod(absPath);
+            wt->tab[i].hash = sha256file(absPath);
+            wt->tab[i].mode = getChmod(absPath);        
         }else{
             WorkTree *wt2 = initWorkTree();
+            printf("path absolu : %s\n",absPath);
             List * L = listdir(absPath);
             for(Cell * ptr = *L;ptr !=NULL ; ptr = ptr->next){
                 if(ptr->data[0]=='.'){
                     continue;
                 }
-                appendWorkTree(wt2,ptr->data,NULL,0);
+                appendWorkTree(wt2,ptr->data,NULL,777);
             }
             wt->tab[i].hash = saveWorkTree(wt2,absPath);
             wt->tab[i].mode = getChmod(absPath);
