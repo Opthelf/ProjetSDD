@@ -24,6 +24,18 @@ void insertFirst(List * L, Cell * C){
 	*L = C;
 }
 
+void insertLast(List * L, Cell * C){
+	if (*L == NULL){
+		*L = C;
+		return;
+	}
+	Cell * temp = *L;
+	while(temp->next != NULL){
+		temp = temp->next;
+	}
+	temp->next = C;
+}
+
 char * ctos(Cell * c){
 	return c->data;
 }
@@ -36,7 +48,11 @@ char * ltos(List * L){
 	char * res = malloc(sizeof(char)*1000);
 	Cell * temp = *L;
 	strcpy(res,ctos(temp));
+<<<<<<< HEAD
 	if (temp->next != NULL){
+=======
+	if (temp != NULL){ //Je ne vois pas à quoi sert ce test 
+>>>>>>> 1aebce10d9e57d1370d91aa005e48f57f8fc88bf
 			strcat(res,"|");
 		}
 	temp = temp->next;
@@ -103,7 +119,7 @@ List * stol(char * s){
 		memcpy(result,s+pos,n_pos-pos-1);
 		result[n_pos-pos-1] = '\0';
 		pos = n_pos;
-		insertFirst(L, buildCell(result));
+		insertLast(L, buildCell(result));
 	}
 	return L;
 }
@@ -114,7 +130,7 @@ void ltof(List * L, char * path){
 		return;
 	}
 	FILE * f = fopen(path,"w");
-	char * chaine = ltos(stol(ltos(L)));
+	char * chaine = ltos(L);
 	fprintf(f,"%s",chaine);
 	fclose(f);
 }

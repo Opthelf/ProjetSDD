@@ -11,6 +11,7 @@ typedef Cell * List;
 List * initList();
 Cell * buildCell(char * ch);
 void insertFirst(List * L, Cell * C);
+void insertLast(List * L, Cell * C);
 char* ctos(Cell * c);
 char * ltos(List * L);
 Cell * listGet(List * L, int i);

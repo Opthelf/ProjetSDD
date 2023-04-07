@@ -9,45 +9,8 @@
 #include "exo4.h"
 #include "exo5.h"
 
-
-//Bloc 1 :
-
-/*List * initList();
-Cell * buildCell(char * ch);
-void insertFirst(List * L, Cell * C);
-char* ctos(Cell * c);
-char * ltos(List * L);
-Cell * listGet(List * L, int i);
-Cell * searchList(List * L, char * str);
-List * stol(char* s);
-void ltof(List * L,char * path);
-List * ftol(char * path);*/
-
-
-
-/*Bloc 2 :
-List * listdir(char * root_dir);
-int file_exists(char *file);
-void cp(char * to, char * from);
-char * hashToPath(char* hash);
-void blobFile(char * file);
-*/
-
-/*Bloc 3 :
-WorkFile* createWorkFile(char* name);
-char* wfts(WorkFile* wf);
-WorkFile* stwf(char* ch);
-WorkTree* initWorkTree();
-int inWorkTree(WorkTree* wt, char* name);
-int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
-char* wtts(WorkTree* wt);
-WorkTree* stwt(char* ch);
-WorkTree * ftwt(char * file);
-int wttf(WorkTree* wt, char* file);
-
-*/
-
 int main(int argc, char ** argv){
+<<<<<<< HEAD
 
 	//Bloc 1 :
 	List * L1 = initList();
@@ -124,6 +87,11 @@ int main(int argc, char ** argv){
 
 
 
+=======
+	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
+>>>>>>> 1aebce10d9e57d1370d91aa005e48f57f8fc88bf
 	return 0;
 }
+
+
 //Update : Bloc3 terminé mais leak de mémoire (à voir plus tard).

@@ -1,0 +1,82 @@
+Exo1 :
+
+    Test du main :
+
+    hashFile("main.txt","test.txt");
+    printf("%s\n",sha256file("exo1.c"));
+    printf("%s\n",sha256file("existepas.txt"));
+
+
+    Explication des fonctions :
+
+        hashfile utilise la commande sha256sum, qui hashe un fichier. Cependant, quand ce n'est pas un fichier
+    mais un contenu d'un fichier, un tiret apparait ainsi qu'un saut à la ligne supplémentaire. Pour parer à ça,
+    nous avons rediriger le résultat de l'appel à sha256sum vers un fichier temporaire "resultat.txt", puis
+    récupéré uniquement ce qui nous intéressait de ce fichier, c'est-à-dire le hashage sans le tiret et le saut
+    à la ligne.
+
+        sha256file teste d'abord si le fichier passé en paramètre existe en essayant de l'ouvrir. Si il existe,
+    la fonction crée un fichier temporaire où elle va stocker le hash, pour ensuite le récupérer, supprimer 
+    le fichier temporaire et retourner le hash.
+
+    Générale :
+
+
+Exo2 :
+
+    Test du main :
+
+    cf main.txt
+
+    Explication des fonctions :
+
+    stol à expliquer (copié-collé et peu intuitive donc à regarder)
+
+    Générale :
+
+        Problème de stol réglé (on devait l'appeler deux fois pour la remettre à l'endroit). Ajout pour cela 
+    d'une fonction insertLast.
+
+
+Exo3 :
+
+    Test du main :
+
+
+    Explication des fonctions :
+
+
+    Générale :
+
+        J'ai double check (avec des tests etc ) listdir, file_exists, hashToPath, cp et blobfile.
+
+
+Exo4 :
+
+    Test du main :
+
+
+    Explication des fonctions :
+
+
+    Générale :
+        freeWorkTree marche (elle s'exécute je ne sais pas si c'est bon au niveau de la mémoire ), il ne 
+    fallait pas free WF dans freeWorkFile
+        wtts -> remis strcat(res,"\n"); car plus de décalage automatique du sha256file
+        appendWorkTree -> return 0 à la fin si jamais la fonction n'est pas rentré dans le dernier if
+        stwt -> plein d'erreurs ! mais corrigé maintenant, testé et vérifié (effet du pourcentage à la fin 
+    de la chaine de caractères mais pas si facile à résoudre, demande moi les détails)
+
+Exo5 :
+
+    Test du main :
+
+
+    Explication des fonctions :
+
+
+    Générale :
+    
+        blobWorkTree ->rajout de l'effacement du fichier temporaire
+        saveWorkTree -> Bien avancé, mais le path des dossiers se voit parfois rajouter des
+    caractères de nulle part. Cependant, le reste de la fonction marche bien comme il faut.
