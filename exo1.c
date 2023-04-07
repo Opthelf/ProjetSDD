@@ -47,6 +47,7 @@ char * sha256file(char * file){
 	char remove[1000] = "rm ";
 	strcat(remove,fname);
 	system(remove);
+	fclose(f);
 	
 	return hash;
 }

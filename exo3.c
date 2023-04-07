@@ -51,6 +51,7 @@ char * hashToPath(char *hash){
 		j++;
 	}
 	path[i]='\0';
+	free(hash);
 	return path;
 }
 
@@ -71,7 +72,9 @@ void cp(char* to, char* from){
 
 void blobFile(char* file){
 	char * hash = sha256file(file);
-	char * ch2 = strdup(hash);
+	char ch2[strlen(hash)]; 
+	strcpy(ch2,hash);
+
 	ch2[2]= '\0';
 	if (!file_exists(ch2)){
 		char buff[100];
@@ -80,7 +83,5 @@ void blobFile(char* file){
 	}
 	char * ch = hashToPath(hash);
 	cp(ch,file);
-	//free(hash);
-	//free(ch2);
-	//free(ch);
+	free(ch);
 }

@@ -52,8 +52,13 @@ Bloc 2 :
 
 	char cwd[50];
 	List * L4 = listdir(".");
-	//printf("%s\n",ltos(stol(ltos(L4))));
-	//printf("%s\n",hashToPath(sha256file("main.c")));
+	char * ltosL4=ltos(L4);
+	printf("%s\n",ltosL4);
+	free(ltosL4);
+	FreeList(L4);
+	char * hashToP = hashToPath(sha256file("main.c"));
+	printf("%s\n",hashToP);
+	free(hashToP);
 	cp("fichier2.txt","fichier1.txt");
 	blobFile("exo1.c");
 
