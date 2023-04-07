@@ -22,11 +22,13 @@ char * sha256file(char * file){
 	//Cas où le fichier n'existe pas
 	FILE * ftest;
 	if ( ( ftest = fopen(file,"r")) == NULL){
-		fclose(ftest);
 		printf("Le fichier n'existe pas !(sha256file)\n");
 		return NULL;
 	}
-	fclose(ftest);
+	else{
+		fclose(ftest);
+	}
+	
 	
 	//Fichier temporaire
 	char static fname[1000];
