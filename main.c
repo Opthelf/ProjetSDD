@@ -14,7 +14,7 @@ int main(int argc, char ** argv){
 	WorkFile * WF1 = createWorkFile("main.txt"); 
 	WF1->hash = sha256file(WF1->name);
 	WF1->mode = 777;
-	freeWorkFile(WF1);
+	
 	WorkTree * WT1 = initWorkTree();
 	printf("%d\n",inWorkTree(WT1,"exo2.c"));
 	char * h1=sha256file("exo1.c");
@@ -23,21 +23,25 @@ int main(int argc, char ** argv){
 	printf("%d\n",WT1->n);
 	appendWorkTree(WT1,"exo1.c",h1,777);
 	printf("%d\n",WT1->n);
-	appendWorkTree(WT1,"exo2.c",h2,777);
+	
 	printf("%d\n",WT1->n);
 	free(h1);
 	free(h2);
 	free(h3);
-	freeWorkFile(&(WT1->tab[0]));
-	freeWorkFile(&(WT1->tab[1]));
-
+	freeWorkTree(WT1);
+	char *w = wfts(WF1);
+	freeWorkFile(WF1);
+	
+	WorkFile * WF2 = stwf(w);
+	freeWorkFile(WF2);
+	free(w);
 	/*
 	
 	
 	
 
 	
-	
+	appendWorkTree(WT1,"exo2.c",h2,777);
 	appendWorkTree(WT1,"exo3.c",h3,777);
 
 	
@@ -59,4 +63,4 @@ int main(int argc, char ** argv){
 }
 
 
-//Update : 0 leak pour l'instant sur l'exo4 (pas fini de tester toutes les fonctions) + freeWorktree provoque des erreurs en particulier freeWorkFile(&(WT1->tab[1]));
+//Update : 0 leak jusqu'à stwf, reste pas testé + pb freeworkTree;

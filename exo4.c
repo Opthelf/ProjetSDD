@@ -47,8 +47,10 @@ WorkFile* stwf(char* ch){
     char * hash = malloc(sizeof(char)*1000);
     sscanf(ch,"%s\t%s\t%d",name,hash,&mode);
     WorkFile * WF = createWorkFile(name);
-    WF->hash = hash;
+    WF->hash =strdup(hash);
     WF->mode = mode;
+    free(hash);
+    free(name);
     return WF;
 }
 
