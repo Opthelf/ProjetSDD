@@ -11,12 +11,32 @@ List * initList(){
 	* L = NULL;
 	return L;
 }
+void FreeList(List * L){
+	if (*L == NULL){
+		printf("Liste NULL(FreeList)\n");
+		free(L);
+		return;
+	}
+	Cell * temp = *L;
+	while(temp != NULL){
+		Cell * temp2 = temp;
+		temp = temp->next;
+		freeCell(temp2);
+	}
+	free(L);
+
+}
 
 Cell * buildCell(char * ch){
 	Cell * cell = (Cell*)malloc(sizeof(Cell));
 	cell->data = strdup(ch);
 	cell->next = NULL;
 	return cell;
+}
+
+void freeCell(Cell * C){
+	free(C->data);
+	free(C);
 }
 
 void insertFirst(List * L, Cell * C){
