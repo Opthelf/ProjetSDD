@@ -62,7 +62,7 @@ int main(int argc, char ** argv){
 	Cell * C4 = listGet(L1,0);
 	Cell * C5 = searchList(L1,"Chaine1");
 	List * L2 = stol("Je|suis|heureux");
-	//printf("%s\n",ltos(stol(ltos(L2)))); //Utiliser deux fois sinon à l'envers
+	printf("%s\n",ltos(stol(ltos(L2)))); //Utiliser deux fois sinon à l'envers
 	//ltof(L1,"TestLtof.txt");
 	//List * L3 = ftol("TestLtof.txt");
 	
@@ -79,11 +79,11 @@ int main(int argc, char ** argv){
 	WorkFile * WF1 = createWorkFile("exo1.c"); 
 	WF1->hash = sha256file(WF1->name); //Sur mac ne marche pas avec un fichier txt
 	WF1->mode = 777;
-	freeWorkFile(WF1);
+	//freeWorkFile(WF1);
 	WorkFile * WF2 = createWorkFile("exo2.c"); 
 	WF2->hash = sha256file(WF2->name); //Sur mac ne marche pas avec un fichier txt
 	WF2->mode = 777;
-	freeWorkFile(WF2);
+	//freeWorkFile(WF2);
 	char * chaineWorkFile = wfts(WF1);
 	//WF1 = stwf(chaineWorkFile);
 
@@ -98,16 +98,16 @@ int main(int argc, char ** argv){
 	//printf("%s\n",WT1->tab[WT1->n-2].name);
 	//printf("%d\n",WT1->n);
 
-	//char * chaineWorkTree = wtts(WT1);
-	//printf("%s\n",chaineWorkTree);
-	//WorkTree* WT3 = stwt(chaineWorkTree);
+	char * chaineWorkTree = wtts(WT1);
+	printf("%s\n",chaineWorkTree);
+	WorkTree* WT3 = stwt(chaineWorkTree);
 	//printf("%s",wtts(WT3));
 	//wttf(WT1,"fichier1.txt");
 	//WorkTree *WT4 = ftwt("fichier1.txt");
 	//printf("%s",wtts(WT4));
-	freeWorkTree(WT1);
+	/*freeWorkTree(WT1);
 	freeWorkFile(WF1);
-	freeWorkFile(WF2);
+	freeWorkFile(WF2);*/
 
 
 	//BLoc 4 :

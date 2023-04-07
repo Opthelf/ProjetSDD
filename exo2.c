@@ -36,7 +36,7 @@ char * ltos(List * L){
 	char * res = malloc(sizeof(char)*1000);
 	Cell * temp = *L;
 	strcpy(res,ctos(temp));
-	if (temp != NULL){
+	if (temp->next != NULL){
 			strcat(res,"|");
 		}
 	temp = temp->next;

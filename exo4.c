@@ -98,6 +98,8 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
 char* wtts(WorkTree* wt){
     int i = 0;
     char * res = (char*)malloc(sizeof(char)*1000);
+    strcpy(res,wfts(&(wt->tab[i])));
+    i++;
     while(i < wt->n-1){
         strcat(res,wfts(&(wt->tab[i])));
         //strcat(res,"\n");

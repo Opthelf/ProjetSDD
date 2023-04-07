@@ -18,5 +18,6 @@ WorkTree * WT1 = initWorkTree();
 freeWorkTree(WT1);
 int d = inWorkTree(WT1,"Fichier1");
 int d2 = inWorkTree(WT1,"Fichier2");
+
 return 0;
 }
