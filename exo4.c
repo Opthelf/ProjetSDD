@@ -36,7 +36,12 @@ void freeWorkFile(WorkFile * WF){
 
 char* wfts(WorkFile* wf){
     char * res = malloc(1000*sizeof(char));
-    sprintf(res,"%s\t%s\t%d",wf->name,wf->hash,wf->mode);
+    if (wf->hash == NULL){
+        sprintf(res,"%s\tnull\t%d",wf->name,wf->mode);
+    }
+    else{
+        sprintf(res,"%s\t%s\t%d",wf->name,wf->hash,wf->mode);
+    }
     res[strlen(res)] = '\0';
     return res;
 }
@@ -112,13 +117,15 @@ char* wtts(WorkTree* wt){
     int i = 0;
     char * res = (char*)malloc(sizeof(char)*1000);
     strcpy(res,wfts(&(wt->tab[i])));
+    strcat(res,"\n");
     i++;
-    while(i < wt->n-1){
+    while(i < wt->n){
         strcat(res,wfts(&(wt->tab[i])));
-        strcat(res,"\n");
+        if (i != wt->n-1){
+            strcat(res,"\n");
+        }
         i++;
     }
-    strcat(res,wfts(&(wt->tab[i])));
     strcat(res,"\0");
     return res;
 }

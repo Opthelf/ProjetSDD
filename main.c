@@ -11,56 +11,20 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	WorkFile * WF1 = createWorkFile("main.txt"); 
-	WF1->hash = sha256file(WF1->name);
-	WF1->mode = 777;
-	
 	WorkTree * WT1 = initWorkTree();
-	printf("%d\n",inWorkTree(WT1,"exo2.c"));
-	char * h1=sha256file("exo1.c");
-	char * h2=sha256file("exo2.c");
-	char * h3=sha256file("exo3.c");
-	printf("%d\n",WT1->n);
-	appendWorkTree(WT1,"exo1.c",h1,777);
-	printf("%d\n",WT1->n);
-	
-	printf("%d\n",WT1->n);
-	free(h1);
-	free(h2);
-	free(h3);
-	freeWorkTree(WT1);
-	char *w = wfts(WF1);
-	freeWorkFile(WF1);
-	
-	WorkFile * WF2 = stwf(w);
-	freeWorkFile(WF2);
-	free(w);
-	/*
-	
-	
-	
-
-	
-	appendWorkTree(WT1,"exo2.c",h2,777);
-	appendWorkTree(WT1,"exo3.c",h3,777);
-
-	
-	char * chaineWorkTree = wtts(WT1);
-	printf("%s\n",chaineWorkTree);
-	WorkTree* WT3 = stwt(chaineWorkTree);
-	printf("%s",wtts(WT3));
-
-	wttf(WT1,"fichier1.txt");
-	WorkTree *WT4 = ftwt("fichier1.txt");
-	printf("%s",wtts(WT4));
-	
-	freeWorkTree(WT1);
-
-	
-	
-	*/
+	appendWorkTree(WT1,"Test",NULL,777);
+	//printf("%d\n",WT1->tab[0].mode);
+	//printf("%s\n",ltos(listdir("/Users/Nino/Documents/cours/2022-2023-s2/LU2IN006/Projet/ProjetSDD1/Test")));
+	//printf("%d\n",getChmod("fichier1.txt"));
+	//printf("%s\n",sha256file("exo1.c"));
+	//printf("%s\n",hashToFile(sha256file("exo1.c")));
+	//printf("%s\n",blobWorkTree(WT1));
+	printf("%s\n",saveWorkTree(WT1,"."));
 	return 0;
 }
 
 
-//Update : 0 leak jusqu'à stwf, reste pas testé + pb freeworkTree;
+//Update Simon : 0 leak jusqu'à stwf, reste pas testé + pb freeworkTree;
+
+//Update Nino : J'ai mis en commentaire un free dans hashToPath parce que ça enlève quelque
+//chose dont on a besoin -> NE JAMAIS FREE LES ARGUMENTS D'UNE FONCTION IL EXISTENT EN-DEHORS !!

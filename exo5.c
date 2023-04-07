@@ -43,7 +43,6 @@ char * blobWorkTree(WorkTree *wt){
     char * ch = hashToFile(hash);
     strcat(ch,".t");
     cp(ch,fname);
-
     char remove[1000] = "rm ";
 	strcat(remove,fname);
 	system(remove);
@@ -78,7 +77,6 @@ char * saveWorkTree(WorkTree *wt,char * path){
             wt->tab[i].mode = getChmod(absPath);        
         }else{
             WorkTree *wt2 = initWorkTree();
-            printf("path absolu : %s\n",absPath);
             List * L = listdir(absPath);
             for(Cell * ptr = *L;ptr !=NULL ; ptr = ptr->next){
                 if(ptr->data[0]=='.'){
