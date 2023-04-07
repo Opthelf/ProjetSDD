@@ -80,3 +80,15 @@ Exo5 :
         blobWorkTree ->rajout de l'effacement du fichier temporaire
         saveWorkTree -> Bien avancé, mais le path des dossiers se voit parfois rajouter des
     caractères de nulle part. Cependant, le reste de la fonction marche bien comme il faut.
+
+Rq Gle sur les leaks: la plupart des leaks de ex1-ex4 viennent du fait de mettre en argument des fonctions qui renvoient un pointeur 
+    alors que souvent le pointeur renvoyé est initialisé avec un malloc le pointeur est alors perdu 
+    ex: printf("%s\n",hashToPath(sha256file("main.c")));
+        sha256file renvoie un pointeur alloué avec malloc mais n'est sauvegardé nulle part
+    à éviter ce genre de pratique dans le futur pour éviter des leaks de ce genre.
+    ex code sans leak :
+        char * hash=sha256file("main.c");
+        printf("%s\n",hashToPath(hash)); hashToPath free la chaine passé en argument donc pas de pb.
+
+
+        

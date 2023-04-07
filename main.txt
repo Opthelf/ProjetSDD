@@ -67,7 +67,7 @@ Bloc 2 :
 
     Liste des fonctions :
 
-    /*WorkFile* createWorkFile(char* name);
+    WorkFile* createWorkFile(char* name);
     char* wfts(WorkFile* wf);
     WorkFile* stwf(char* ch);
     WorkTree* initWorkTree();
@@ -76,7 +76,7 @@ Bloc 2 :
     char* wtts(WorkTree* wt);
     WorkTree* stwt(char* ch);
     WorkTree * ftwt(char * file);
-    int wttf(WorkTree* wt, char* file);*/
+    int wttf(WorkTree* wt, char* file);
 
 
     Tests :
@@ -87,20 +87,20 @@ Bloc 2 :
 	freeWorkFile(WF1);
 
 	WorkTree * WT1 = initWorkTree();
-	//printf("%d\n",inWorkTree(WT1,"exo2.c"));
+	printf("%d\n",inWorkTree(WT1,"exo2.c"));
 
 	appendWorkTree(WT1,"exo1.c",sha256file("exo1.c"),777);
 	appendWorkTree(WT1,"exo2.c",sha256file("exo2.c"),777);
 	appendWorkTree(WT1,"exo3.c",sha256file("exo3.c"),777);
 
-	/*char * chaineWorkTree = wtts(WT1);
+	char * chaineWorkTree = wtts(WT1);
 	printf("%s\n",chaineWorkTree);
 	WorkTree* WT3 = stwt(chaineWorkTree);
-	printf("%s",wtts(WT3));*/
+	printf("%s",wtts(WT3));
 
-	/*wttf(WT1,"fichier1.txt");
+	wttf(WT1,"fichier1.txt");
 	WorkTree *WT4 = ftwt("fichier1.txt");
-	printf("%s",wtts(WT4));*/
+	printf("%s",wtts(WT4));
 	
 	freeWorkTree(WT1);
 

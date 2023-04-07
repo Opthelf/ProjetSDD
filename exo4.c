@@ -20,8 +20,18 @@ WorkFile* createWorkFile(char* name){
 }
 
 void freeWorkFile(WorkFile * WF){
-    free(WF->name);
-    free(WF->hash);
+    if(WF==NULL){
+        printf("WorkFile NULL(freeWorkFile)\n");
+        free(WF);
+        return;
+    }
+    if(WF->name!=NULL){
+        free(WF->name);
+    }
+    if(WF->hash!=NULL){
+        free(WF->hash);
+    }
+    free(WF);
 }
 
 char* wfts(WorkFile* wf){
@@ -52,9 +62,10 @@ WorkTree * initWorkTree(){
 
 void freeWorkTree(WorkTree * WT){
     for (int i = 0; i < WT->n; i++){
-        freeWorkFile(&(WT->tab[i]));
+        free(WT->tab[i].name);
+        free(WT->tab[i].hash);
+        free(&(WT->tab[i]));
     }
-    free(WT->tab);
     free(WT);
 }
 
