@@ -48,11 +48,7 @@ char * ltos(List * L){
 	char * res = malloc(sizeof(char)*1000);
 	Cell * temp = *L;
 	strcpy(res,ctos(temp));
-<<<<<<< HEAD
 	if (temp->next != NULL){
-=======
-	if (temp != NULL){ //Je ne vois pas à quoi sert ce test 
->>>>>>> 1aebce10d9e57d1370d91aa005e48f57f8fc88bf
 			strcat(res,"|");
 		}
 	temp = temp->next;
