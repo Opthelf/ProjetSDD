@@ -137,6 +137,7 @@ List * stol(char * s){
 		pos = n_pos;
 		insertLast(L, buildCell(result));
 	}
+	free(result);
 	return L;
 }
 
@@ -149,11 +150,13 @@ void ltof(List * L, char * path){
 	char * chaine = ltos(L);
 	fprintf(f,"%s",chaine);
 	fclose(f);
+	free(chaine);
 }
 
 List * ftol(char * path){
 	FILE * f = fopen(path,"r");
 	char buff[1000];
 	fgets(buff,1000,f);
+	fclose(f);
 	return stol(buff);
 }

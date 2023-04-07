@@ -13,6 +13,7 @@ void FreeList(List * L);
 
 Cell * buildCell(char * ch);
 void freeCell(Cell * C);
+
 void insertFirst(List * L, Cell * C);
 void insertLast(List * L, Cell * C);
 char* ctos(Cell * c);
