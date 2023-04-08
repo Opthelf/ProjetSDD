@@ -9,6 +9,7 @@
 #include "exo3.h"
 #include "exo4.h"
 #include "exo5.h"
+#include "exo6.h"
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
@@ -20,6 +21,8 @@ int main(int argc, char ** argv){
 /*
 Update Simon : 0 leak jusqu'à stwf, reste pas testé + pb freeworkTree;
 */
+//	ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
+
 
 /*
 Update Nino : J'ai mis en commentaire un free dans hashToPath parce que ça enlève quelque

@@ -84,4 +84,5 @@ void blobFile(char* file){
 	char * ch = hashToPath(hash);
 	cp(ch,file);
 	free(ch);
+	free(hash);
 }

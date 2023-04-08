@@ -55,6 +55,7 @@ char * hashToFile(char *hash){
     if(stat(ch2,&st) == -1){
         mkdir(ch2,0700);
     }
+    free(ch2);
     return hashToPath(hash);
 }
 

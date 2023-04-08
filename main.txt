@@ -56,11 +56,14 @@ Bloc 2 :
 	printf("%s\n",ltosL4);
 	free(ltosL4);
 	FreeList(L4);
-	char * hashToP = hashToPath(sha256file("main.c"));
+	char * hash = sha256file("main.c");
+	char * hashToP = hashToPath(hash);
 	printf("%s\n",hashToP);
 	free(hashToP);
+	free(hash);
 	cp("fichier2.txt","fichier1.txt");
 	blobFile("exo1.c");
+
 
 
 //Bloc 3 :
@@ -165,3 +168,66 @@ Bloc 2 :
 	appendWorkTree(WT3,"Test",NULL,0777);
 	WT3 = ftwt(strcat(hashToPath(saveWorkTree(WT3,".")),".t"));
 	restoreWorkTree(WT2,".");
+
+
+
+//Bloc 6 (ex6)
+	Liste fonctions:
+	kvp* createKeyVal(char *key,char *val);
+	void freeKeyVal(kvp *kv);
+	char * kvts(kvp* k);
+	kvp * stkv(char* str);
+	Commit* initCommit();
+	void freeCommit(Commit *c);
+	unsigned long hash(unsigned char *str);
+	void commitSet(Commit *c,char *key,char *val);
+	Commit* createCommit(char* hash);
+	char * commitGet(Commit *c,char *key);
+	char * cts(Commit *c);
+	Commit* stc(char *str);
+	void ctf(Commit *c,char *file);
+	Commit* ftc(char *file);
+	char * blobCommit(Commit *c);
+	
+	Tests:
+
+	kvp * key = createKeyVal("key","value");
+	char * ch = kvts(key);
+	//printf("%s\n",ch);
+	kvp * key2 = stkv(ch);
+	char * ch2 = kvts(key2);
+	//printf("%s\n",ch2);
+	freeKeyVal(key2);
+	freeKeyVal(key);
+	free(ch);
+	free(ch2);
+	Commit * c = initCommit();
+	
+	commitSet(c,"key1","value1");
+	commitSet(c,"key2","value2");
+	
+	Commit * c2 = createCommit("hash");
+	char * val = commitGet(c,"key2");
+	char * val2 = commitGet(c,"key1");
+	//printf("%s\n",val);
+	//printf("%s\n",val2);
+	commitSet(c2,"key3","value3");
+	commitSet(c2,"key4","value4");
+	char * comtostr= cts(c2);
+	//printf("%s\n",comtostr);
+	Commit * c3 = stc(comtostr);
+	char * ctsc3 = cts(c3);
+	//printf("%s\n",ctsc3);
+	ctf(c3,"testex6.txt");
+	Commit * c4 =  ftc("testex6.txt");
+	char *ctsc4 = cts(c4);
+	printf("%s\n",ctsc4);
+	char * hashc4 = blobCommit(c4);
+	freeCommit(c4);
+	free(ctsc4);
+	free(comtostr);
+	freeCommit(c2);
+	freeCommit(c);
+	free(ctsc3);
+	freeCommit(c3);
+	free(hashc4);
