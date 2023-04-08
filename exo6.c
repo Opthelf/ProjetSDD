@@ -134,3 +134,46 @@ Commit * stc(char *str){
     free(resvalue);
     return c;
 }
+void ctf(Commit *c,char *file){
+    FILE *f = fopen(file,"w");
+    if(f!=NULL){
+        char * str = cts(c);
+        fprintf(f,"%s",str);
+        free(str);
+        fclose(f);
+    }
+}
+Commit * ftc(char *file){
+    FILE *f = fopen(file,"r");
+    if(f!=NULL){
+        char * str = malloc(sizeof(char)*10000);
+        strcpy(str,"");
+        char * buff = malloc(sizeof(char)*100);
+        strcpy(buff,"");
+        while(fgets(buff,100,f)!=NULL){
+            strcat(str,buff);
+        }
+        free(buff);
+        fclose(f);
+        Commit * c = stc(str);
+        free(str);
+        return c;
+    }
+}
+
+char * blobCommit(Commit *c){
+    char fname[100]= "myfileXXXXXX"; //avec le /tmp/ à la fac.
+    int fd = mkstemp(fname);
+    ctf(c,fname);
+    char * hash = sha256file(fname);
+    char * ch = hashToFile(hash);
+    strcat(ch,".c");
+    cp(ch,fname);
+    char remove[1000] = "rm ";
+	strcat(remove,fname);
+	system(remove);
+    free(ch);
+    return hash;
+
+}
+

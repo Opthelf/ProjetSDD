@@ -22,12 +22,13 @@ Commit* initCommit();
 void freeCommit(Commit *c);
 unsigned long hash(unsigned char *str);
 void commitSet(Commit *c,char *key,char *val);
-Commit * createCommit(char* hash);
+Commit* createCommit(char* hash);
 char * commitGet(Commit *c,char *key);
 char * cts(Commit *c);
-Commit * stc(char *str);
-
-
+Commit* stc(char *str);
+void ctf(Commit *c,char *file);
+Commit* ftc(char *file);
+char * blobCommit(Commit *c);
 
 
 
