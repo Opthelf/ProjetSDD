@@ -56,11 +56,14 @@ Bloc 2 :
 	printf("%s\n",ltosL4);
 	free(ltosL4);
 	FreeList(L4);
-	char * hashToP = hashToPath(sha256file("main.c"));
+	char * hash = sha256file("main.c");
+	char * hashToP = hashToPath(hash);
 	printf("%s\n",hashToP);
 	free(hashToP);
+	free(hash);
 	cp("fichier2.txt","fichier1.txt");
 	blobFile("exo1.c");
+
 
 
 //Bloc 3 :
