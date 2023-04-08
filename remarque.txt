@@ -89,6 +89,9 @@ Rq Gle sur les leaks: la plupart des leaks de ex1-ex4 viennent du fait de mettre
     ex code sans leak :
         char * hash=sha256file("main.c");
         printf("%s\n",hashToPath(hash)); hashToPath free la chaine passé en argument donc pas de pb.
+        
+        D'accord mais si on veut utiliser hash plus tard on ne peut plus parce que hashToPath efface l'argument.
+        Donc il faudrait le stocker, que hashToPath ne le free pas, puis que dans la fonction on le free
 
 
         

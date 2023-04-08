@@ -95,7 +95,7 @@ int inWorkTree(WorkTree* wt, char* name){
 
 int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
     if ( inWorkTree(wt,n) != -1){
-        printf("Le fichier est déjà dans le WorkTree !\n");
+        //printf("Le fichier %s est déjà dans le WorkTree !\n",n);
         return 0;
     }
     if (wt->size > wt->n){

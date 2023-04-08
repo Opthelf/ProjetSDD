@@ -119,12 +119,49 @@ Bloc 2 :
 
     Tests : 
 
-	/*WorkTree * WT1 = initWorkTree();
-	appendWorkTree(WT1,"Test",NULL,777);
-	//printf("%d\n",WT1->tab[0].mode);
-	//printf("%s\n",ltos(listdir("/Users/Nino/Documents/cours/2022-2023-s2/LU2IN006/Projet/ProjetSDD1/Test")));
-	//printf("%d\n",getChmod("fichier1.txt"));
-	//printf("%s\n",sha256file("exo1.c"));
-	//printf("%s\n",hashToFile(sha256file("exo1.c")));
-	//printf("%s\n",blobWorkTree(WT1));
-	printf("%s\n",saveWorkTree(WT1,"."));*/
+	FILE * f1 = fopen("Test/fichier1.txt","w");
+	if (f1 == NULL){
+		printf("Error %d \n", errno);
+		return 0;
+	}
+	FILE * f2 = fopen("Test/fichier2.txt","w");
+	fprintf(f1,"Premier fichier\n");
+	fprintf(f2,"Deuxième fichier\n");
+
+	fclose(f1);
+	fclose(f2);
+
+	WorkTree * WT1 = initWorkTree();
+	appendWorkTree(WT1,"Test",NULL,0777);
+	WT1 = ftwt(strcat(hashToPath(saveWorkTree(WT1,".")),".t"));
+
+	f1 = fopen("Test/fichier1.txt","w");
+	f2 = fopen("Test/fichier2.txt","w");
+	if (f1 == NULL){
+		printf("Error %d \n", errno);
+		return 0;
+	}
+	fprintf(f1,"fichier 1 - v2.0\n");
+	fprintf(f2,"fichier 2 - v2.0\n");
+	fclose(f1);
+	fclose(f2);
+
+	WorkTree * WT2 = initWorkTree();
+	appendWorkTree(WT2,"Test",NULL,0777);
+	WT2 = ftwt(strcat(hashToPath(saveWorkTree(WT2,".")),".t"));
+
+	f1 = fopen("Test/fichier1.txt","w");
+	f2 = fopen("Test/fichier2.txt","w");
+	if (f1 == NULL){
+		printf("Error %d \n", errno);
+		return 0;
+	}
+	fprintf(f1,"fichier 1 - v3.0\n");
+	fprintf(f2,"fichier 2 - v3.0\n");
+	fclose(f1);
+	fclose(f2);
+
+	WorkTree * WT3 = initWorkTree();
+	appendWorkTree(WT3,"Test",NULL,0777);
+	WT3 = ftwt(strcat(hashToPath(saveWorkTree(WT3,".")),".t"));
+	restoreWorkTree(WT2,".");
