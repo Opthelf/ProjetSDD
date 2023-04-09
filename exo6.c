@@ -60,23 +60,21 @@ void freeCommit(Commit *c){
     free(c);
 }
 
-unsigned long   hash(unsigned char *str)
-    {
+unsigned long hash(unsigned char *str){
         unsigned long hash = 5381;
         int c;
-
         while (c = *str++)
             hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
 
         return hash;
     }
 
-void commitSet(Commit *c,char *key,char *val){
-    int p=hash(key)%c->size;
-    while(c->T[p]!=NULL){
-        p=(p+1)%c->size;
+void commitSet(Commit *c, char *key, char *val){
+    int p = hash(key)%c->size;
+    while(c->T[p] != NULL){
+        p = (p+1)%c->size;
     }
-    c->T[p]=createKeyVal(key,val);
+    c->T[p] = createKeyVal(key,val);
     c->n++;
 }
 
@@ -102,12 +100,14 @@ char * commitGet(Commit *c,char *key){
 char * cts(Commit *c){
     char * res = malloc(sizeof(char)*100*c->n);
     strcpy(res,"");
+    int count = 0;
     for(int i=0;i<c->size;i++){
-        if(c->T[i]!=NULL){
-            char * temp=kvts(c->T[i]);
+        if(c->T[i] != NULL){
+            count ++;
+            char * temp = kvts(c->T[i]);
             strcat(res,temp);
             free(temp);
-            if(c->T[i+1]!=NULL){
+            if(count < c->n){ //cf remarque.txt pour le changement
                 strcat(res,"\n");
             }
         }

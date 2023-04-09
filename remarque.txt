@@ -94,4 +94,16 @@ Rq Gle sur les leaks: la plupart des leaks de ex1-ex4 viennent du fait de mettre
         Donc il faudrait le stocker, que hashToPath ne le free pas, puis que dans la fonction on le free
 
 
-        
+Exo 6 :
+
+    pour cts -> j'ai remplacé : 
+
+            if(c->T[i+1] != NULL){
+                strcat(res,"\n");
+            }
+
+            par : 
+
+            if(count < c->n){ //Si il y a des espaces dans le tableau key-value, il manquait des \n avec le if d'avant
+                strcat(res,"\n");
+            }
