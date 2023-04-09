@@ -137,7 +137,6 @@ void restoreWorkTree(WorkTree * wt, char * path){
         else{
             if (isWorkTree(wt->tab[i].hash) == 1 ){
                 strcat(copyPath,".t");
-                printf("wt : %s\n",wtts(wt));
                 WorkTree * newwt = ftwt(copyPath);
                 restoreWorkTree(newwt,absPath);
                 setMode(getChmod(copyPath),absPath);

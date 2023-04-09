@@ -122,7 +122,7 @@ Bloc 2 :
 
     Tests : 
 
-	FILE * f1 = fopen("Test/fichier1.txt","w");
+	/*FILE * f1 = fopen("Test/fichier1.txt","w");
 	if (f1 == NULL){
 		printf("Error %d \n", errno);
 		return 0;
@@ -135,9 +135,9 @@ Bloc 2 :
 	fclose(f2);
 
 	WorkTree * WT1 = initWorkTree();
-	appendWorkTree(WT1,"Test",NULL,0777);
+	appendWorkTree(WT1,"Test",NULL,777);
 	WT1 = ftwt(strcat(hashToPath(saveWorkTree(WT1,".")),".t"));
-
+	
 	f1 = fopen("Test/fichier1.txt","w");
 	f2 = fopen("Test/fichier2.txt","w");
 	if (f1 == NULL){
@@ -147,13 +147,13 @@ Bloc 2 :
 	fprintf(f1,"fichier 1 - v2.0\n");
 	fprintf(f2,"fichier 2 - v2.0\n");
 	fclose(f1);
-	fclose(f2);
+	fclose(f2);*/
 
 	WorkTree * WT2 = initWorkTree();
-	appendWorkTree(WT2,"Test",NULL,0777);
+	appendWorkTree(WT2,"Test",NULL,777);
 	WT2 = ftwt(strcat(hashToPath(saveWorkTree(WT2,".")),".t"));
-
-	f1 = fopen("Test/fichier1.txt","w");
+	
+	/*f1 = fopen("Test/fichier1.txt","w");
 	f2 = fopen("Test/fichier2.txt","w");
 	if (f1 == NULL){
 		printf("Error %d \n", errno);
@@ -165,9 +165,15 @@ Bloc 2 :
 	fclose(f2);
 
 	WorkTree * WT3 = initWorkTree();
-	appendWorkTree(WT3,"Test",NULL,0777);
+	appendWorkTree(WT3,"Test",NULL,777);
 	WT3 = ftwt(strcat(hashToPath(saveWorkTree(WT3,".")),".t"));
-	restoreWorkTree(WT2,".");
+	printf("%s\n",WT2->tab[0].hash);*/
+	printf("%s\n",WT2->tab[0].hash);
+	WT2 = ftwt("ff/4a66f9301abc575513cafc6c163209d894e4b3dc4590add5d0af79005a0b44.t");
+	printf("%s\n",wtts(WT2));
+	printf("%s\n",WT2->tab[0].hash);
+	//restoreWorkTree(WT2,".");
+	//printf("wt : %s\n",wtts(ftwt("bc/e1fc9235916bbcf0688d247eda0c4a20a5d52a978644819985383dcf82d556.t")));
 
 
 
