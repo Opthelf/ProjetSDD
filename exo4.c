@@ -20,15 +20,15 @@ WorkFile* createWorkFile(char* name){
 }
 
 void freeWorkFile(WorkFile * WF){
-    if(WF==NULL){
+    if(WF == NULL){
         printf("WorkFile NULL(freeWorkFile)\n");
         free(WF);
         return;
     }
-    if(WF->name!=NULL){
+    if(WF->name != NULL){
         free(WF->name);
     }
-    if(WF->hash!=NULL){
+    if(WF->hash != NULL){
         free(WF->hash);
     }
     free(WF);
@@ -71,7 +71,7 @@ void freeWorkTree(WorkTree * WT){
     for (int i = 0; i < WT->n; i++){
         free(WT->tab[i].name);
         free(WT->tab[i].hash);
-        free(&(WT->tab[i]));
+        freeWorkFile(&(WT->tab[i]));
     }
     free(WT);
 }
@@ -171,13 +171,20 @@ int wttf(WorkTree* wt, char* file){
         fclose(f);
         return 1;
     }
-    printf("Problème d'ouverture du fichier(wttf)\n");
+    printf("Problème d'ouverture du fichier %s -> (wttf)\n",file);
     return 0;
 }
 
 WorkTree* ftwt(char* file){
+    if (file_exists(file) == 0){
+        printf("Le fichier %s n'existe pas(ftwt)\n",file);
+        return NULL;
+    }
     WorkTree * WT = initWorkTree();
     FILE * f = fopen(file,"r");
+    if (f == NULL){
+        printf("Problème d'ouverture du fichier %s -> (ftwt)\n",file);
+    }
     char * buff = malloc(sizeof(char)*1000);
     char * chaineWT = malloc(sizeof(char)*1000*TAILLE);
     while(fgets(buff,1000,f) != NULL){

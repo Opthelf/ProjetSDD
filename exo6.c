@@ -164,16 +164,18 @@ Commit * ftc(char *file){
 char * blobCommit(Commit *c){
     char fname[100]= "myfileXXXXXX"; //avec le /tmp/ à la fac.
     int fd = mkstemp(fname);
+    
     ctf(c,fname);
     char * hash = sha256file(fname);
     char * ch = hashToFile(hash);
     strcat(ch,".c");
     cp(ch,fname);
+
     char remove[1000] = "rm ";
 	strcat(remove,fname);
 	system(remove);
+
     free(ch);
     return hash;
-
 }
 
