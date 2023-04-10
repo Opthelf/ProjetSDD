@@ -103,7 +103,7 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
     if (wt->size > wt->n){
         wt->tab[wt->n].mode = m;
         wt->tab[wt->n].name = strdup(n);
-        if(h != NULL){
+        if(h != NULL ){
             wt->tab[wt->n++].hash = strdup(h);
         }
         else{

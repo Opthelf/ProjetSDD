@@ -140,38 +140,72 @@ Bloc 2 :
 
     Tests : 
 
-	int o = octalVersDecimal(777);
+	int o = octalVersDecimal(511);
 	printf("octalVersDecimal(777) = %d\n",o);
 	int gcm = getChmod("exo5.c");
 	printf("getChmod(\"exo5.c\") = %d\n",gcm);
+	setMode(420,"exo5.c");
 	gcm = getChmod("exo5.c");
 	printf("getChmod(\"exo5.c\") = %d\n",gcm);
 	char * hash = sha256file("exo5.c");
 	printf("sha256file(\"exo5.c\") = %s\n",hash);
+	char * h1=sha256file("exo4.c");
+	char * h2=sha256file("exo3.c");
 	
 	char * htf = hashToFile(hash);
 	printf("hashToFile(\"exo5.c\") = %s\n",htf);
 	
 	WorkTree * WT= initWorkTree();
-	appendWorkTree(WT,"exo4.c",hash,777);
-	appendWorkTree(WT,"exo3.c",hash,777); 
+	appendWorkTree(WT,"exo4.c",h1,777);
+	appendWorkTree(WT,"exo3.c",h2,777); 
 	char * blob = blobWorkTree(WT);
 	printf("blobWorkTree(\"exo5.c\") = %s\n",blob);
 
 	char * path =concat_paths("exo4.c","exo5.c");
 	printf("concat_paths(\"exo4.c\",\"exo5.c\") = %s\n",path);
 	
+	
 	printf("isFile(\"exo5.c\") = %d\n",isFile("exo5.c"));
 	printf("isFile(\"Test\") = %d\n",isFile("Test"));
 	printf("isFile(\"exo10.c\") = %d\n",isFile("exo10.c"));	
-	
-	char * save = saveWorkTree(WT,".");
+	*/
+	char * save= saveWorkTree(WT,"Test");
 	
 	free(path);
 	free(blob);
 	free(hash);
 	free(htf);
 	freeWorkTree(WT);
+	free(save);
+	free(h1);
+	free(h2);
+
+
+	!!!Test pour restoreWorkTree!!! -> DEMANDE MOI AVANT C'EST PAS JUSTE ÇA :
+
+	//int mode1 = getChmod("aa/d89ce5e2ab1e0d1ea0466fe19fcbfaafa0185442490a6bc254a172c43ba029.t");
+	//int mode2 = getChmod("Test/fichier1.txt");
+	//printf("mode1 : %d\n",mode1);
+	//printf("mode2 : %d\n",mode2);
+
+	
+	WorkTree * WT = initWorkTree();
+	
+	/*appendWorkTree(WT,"Test",NULL,getChmod("Test"));
+	appendWorkTree(WT,"test.txt",NULL,getChmod("test.txt"));
+	char * hash = saveWorkTree(WT,".");*/
+
+	WT = ftwt("aa/d89ce5e2ab1e0d1ea0466fe19fcbfaafa0185442490a6bc254a172c43ba029.t");
+	restoreWorkTree(WT,".");
+
+	//free(hash);
+
+	setMode(777,"Test");
+	setMode(777,"Test/Dossier");
+	setMode(777,"Test/fichier1.txt");
+	setMode(777,"Test/fichier2.txt");
+	setMode(777,"Test/Dossier/Dfichier1.txt");
+	setMode(777,"Test/Dossier/Dfichier2.txt");
 
 
 	!!!Test pour restoreWorkTree!!! -> DEMANDE MOI AVANT C'EST PAS JUSTE ÇA :

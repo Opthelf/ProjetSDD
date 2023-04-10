@@ -37,7 +37,7 @@ char * concat_paths(char * path1,char * path2){
     if (result == NULL){
         printf("Erreur d'allocation mémoire\n");
         return NULL;
-    }
+    } 
     strcpy(result,"");
     strcat(result,path1);
     strcat(result,"/");
@@ -52,7 +52,7 @@ int isFile(const char *path){
         stat(path,&path_stat); 
         return S_ISREG(path_stat.st_mode);   //1 si file 0 si pas file ou n'existe pas
     }
-    return 0;
+    return 1;
 }
 
 char * saveWorkTree(WorkTree *wt,char * path){
@@ -70,12 +70,17 @@ char * saveWorkTree(WorkTree *wt,char * path){
                 if(ptr->data[0]=='.'){
                     continue;
                 }
-                appendWorkTree(wt2,ptr->data,NULL,777);
+                char buff[1000];
+                strcpy(buff,ptr->data);
+                appendWorkTree(wt2,buff,NULL,777);
             }
             wt->tab[i].hash = saveWorkTree(wt2,absPath);
             wt->tab[i].mode = getChmod(absPath);
+            freeWorkTree(wt2);
         }
+    free(absPath);
     }
+    
     return blobWorkTree(wt);
 }
 
