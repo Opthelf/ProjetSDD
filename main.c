@@ -14,7 +14,6 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	
 	return 0;
 }
 
