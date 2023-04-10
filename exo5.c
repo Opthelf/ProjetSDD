@@ -65,11 +65,14 @@ char * blobWorkTree(WorkTree *wt){
     wttf(wt,fname);
     char * hash = sha256file(fname);
     char * ch = hashToFile(hash);
+    ch = realloc(ch,(strlen(ch)+3)*sizeof(char));
     strcat(ch,".t");
     cp(ch,fname);
+
     char remove[1000] = "rm ";
 	strcat(remove,fname);
 	system(remove);
+    free(ch);
     return hash;
 }
 

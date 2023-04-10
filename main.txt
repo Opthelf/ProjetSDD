@@ -124,7 +124,7 @@ Bloc 2 :
 	freeWorkTree(WT2);
 	freeWorkTree(WT3);
 
-	
+
 //Bloc 4 :
 
     Liste des fonctions :
@@ -148,11 +148,18 @@ Bloc 2 :
 	printf("getChmod(\"exo5.c\") = %d\n",gcm);
 	char * hash = sha256file("exo5.c");
 	printf("sha256file(\"exo5.c\") = %s\n",hash);
+	
 	char * htf = hashToFile(hash);
 	printf("hashToFile(\"exo5.c\") = %s\n",htf);
 	
+	WorkTree * WT= initWorkTree();
+	appendWorkTree(WT,"exo5.c",hash,777); 
+	char * blob = blobWorkTree(WT);
+	//printf("blobWorkTree(\"exo5.c\") = %s\n",blob);
+	free(blob);
 	free(hash);
 	free(htf);
+	freeWorkTree(WT);
 
 
 //Bloc 6 (ex6)

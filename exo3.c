@@ -51,7 +51,6 @@ char * hashToPath(char *hash){
 		j++;
 	}
 	path[i]='\0';
-	//free(hash);
 	return path;
 }
 

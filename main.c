@@ -14,7 +14,26 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-
+	int o = octalVersDecimal(777);
+	printf("octalVersDecimal(777) = %d\n",o);
+	int gcm = getChmod("exo5.c");
+	printf("getChmod(\"exo5.c\") = %d\n",gcm);
+	gcm = getChmod("exo5.c");
+	printf("getChmod(\"exo5.c\") = %d\n",gcm);
+	char * hash = sha256file("exo5.c");
+	printf("sha256file(\"exo5.c\") = %s\n",hash);
+	
+	char * htf = hashToFile(hash);
+	printf("hashToFile(\"exo5.c\") = %s\n",htf);
+	
+	WorkTree * WT= initWorkTree();
+	appendWorkTree(WT,"exo4.c",hash,777); 
+	char * blob = blobWorkTree(WT);
+	printf("blobWorkTree(\"exo5.c\") = %s\n",blob);
+	free(blob);
+	free(hash);
+	free(htf);
+	freeWorkTree(WT);
 	
 	return 0;
 }
