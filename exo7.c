@@ -25,9 +25,13 @@ void initRefs(){
 
 void createUpdateRef(char* ref_name, char* hash){
     char buff[100];
+    char buff1[100];
     strcpy(buff,"");
+    strcpy(buff1,"");
     sprintf(buff,"echo %s > .refs/%s",hash,ref_name);
     system(buff);
+    sprintf(buff1,"echo %s > .refs/HEAD",hash);
+    system(buff1);
 }
 
 void deleteRef(char* ref_name){
