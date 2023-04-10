@@ -11,6 +11,7 @@
 #include "exo5.h"
 #include "exo6.h"
 #include "exo7.h"
+#include "exo8.h"
 
 int main(int argc,char * argv[]){
     if (argc < 2){

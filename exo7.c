@@ -24,8 +24,8 @@ void initRefs(){
 }
 
 void createUpdateRef(char* ref_name, char* hash){
-    char buff[100];
-    char buff1[100];
+    char buff[300];
+    char buff1[300];
     strcpy(buff,"");
     strcpy(buff1,"");
     sprintf(buff,"echo %s > .refs/%s",hash,ref_name);
@@ -64,6 +64,7 @@ char* getRef(char* ref_name){
     if (fgets(recup,256,f) == NULL){
         printf("Le fichier %s est vide !(getRef)\n",buff);
     }
+    sscanf(recup,"%s\n",recup);
     return recup;
 }
 
@@ -125,7 +126,7 @@ void myGitCommit(char* branch_name, char* message){
         commitSet(c,"message",message);
     }
     char * hashCommit = blobCommit(c);
-    createUpdateRef("Head",hashCommit);
+    printf("hashCommit -> %s\n",hashCommit);
     createUpdateRef(branch_name,hashCommit);
 
     free(hashHEAD);

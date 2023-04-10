@@ -346,3 +346,21 @@ exo7 :
 
 	freeCommit(c1);
 	free(workTreeHash);
+
+exo8 :
+
+	Tests :
+
+	initRefs();
+	initBranch();
+	printf("HEAeD : %d\n",branchExists("HEAeD"));
+	printf("HEAD : %d\n",branchExists("HEAD"));
+	myGitAdd("Test");
+	myGitAdd("test.txt");
+	myGitCommit("branche2",NULL);
+
+	//createBranch("branche2");
+
+	char * current_branch = getCurrentBranch();
+	printf("current_branch -> %s\n",current_branch);
+	free(current_branch);

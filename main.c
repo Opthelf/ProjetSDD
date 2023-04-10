@@ -11,6 +11,7 @@
 #include "exo5.h"
 #include "exo6.h"
 #include "exo7.h"
+#include "exo8.h"
 
 #include <stdlib.h>
 
@@ -22,16 +23,13 @@ int main(int argc, char ** argv){
 
 
 /*
-Update Simon : 0 leak et erreur exo5 jusqu'à isFile inclus
+Update Simon : ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
+
 */
-//	ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
 
 
 /*
-Update Nino : Supprime mes updates ou mets les dans remarque.txt quand tu les vois (ce message aussi), je ferai la même avec les tiens si ça te va
-Generale : Je pense qu'il faudra refaire wttf ou/et ftwt, au moins des tests y a des fois y a des comportements bizarres
-Exo 5 : Problème sur restoreWorkTree -> boucle infinie sur Test (test dans le main.txt + printf dans restoreWorkTree)
-Exo 7 : createUpdateRef, deleteRef, getRef, mtGitAdd, myGitCommit testés et fonctionnels (sans rien qui alerte mais les deux dernières sont longues donc faut voir) 
-+ fichier myGit.c ajouté et testé
+Update Nino -> restoreWorkTree fonctionne !!! demande pour tester c'est quand même particulier
+-> exo8 commencé, pour l'instant OK, mais petit doute sur le fonctionnement de myGitCommit, à rechecker 
 */
 
