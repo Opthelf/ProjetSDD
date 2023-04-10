@@ -27,9 +27,21 @@ int main(int argc, char ** argv){
 	printf("hashToFile(\"exo5.c\") = %s\n",htf);
 	
 	WorkTree * WT= initWorkTree();
-	appendWorkTree(WT,"exo4.c",hash,777); 
+	appendWorkTree(WT,"exo4.c",hash,777);
+	appendWorkTree(WT,"exo3.c",hash,777); 
 	char * blob = blobWorkTree(WT);
 	printf("blobWorkTree(\"exo5.c\") = %s\n",blob);
+
+	char * path =concat_paths("exo4.c","exo5.c");
+	printf("concat_paths(\"exo4.c\",\"exo5.c\") = %s\n",path);
+	
+	printf("isFile(\"exo5.c\") = %d\n",isFile("exo5.c"));
+	printf("isFile(\"Test\") = %d\n",isFile("Test"));
+	printf("isFile(\"exo10.c\") = %d\n",isFile("exo10.c"));	
+	
+	//char * save= saveWorkTree(WT,"Test");    Ligne à tester 
+	
+	free(path);
 	free(blob);
 	free(hash);
 	free(htf);
@@ -40,10 +52,10 @@ int main(int argc, char ** argv){
 
 
 /*
-Update Simon : 0 leak exo4 tout est testé.
+Update Simon : 0 leak et erreur exo5 jusqu'à isFile inclus
 */
 //	ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
-//Comment quitter le menu de git qui demande mettre un message sur un commit ?
+
 
 /*
 Update Nino : Supprime mes updates ou mets les dans remarque.txt quand tu les vois (ce message aussi), je ferai la même avec les tiens si ça te va

@@ -78,27 +78,33 @@ char * blobWorkTree(WorkTree *wt){
 
 
 char * concat_paths(char * path1,char * path2){
-    char * result = malloc((strlen(path1)+strlen(path2)+1)*sizeof(char));
+    int len = strlen(path1)+ strlen(path2)+2;
+
+    char * result = malloc(len*sizeof(char));
     if (result == NULL){
         printf("Erreur d'allocation mémoire\n");
         return NULL;
     }
-    strcpy(result,path1);
+    strcpy(result,"");
+    strcat(result,path1);
     strcat(result,"/");
     strcat(result,path2);
+    strcat(result,"\0");
     return result;
 }
 
 int isFile(const char *path){
     struct stat path_stat;
-    stat(path,&path_stat);
-    return S_ISREG(path_stat.st_mode);
+    if (file_exists((char*)path)){
+    stat(path,&path_stat); 
+    return S_ISREG(path_stat.st_mode);   //1 si file 0 si pas file ou n'existe pas
+    }
+    return 0;
 }
 
 char * saveWorkTree(WorkTree *wt,char * path){
-    char * absPath=NULL;
     for(int i=0;i<wt->n;i++){
-        absPath = concat_paths(path,wt->tab[i].name);
+        char * absPath = concat_paths(path,wt->tab[i].name);
         if(isFile(absPath)==1){
             blobFile(absPath);
             wt->tab[i].hash = sha256file(absPath);
@@ -116,7 +122,6 @@ char * saveWorkTree(WorkTree *wt,char * path){
             wt->tab[i].mode = getChmod(absPath);
         }
     }
-    free(absPath);
     return blobWorkTree(wt);
 }
 
