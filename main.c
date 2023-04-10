@@ -14,12 +14,13 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
+	
 	return 0;
 }
 
 
 /*
-Update Simon : 0 leak jusqu'à stwf, reste pas testé + pb freeworkTree;
+Update Simon : 0 leak exo4 tout est testé.
 */
 //	ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
 //Comment quitter le menu de git qui demande mettre un message sur un commit ?

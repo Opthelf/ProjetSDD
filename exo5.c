@@ -93,8 +93,9 @@ int isFile(const char *path){
 }
 
 char * saveWorkTree(WorkTree *wt,char * path){
+    char * absPath=NULL;
     for(int i=0;i<wt->n;i++){
-        char * absPath = concat_paths(path,wt->tab[i].name);
+        absPath = concat_paths(path,wt->tab[i].name);
         if(isFile(absPath)==1){
             blobFile(absPath);
             wt->tab[i].hash = sha256file(absPath);
@@ -112,6 +113,7 @@ char * saveWorkTree(WorkTree *wt,char * path){
             wt->tab[i].mode = getChmod(absPath);
         }
     }
+    free(absPath);
     return blobWorkTree(wt);
 }
 

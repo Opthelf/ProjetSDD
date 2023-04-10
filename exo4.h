@@ -17,18 +17,19 @@ WorkFile* createWorkFile(char* name);
 void freeWorkFile(WorkFile * WF);
 
 WorkTree* initWorkTree();
-void freeWorkTree(WorkTree * WT);
+void freeWorkTree(WorkTree* wt);
 
 char* wfts(WorkFile* wf);
 WorkFile* stwf(char* ch);
 
 int inWorkTree(WorkTree* wt, char* name);
 int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
+
 char* wtts(WorkTree* wt);
 WorkTree* stwt(char* ch);
 WorkTree * ftwt(char * file);
-void afficheWorkTreeHash1(WorkTree* wt);
-void afficheWorkTreeHash2(WorkTree* wt);
+
+
 int wttf(WorkTree* wt, char* file);
 
 

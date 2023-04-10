@@ -87,26 +87,37 @@ Bloc 2 :
 	WorkFile * WF1 = createWorkFile("main.txt"); 
 	WF1->hash = sha256file(WF1->name);
 	WF1->mode = 777;
+	char * chaineWorkFile = wfts(WF1);
+	printf("%s\n",chaineWorkFile);
+	WorkFile * WF2 = stwf(chaineWorkFile);
+	char * chaineWorkFile2 = wfts(WF2);
+	printf("%s\n",chaineWorkFile2);
 	freeWorkFile(WF1);
+	freeWorkFile(WF2);
+	free(chaineWorkFile);
+	free(chaineWorkFile2);
+
 
 	WorkTree * WT1 = initWorkTree();
 	printf("%d\n",inWorkTree(WT1,"exo2.c"));
-
-	appendWorkTree(WT1,"exo1.c",sha256file("exo1.c"),777);
-	appendWorkTree(WT1,"exo2.c",sha256file("exo2.c"),777);
-	appendWorkTree(WT1,"exo3.c",sha256file("exo3.c"),777);
-
-	char * chaineWorkTree = wtts(WT1);
-	printf("%s\n",chaineWorkTree);
-	WorkTree* WT3 = stwt(chaineWorkTree);
-	printf("%s",wtts(WT3));
-
-	wttf(WT1,"fichier1.txt");
-	WorkTree *WT4 = ftwt("fichier1.txt");
-	printf("%s",wtts(WT4));
+	char *h1=sha256file("exo1.c");
+	char *h2=sha256file("exo2.c");
+	char *h3=sha256file("exo3.c");
+	appendWorkTree(WT1,"exo1.c",h1,777);
+	appendWorkTree(WT1,"exo2.c",h2,777);
+	appendWorkTree(WT1,"exo3.c",h3,777);
 	
+	char * chaineWorkTree = wtts(WT1);
+	WorkTree * WT2 = stwt(chaineWorkTree);
+	char * chaineWorkTree2 = wtts(WT2);
+	printf("%s\n",chaineWorkTree2);
+	free(chaineWorkTree);
+	free(h1);
+	free(h2);
+	free(h3);
 	freeWorkTree(WT1);
-
+	freeWorkTree(WT2);
+	free(chaineWorkTree2);
 //Bloc 4 :
 
     Liste des fonctions :

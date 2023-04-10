@@ -1,6 +1,5 @@
 all : exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o main.o myGit.o
 	gcc exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o main.o -o main 
-	gcc exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o myGit.o -o myGit
 
 myGit.o :  myGit.c exo7.h exo6.h exo5.h exo4.h exo3.h exo2.h exo1.h
 	gcc -c myGit.c -o myGit.o
@@ -25,6 +24,7 @@ exo5.o : exo5.c exo1.h exo2.h exo3.h exo4.h exo5.h
 
 exo6.o : exo6.c exo1.h exo2.h exo3.h exo4.h exo5.h exo6.h
 	gcc -c exo6.c -o exo6.o
+
 exo7.o : exo7.c exo1.h exo2.h exo3.h exo4.h exo5.h exo6.h exo7.h
 	gcc -c exo7.c -o exo7.o
 clean :
