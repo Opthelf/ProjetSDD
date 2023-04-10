@@ -22,7 +22,7 @@ int main(int argc, char ** argv){
 Update Simon : 0 leak jusqu'à stwf, reste pas testé + pb freeworkTree;
 */
 //	ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
-
+//Comment quitter le menu de git qui demande mettre un message sur un commit ?
 
 /*
 Update Nino : Supprime mes updates ou mets les dans remarque.txt quand tu les vois (ce message aussi), je ferai la même avec les tiens si ça te va
