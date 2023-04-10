@@ -88,10 +88,10 @@ Bloc 2 :
 	WF1->hash = sha256file(WF1->name);
 	WF1->mode = 777;
 	char * chaineWorkFile = wfts(WF1);
-	printf("%s\n",chaineWorkFile);
+	//printf("%s\n",chaineWorkFile);
 	WorkFile * WF2 = stwf(chaineWorkFile);
 	char * chaineWorkFile2 = wfts(WF2);
-	printf("%s\n",chaineWorkFile2);
+	//printf("%s\n",chaineWorkFile2);
 	freeWorkFile(WF1);
 	freeWorkFile(WF2);
 	free(chaineWorkFile);
@@ -99,25 +99,32 @@ Bloc 2 :
 
 
 	WorkTree * WT1 = initWorkTree();
-	printf("%d\n",inWorkTree(WT1,"exo2.c"));
 	char *h1=sha256file("exo1.c");
 	char *h2=sha256file("exo2.c");
 	char *h3=sha256file("exo3.c");
 	appendWorkTree(WT1,"exo1.c",h1,777);
 	appendWorkTree(WT1,"exo2.c",h2,777);
 	appendWorkTree(WT1,"exo3.c",h3,777);
-	
 	char * chaineWorkTree = wtts(WT1);
 	WorkTree * WT2 = stwt(chaineWorkTree);
 	char * chaineWorkTree2 = wtts(WT2);
-	printf("%s\n",chaineWorkTree2);
+
+	wttf(WT1,"test.txt");
+	WorkTree * WT3 = ftwt("test.txt");
+	char * chaineWorkTree3 = wtts(WT3);
+	printf("%s\n",chaineWorkTree3);
+
 	free(chaineWorkTree);
+	free(chaineWorkTree3);
+	free(chaineWorkTree2);
 	free(h1);
 	free(h2);
 	free(h3);
 	freeWorkTree(WT1);
 	freeWorkTree(WT2);
-	free(chaineWorkTree2);
+	freeWorkTree(WT3);
+
+	
 //Bloc 4 :
 
     Liste des fonctions :
@@ -133,59 +140,19 @@ Bloc 2 :
 
     Tests : 
 
-	/*FILE * f1 = fopen("Test/fichier1.txt","w");
-	if (f1 == NULL){
-		printf("Error %d \n", errno);
-		return 0;
-	}
-	FILE * f2 = fopen("Test/fichier2.txt","w");
-	fprintf(f1,"Premier fichier\n");
-	fprintf(f2,"Deuxième fichier\n");
-
-	fclose(f1);
-	fclose(f2);
-
-	WorkTree * WT1 = initWorkTree();
-	appendWorkTree(WT1,"Test",NULL,777);
-	WT1 = ftwt(strcat(hashToPath(saveWorkTree(WT1,".")),".t"));
+	int o = octalVersDecimal(777);
+	printf("octalVersDecimal(777) = %d\n",o);
+	int gcm = getChmod("exo5.c");
+	printf("getChmod(\"exo5.c\") = %d\n",gcm);
+	gcm = getChmod("exo5.c");
+	printf("getChmod(\"exo5.c\") = %d\n",gcm);
+	char * hash = sha256file("exo5.c");
+	printf("sha256file(\"exo5.c\") = %s\n",hash);
+	char * htf = hashToFile(hash);
+	printf("hashToFile(\"exo5.c\") = %s\n",htf);
 	
-	f1 = fopen("Test/fichier1.txt","w");
-	f2 = fopen("Test/fichier2.txt","w");
-	if (f1 == NULL){
-		printf("Error %d \n", errno);
-		return 0;
-	}
-	fprintf(f1,"fichier 1 - v2.0\n");
-	fprintf(f2,"fichier 2 - v2.0\n");
-	fclose(f1);
-	fclose(f2);*/
-
-	WorkTree * WT2 = initWorkTree();
-	appendWorkTree(WT2,"Test",NULL,777);
-	WT2 = ftwt(strcat(hashToPath(saveWorkTree(WT2,".")),".t"));
-	
-	/*f1 = fopen("Test/fichier1.txt","w");
-	f2 = fopen("Test/fichier2.txt","w");
-	if (f1 == NULL){
-		printf("Error %d \n", errno);
-		return 0;
-	}
-	fprintf(f1,"fichier 1 - v3.0\n");
-	fprintf(f2,"fichier 2 - v3.0\n");
-	fclose(f1);
-	fclose(f2);
-
-	WorkTree * WT3 = initWorkTree();
-	appendWorkTree(WT3,"Test",NULL,777);
-	WT3 = ftwt(strcat(hashToPath(saveWorkTree(WT3,".")),".t"));
-	printf("%s\n",WT2->tab[0].hash);*/
-	printf("%s\n",WT2->tab[0].hash);
-	WT2 = ftwt("ff/4a66f9301abc575513cafc6c163209d894e4b3dc4590add5d0af79005a0b44.t");
-	printf("%s\n",wtts(WT2));
-	printf("%s\n",WT2->tab[0].hash);
-	//restoreWorkTree(WT2,".");
-	//printf("wt : %s\n",wtts(ftwt("bc/e1fc9235916bbcf0688d247eda0c4a20a5d52a978644819985383dcf82d556.t")));
-
+	free(hash);
+	free(htf);
 
 
 //Bloc 6 (ex6)

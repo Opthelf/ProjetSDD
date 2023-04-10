@@ -158,6 +158,7 @@ int wttf(WorkTree* wt, char* file){
         char * chaine = wtts(wt);
         fprintf(f,"%s",chaine);
         fclose(f);
+        free(chaine);
         return 1;
     }
     printf("Problème d'ouverture du fichier %s -> (wttf)\n",file);
@@ -169,18 +170,21 @@ WorkTree* ftwt(char* file){
         printf("Le fichier %s n'existe pas(ftwt)\n",file);
         return NULL;
     }
-    WorkTree * WT = initWorkTree();
+    
     FILE * f = fopen(file,"r");
     if (f == NULL){
         printf("Problème d'ouverture du fichier %s -> (ftwt)\n",file);
     }
     char * buff = malloc(sizeof(char)*1000);
+    strcpy(buff,"");
     char * chaineWT = malloc(sizeof(char)*1000*TAILLE);
+    strcpy(chaineWT,"");
     while(fgets(buff,1000,f) != NULL){
         strcat(chaineWT,buff);
     }
-    WT = stwt(chaineWT);
+    WorkTree * WT = stwt(chaineWT);
     free(buff);
     free(chaineWT);
+    fclose(f);
     return WT;
 }
