@@ -104,7 +104,9 @@ int isFile(const char *path){
 
 char * saveWorkTree(WorkTree *wt,char * path){
     char * absPath ;
-    for(int i=0;i<wt->n;i++){
+    for(int i=0;i<wt->n;i++){    //n-1
+
+    
         absPath = concat_paths(path,wt->tab[i].name);
         if(isFile(absPath)==1){
             blobFile(absPath);
@@ -117,13 +119,17 @@ char * saveWorkTree(WorkTree *wt,char * path){
                 if(ptr->data[0]=='.'){
                     continue;
                 }
-                appendWorkTree(wt2,ptr->data,NULL,777);
+                char buff[1000];
+                strcpy(buff,ptr->data);
+                appendWorkTree(wt2,buff,NULL,777);
             }
             wt->tab[i].hash = saveWorkTree(wt2,absPath);
             wt->tab[i].mode = getChmod(absPath);
+            freeWorkTree(wt2);
         }
-    }
     free(absPath);
+    }
+    
     return blobWorkTree(wt);
 }
 
