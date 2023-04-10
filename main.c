@@ -14,10 +14,11 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	int o = octalVersDecimal(777);
+	int o = octalVersDecimal(511);
 	printf("octalVersDecimal(777) = %d\n",o);
 	int gcm = getChmod("exo5.c");
 	printf("getChmod(\"exo5.c\") = %d\n",gcm);
+	setMode(420,"exo5.c");
 	gcm = getChmod("exo5.c");
 	printf("getChmod(\"exo5.c\") = %d\n",gcm);
 	char * hash = sha256file("exo5.c");
@@ -39,29 +40,20 @@ int main(int argc, char ** argv){
 	printf("isFile(\"Test\") = %d\n",isFile("Test"));
 	printf("isFile(\"exo10.c\") = %d\n",isFile("exo10.c"));	
 	
-	//char * save= saveWorkTree(WT,"Test");    Ligne à tester 
+	char * save= saveWorkTree(WT,".");    
 	
 	free(path);
 	free(blob);
 	free(hash);
 	free(htf);
 	freeWorkTree(WT);
+	free(save);
 	
 	return 0;
 }
 
 
 /*
-Update Simon : 0 leak et erreur exo5 jusqu'à isFile inclus
 */
 //	ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
-
-
-/*
-Update Nino : Supprime mes updates ou mets les dans remarque.txt quand tu les vois (ce message aussi), je ferai la même avec les tiens si ça te va
-Generale : Je pense qu'il faudra refaire wttf ou/et ftwt, au moins des tests y a des fois y a des comportements bizarres
-Exo 5 : Problème sur restoreWorkTree -> boucle infinie sur Test (test dans le main.txt + printf dans restoreWorkTree)
-Exo 7 : createUpdateRef, deleteRef, getRef, mtGitAdd, myGitCommit testés et fonctionnels (sans rien qui alerte mais les deux dernières sont longues donc faut voir) 
-+ fichier myGit.c ajouté et testé
-*/
 
