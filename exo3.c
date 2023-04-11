@@ -55,7 +55,7 @@ void setMode(int mode, char * path){ //Applique le mode d'accès en paramètre a
 
 char * hashToPath(char *hash){ //Renvoie le hash sous forme de path (un / entre le deuxième et le troisème caractère)
     if (hash == NULL){ //On vérifie que le hash n'est pas NULL, auquel cas il y a eu un souci avant donc on exit complètement
-        printf("Le hash est NULL -> hashToPath");
+        printf("Le hash est NULL -> hashToPath\n");
         exit(EXIT_FAILURE);
     }
 
@@ -131,7 +131,7 @@ void cp(char* to, char* from){
     char buff[256];
     while(fgets(buff,256,f_depart) != NULL){ //On récupère le fichier ligne par ligne et on le met dans le fichier de destination
         fprintf(f_arrivee,"%s",buff);
-    }
+    }    
 
     fclose(f_depart);
     fclose(f_arrivee);

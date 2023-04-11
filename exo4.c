@@ -84,11 +84,6 @@ WorkTree * initWorkTree(){ //Initialise un WorkTree
 }
 
 void freeWorkTree(WorkTree* wt){ //Libère un WorkTree de la mémoire
-    if (wt == NULL){ //Teste si le WorkTree est déjà NULL pour éviter une segmentation fault inutile
-        printf("Le WorkTree est NULL, pas besoin de le free -> freeWorkTree\n");
-        return;
-    }
-
     int i = 0;
     while(i < wt->n){
         free(wt->tab[i].hash);
@@ -133,6 +128,8 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){ //Rajoute un WorkFile
         else{
             wt->tab[wt->n++].hash = NULL;
         }
+        //free(n); // !!!Attention ça peut libérer des chaines en dehors de la fonction!!!
+        //free(h); // !!!Attention ça peut libérer des chaines en dehors de la fonction!!!
         return 1;
     }
     printf("Le WorkTree est à sa taille maximale, le fichier %s n'a donc pas pu être ajouté\n",n);
@@ -165,6 +162,17 @@ char* wtts(WorkTree* wt){ //Transforme un WorkTree en une chaine de caractère
 
 
 WorkTree* stwt(char* ch){ //Transforme une chaine de caractère en un WorkTree
+    if (ch == NULL){ //Teste si la chaine est NULL
+        printf("La chaine est NULL -> stwt\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    if (strlen(ch) == 0){ //Teste si la chaine est vide
+        printf("La chaine est vide -> stwt\n");
+        //exit(EXIT_FAILURE); Je ne sais pas lequel des deux vaut mieux ici
+        return NULL;
+    }
+
     WorkTree * WT= initWorkTree();
     char * resname = malloc(sizeof(char)*1000);
     char * reshash = malloc(sizeof(char)*1000);
