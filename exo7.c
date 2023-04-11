@@ -65,6 +65,7 @@ char* getRef(char* ref_name){
         printf("Le fichier %s est vide !(getRef)\n",buff);
     }
     sscanf(recup,"%s\n",recup);
+    fclose(f);
     return recup;
 }
 

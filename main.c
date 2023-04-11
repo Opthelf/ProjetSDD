@@ -15,63 +15,54 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	/*int o = octalVersDecimal(511);
-	printf("octalVersDecimal(777) = %d\n",o);
-	int gcm = getChmod("exo5.c");
-	printf("getChmod(\"exo5.c\") = %d\n",gcm);
-	setMode(777,"exo5.c");
-	gcm = getChmod("exo5.c");
-	printf("getChmod(\"exo5.c\") = %d\n",gcm);
-	char * hash = sha256file("exo5.c");
-	printf("sha256file(\"exo5.c\") = %s\n",hash);
-	char * h1=sha256file("exo4.c");
-	char * h2=sha256file("exo3.c");
-	
-	char * htf = hashToFile(hash);
-	printf("hashToFile(\"exo5.c\") = %s\n",htf);*/
-	
-	//WorkTree * WT= initWorkTree();
-	//appendWorkTree(WT,"Test",NULL,777);
-	//appendWorkTree(WT,"test.txt",NULL,777); 
-	/*char * blob = blobWorkTree(WT);
-	printf("blobWorkTree(\"exo5.c\") = %s\n",blob);*/
 
-	/*char * path =concat_paths("exo4.c","exo5.c");
-	printf("concat_paths(\"exo4.c\",\"exo5.c\") = %s\n",path);*/
+	kvp * key = createKeyVal("key","value");
+	char * ch = kvts(key);
+	//printf("%s\n",ch);
+	kvp * key2 = stkv(ch);
+	char * ch2 = kvts(key2);
+	//printf("%s\n",ch2);
+	freeKeyVal(key2);
+	freeKeyVal(key);
+	free(ch);
+	free(ch2);
+	Commit * c = initCommit();
 	
+	commitSet(c,"key1","value1");
+	commitSet(c,"key2","value2");
 	
-	/*printf("isFile(\"exo5.c\") = %d\n",isFile("exo5.c"));
-	printf("isFile(\"Test\") = %d\n",isFile("Test"));
-	printf("isFile(\"exo10.c\") = %d\n",isFile("exo10.c"));*/
-	
-	//char * save= saveWorkTree(WT,".");
-	
-	//free(path);
-	//free(blob);
-	//free(hash);
-	//free(htf);
-	//freeWorkTree(WT);
-	//free(save);
-	//free(h1);
-	//free(h2);
-	/*int gcm = getChmod("exo5.txt");
-	printf("getChmod(\"exo5.txt\") = %d\n",gcm);*/
-
-	int exists = file_exists("test.txt");
-	printf("test.txt -> %d\n",exists);
-	exists = file_exists("nexistepas.txt");
-	printf("nexistepas.txt -> %d\n",exists);
-	exists = file_exists("Test");
-	printf("Test -> %d\n",exists);
-	exists = file_exists("test");
-	printf("test -> %d\n",exists);
+	Commit * c2 = createCommit("hash");
+	char * val = commitGet(c,"key2");
+	char * val2 = commitGet(c,"key1");
+	//printf("%s\n",val);
+	//printf("%s\n",val2);
+	commitSet(c2,"key3","value3");
+	commitSet(c2,"key4","value4");
+	char * comtostr= cts(c2);
+	//printf("%s\n",comtostr);
+	Commit * c3 = stc(comtostr);
+	char * ctsc3 = cts(c3);
+	//printf("%s\n",ctsc3);
+	ctf(c3,"testex6.txt");
+	Commit * c4 =  ftc("testex6.txt");
+	char *ctsc4 = cts(c4);
+	printf("%s\n",ctsc4);
+	char * hashc4 = blobCommit(c4);
+	freeCommit(c4);
+	free(ctsc4);
+	free(comtostr);
+	freeCommit(c2);
+	freeCommit(c);
+	free(ctsc3);
+	freeCommit(c3);
+	free(hashc4);
 	return 0;
 }
 
 
 /*
-Update Simon : ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
-
+Update Simon : ex6 terminé plus de leak mais tu peux tjrs faire plus de tests ;
+exo8 terminé mais rien n'est testé ,en tout cas pour les fonctions que j'ai faites (à partir de printBranch)
 */
 
 
