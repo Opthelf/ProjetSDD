@@ -56,15 +56,13 @@ int main(int argc, char ** argv){
 	//free(h2);
 	/*int gcm = getChmod("exo5.txt");
 	printf("getChmod(\"exo5.txt\") = %d\n",gcm);*/
+	WorkTree * WT = initWorkTree();
+	appendWorkTree(WT,"name.txt",NULL,777);
+	char * chaineWT = wtts(WT);
+	printf("wt :\n%s\n",chaineWT);
 
-	int exists = file_exists("test.txt");
-	printf("test.txt -> %d\n",exists);
-	exists = file_exists("nexistepas.txt");
-	printf("nexistepas.txt -> %d\n",exists);
-	exists = file_exists("Test");
-	printf("Test -> %d\n",exists);
-	exists = file_exists("test");
-	printf("test -> %d\n",exists);
+	freeWorkTree(WT);
+	free(chaineWT);
 	return 0;
 }
 
@@ -78,5 +76,7 @@ Update Simon : ex6 terminé tout marche (normalement) mais erreur du type :Inval
 /*
 Update Nino -> restoreWorkTree fonctionne !!! demande pour tester c'est quand même particulier
 -> exo8 commencé, pour l'instant OK, mais petit doute sur le fonctionnement de myGitCommit, à rechecker 
+
+Exo 1 à 4 revu, solidifié le code avec des tests, commentaires brefs pour expliquer ce que fait la fonction et testé jusqu'au milieu de l'exo 4 à peu près
 */
 

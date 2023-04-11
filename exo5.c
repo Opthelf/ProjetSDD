@@ -46,15 +46,6 @@ char * concat_paths(char * path1,char * path2){
     return result;
 }
 
-int isFile(const char *path){
-    struct stat path_stat;
-    if (file_exists((char*)path)){
-        stat(path,&path_stat); 
-        return S_ISREG(path_stat.st_mode);   //1 si file 0 si pas file ou n'existe pas
-    }
-    return 1;
-}
-
 char * saveWorkTree(WorkTree *wt,char * path){
     char * absPath;
     for(int i=0;i<wt->n-1;i++){

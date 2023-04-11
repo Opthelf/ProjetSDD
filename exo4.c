@@ -11,15 +11,19 @@
 #define TAILLE 10
 
 
-WorkFile* createWorkFile(char* name){
+WorkFile* createWorkFile(char* name){ //Crée un WorkFile et initialise son hash à NULL et son nom à name et le mode à 0
+    if (name == NULL){ //Teste si name est NULL
+        printf("Le nom du fichier est NULL -> createWorkFile\n");
+        exit(EXIT_FAILURE);
+    }
     WorkFile * WF = (WorkFile *)malloc(sizeof(WorkFile));
     WF->name = strdup(name);
     WF->hash = NULL;
-    WF->mode = 0;
+    WF->mode = getChmod(name);
     return WF;
 }
 
-void freeWorkFile(WorkFile * WF){
+void freeWorkFile(WorkFile * WF){ //Libère un WorkFile de la mémoire
     if(WF == NULL){
         printf("WorkFile NULL(freeWorkFile)\n");
         free(WF);
@@ -34,7 +38,12 @@ void freeWorkFile(WorkFile * WF){
     free(WF);
 }
 
-char* wfts(WorkFile* wf){
+char* wfts(WorkFile* wf){ //Transforme un WokrFile sous forme de chaine de caractère
+    if (wf == NULL){ //Teste si le WorkFile est NULL
+        printf("Le WorkFile est NULL -> wfts\n");
+        exit(EXIT_FAILURE);
+    }
+
     char * res = malloc(1000*sizeof(char));
     if (wf->hash == NULL){
         sprintf(res,"%s\tnull\t%d",wf->name,wf->mode);
@@ -46,27 +55,40 @@ char* wfts(WorkFile* wf){
     return res;
 }
 
-WorkFile* stwf(char* ch){
+WorkFile* stwf(char* ch){ //Transforme une chaine de caractère en un WokrTree
     int mode;
     char * name = malloc(sizeof(char)*1000);
     char * hash = malloc(sizeof(char)*1000);
     sscanf(ch,"%s\t%s\t%d",name,hash,&mode);
+
+    if (strlen(name) == 0){ //Teste si la chaine de name est vide
+        printf("Le nom est vide -> stwf\n");
+        exit(EXIT_FAILURE);
+    }
+
     WorkFile * WF = createWorkFile(name);
     WF->hash =strdup(hash);
     WF->mode = mode;
+
     free(hash);
     free(name);
     return WF;
 }
 
-WorkTree * initWorkTree(){
+WorkTree * initWorkTree(){ //Initialise un WorkTree
     WorkTree * WT = (WorkTree *)malloc(sizeof(WorkTree));
     WT->size = TAILLE;
     WT->tab = (WorkFile *)malloc(TAILLE*sizeof(WorkFile));
     WT->n = 0;
     return WT;
 }
-void freeWorkTree(WorkTree* wt){
+
+void freeWorkTree(WorkTree* wt){ //Libère un WorkTree de la mémoire
+    if (wt == NULL){ //Teste si le WorkTree est déjà NULL pour éviter une segmentation fault inutile
+        printf("Le WorkTree est NULL, pas besoin de le free -> freeWorkTree\n");
+        return;
+    }
+
     int i = 0;
     while(i < wt->n){
         free(wt->tab[i].hash);
@@ -78,11 +100,12 @@ void freeWorkTree(WorkTree* wt){
 }
 
 
-int inWorkTree(WorkTree* wt, char* name){
-    if (wt == NULL){
+int inWorkTree(WorkTree* wt, char* name){ //Vérifie si le fichier name est déjà enregistré dans le WorkTree et renvoie sa position si il y est
+    if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL(inWorkTree)\n");
-        return 0;
+        exit(EXIT_FAILURE);
     }
+
     WorkFile * WF = wt->tab;
     int i = 0;
     while(i < (wt->n)){
@@ -95,8 +118,9 @@ int inWorkTree(WorkTree* wt, char* name){
     return -1;
 }
 
-int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
-    if ( inWorkTree(wt,n) != -1){
+int appendWorkTree(WorkTree* wt,char * n,char * h, int m){ //Rajoute un WorkFile au WorkTree en paramètre
+    int etat_WT = inWorkTree(wt,n); //Cas où wt est NULL traité dans inWorkTree
+    if ( etat_WT != -1){
         //printf("Le fichier %s est déjà dans le WorkTree !\n",n);
         return 0;
     }
@@ -111,11 +135,17 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){
         }
         return 1;
     }
+    printf("Le WorkTree est à sa taille maximale, le fichier %s n'a donc pas pu être ajouté\n",n);
     return 0;
 }
 
 
-char* wtts(WorkTree* wt){
+char* wtts(WorkTree* wt){ //Transforme un WorkTree en une chaine de caractère
+    if (wt == NULL){ //Teste si le WorkTree est NULL
+        printf("Le WorkTree est NULL(wtts)\n");
+        exit(EXIT_FAILURE);
+    }
+
     int i = 0;
     char * res = (char*)malloc(sizeof(char)*1000);
     strcpy(res,"");
@@ -134,7 +164,7 @@ char* wtts(WorkTree* wt){
 
 
 
-WorkTree* stwt(char* ch){
+WorkTree* stwt(char* ch){ //Transforme une chaine de caractère en un WorkTree
     WorkTree * WT= initWorkTree();
     char * resname = malloc(sizeof(char)*1000);
     char * reshash = malloc(sizeof(char)*1000);
@@ -152,7 +182,13 @@ WorkTree* stwt(char* ch){
 
 }
 
-int wttf(WorkTree* wt, char* file){
+int wttf(WorkTree* wt, char* file){ //Transforme un WorkTree en une chaine de carctère puis la met dans un fichier
+    int etat_file = isFile(file);
+    if (etat_file == 0){
+        printf("Le fichier %s est un répertoire -> wttf\n",file);
+        exit(EXIT_FAILURE);
+    }
+
     FILE * f = fopen(file,"w");
     if (f != NULL){
         char * chaine = wtts(wt);
@@ -165,16 +201,22 @@ int wttf(WorkTree* wt, char* file){
     return 0;
 }
 
-WorkTree* ftwt(char* file){
-    if (file_exists(file) == 0){
-        printf("Le fichier %s n'existe pas(ftwt)\n",file);
-        return NULL;
+WorkTree* ftwt(char* file){ //Récupère un WorkTree d'un fichier
+    int etat_file = isFile(file);
+    if (etat_file == -1){
+        printf("Le fichier %s n'existe pas -> ftwt\n",file);
+        exit(EXIT_FAILURE);
+    }
+    if (etat_file == 0){
+        printf("Le fichier %s est un répertoire -> ftwt\n",file);
+        exit(EXIT_FAILURE);
     }
     
     FILE * f = fopen(file,"r");
     if (f == NULL){
         printf("Problème d'ouverture du fichier %s -> (ftwt)\n",file);
     }
+
     char * buff = malloc(sizeof(char)*1000);
     strcpy(buff,"");
     char * chaineWT = malloc(sizeof(char)*1000*TAILLE);

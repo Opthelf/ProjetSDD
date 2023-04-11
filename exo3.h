@@ -7,7 +7,6 @@ void setMode(int mode, char * path);
 char * hashToPath(char* hash);
 char * hashToFile(char *hash);
 List * listdir(char * root_dir);
-int file_exists(char *file);
 void cp(char * to, char * from);
 void blobFile(char * file);
 
