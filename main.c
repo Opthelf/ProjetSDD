@@ -31,6 +31,7 @@ int main(int argc, char ** argv){
 	commitSet(c,"key1","value1");
 	commitSet(c,"key2","value2");
 	
+<<<<<<< HEAD
 	Commit * c2 = createCommit("hash");
 	char * val = commitGet(c,"key2");
 	char * val2 = commitGet(c,"key1");
@@ -56,6 +57,27 @@ int main(int argc, char ** argv){
 	free(ctsc3);
 	freeCommit(c3);
 	free(hashc4);
+=======
+	//char * save= saveWorkTree(WT,".");
+	
+	//free(path);
+	//free(blob);
+	//free(hash);
+	//free(htf);
+	//freeWorkTree(WT);
+	//free(save);
+	//free(h1);
+	//free(h2);
+	/*int gcm = getChmod("exo5.txt");
+	printf("getChmod(\"exo5.txt\") = %d\n",gcm);*/
+	WorkTree * WT = initWorkTree();
+	appendWorkTree(WT,"name.txt",NULL,777);
+	char * chaineWT = wtts(WT);
+	printf("wt :\n%s\n",chaineWT);
+
+	freeWorkTree(WT);
+	free(chaineWT);
+>>>>>>> b4c853ba5e887996abcceeb5b742950578b2df07
 	return 0;
 }
 
@@ -69,5 +91,7 @@ exo8 terminé mais rien n'est testé ,en tout cas pour les fonctions que j'ai fa
 /*
 Update Nino -> restoreWorkTree fonctionne !!! demande pour tester c'est quand même particulier
 -> exo8 commencé, pour l'instant OK, mais petit doute sur le fonctionnement de myGitCommit, à rechecker 
+
+Exo 1 à 4 revu, solidifié le code avec des tests, commentaires brefs pour expliquer ce que fait la fonction et testé jusqu'au milieu de l'exo 4 à peu près
 */
 

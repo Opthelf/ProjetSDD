@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h> 
+#include <stdbool.h>
 
-int hashFile(char * source, char * dest){
+int hashFile(char * source, char * dest){ //Ecrit le hash du fichier source dans le fichier destination
 	char buff[1000];
 	sprintf(buff,"cat %s | sha256sum > resultat.txt",source);	
 	system(buff);
@@ -18,7 +22,7 @@ int hashFile(char * source, char * dest){
 	return 0;
 }
 
-char * sha256file(char * file){
+char * sha256file(char * file){ //Renvoie le hash du fichier 
 	//Cas où le fichier n'existe pas
 	FILE * ftest;
 	if ( ( ftest = fopen(file,"r")) == NULL){
@@ -50,4 +54,18 @@ char * sha256file(char * file){
 	fclose(f);
 	
 	return hash;
+}
+
+int file_exists (char *file){ 
+	struct stat buffer;
+	return (stat(file, &buffer) == 0);
+}
+
+int isFile(const char *path){
+    struct stat path_stat;
+    if (file_exists((char*)path) == 1){
+        stat(path,&path_stat); 
+        return S_ISREG(path_stat.st_mode);   //1 si file 0 si pas file ou n'existe pas
+    }
+    return -1;
 }

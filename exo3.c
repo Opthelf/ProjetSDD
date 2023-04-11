@@ -32,7 +32,7 @@ int octalVersDecimal(int octal){
     return decimal;
 }
 
-int getChmod(const char * path){
+int getChmod(const char * path){ //Récupère le mode d'accès du fichier passé en paramètre
     struct stat ret;
     if(stat(path,&ret)==-1){
         printf("Le fichier %s n'existe pas -> getChmod\n",path);
@@ -43,8 +43,8 @@ int getChmod(const char * path){
     return res;
 }
 
-void setMode(int mode, char * path){
-    if (mode < 0 || mode > 777){
+void setMode(int mode, char * path){ //Applique le mode d'accès en paramètre au fichier en paramètre
+    if (mode < 0 || mode > 777){ //On regarde si le mode a du sens 
         printf("Mode %d non valable\n",mode);
         exit(EXIT_FAILURE);
     }
@@ -53,7 +53,12 @@ void setMode(int mode, char * path){
     system(buff);
 }
 
-char * hashToPath(char *hash){
+char * hashToPath(char *hash){ //Renvoie le hash sous forme de path (un / entre le deuxième et le troisème caractère)
+    if (hash == NULL){ //On vérifie que le hash n'est pas NULL, auquel cas il y a eu un souci avant donc on exit complètement
+        printf("Le hash est NULL -> hashToPath");
+        exit(EXIT_FAILURE);
+    }
+
 	int l = strlen(hash);
 	char * path = malloc(sizeof(char)*(l+10));
     strcpy(path,"");
@@ -69,18 +74,16 @@ char * hashToPath(char *hash){
 	return path;
 }
 
-char * hashToFile(char *hash){
+char * hashToFile(char *hash){ //Crée le directory avec les deux premiers caractères du hash, puis retourne le path
     char * ch2 = strdup(hash);
-    ch2[2]='\0';
+    ch2[2]='\0'; //On dit que le chaine s'arrête là
     struct stat st={0};
-    if(stat(ch2,&st) == -1){
-        mkdir(ch2,700);
+    if(stat(ch2,&st) == -1){ //Si le directory n'existe pas déjà, on le crée avec tout les droits d'utilisateurs et aucuns pour les autres
+        mkdir(ch2,0700);
     }
     free(ch2);
     return hashToPath(hash);
 }
-
-
 
 List * listdir(char * root_dir){
 	DIR *dp;
@@ -104,40 +107,49 @@ List * listdir(char * root_dir){
 
 struct stat st = {0};
 
-int file_exists (char *file){ 
-	struct stat buffer;
-	return (stat(file, &buffer) == 0);
-}
 
 void cp(char* to, char* from){
-    if (file_exists(from) == 0){
-        printf("Le fichier entré en paramètre n'est pas dans ce répertoire !(cp)\n");
-        return;
+    int etat = isFile(from);
+    if (etat == -1){ //Si le fichier qu'on veut copier n'existe pas
+        printf("Le fichier entré en paramètre n'existe pas -> fichier non copié !(cp)\n");
+        exit(EXIT_FAILURE);
     }
+
+    if (etat == 0){ //Si le fichier qu'on veut copier est un répertoire
+        printf("Le fichier entré en paramètre est un répertoire -> on ne peut pas copier un répertoire !(cp)\n");
+        exit(EXIT_FAILURE);
+    }
+
     FILE * f_depart = fopen(from,"r");
     FILE * f_arrivee = fopen(to,"w");
+    if (f_depart == NULL || f_arrivee == NULL){ //Si il y a un problème d'ouverture des fichiers
+        printf("Erreur d'ouverture lors des fichiers %s et %s -> cp\n",to,from);
+        exit(EXIT_FAILURE);
+    }
+
     char buff[256];
-    while(fgets(buff,256,f_depart) != NULL){
+    while(fgets(buff,256,f_depart) != NULL){ //On récupère le fichier ligne par ligne et on le met dans le fichier de destination
         fprintf(f_arrivee,"%s",buff);
     }
+
     fclose(f_depart);
     fclose(f_arrivee);
 }
 
-void blobFile(char* file){
-	char * hash = sha256file(file);
-	char ch2[strlen(hash)]; 
-	strcpy(ch2,hash);
+void blobFile(char* file){ //Crée une copie du fichier au path du hash de ce fichier (avec hashToPath)
+    int etat_file = isFile(file);
+    if (etat_file == 0){ //Si le fichier est un directory
+        printf("%s est un directory, on ne peut pas en créer une copie -> blobfile\n",file);
+        exit(EXIT_FAILURE);
+    }
+    if (etat_file == -1){ //Si le fichier n'existe pas
+        printf("Le fichier %s n'existe pas -> blobfile\n",file);
+        exit(EXIT_FAILURE);
+    }
 
-	ch2[2]= '\0';
-	if (!file_exists(ch2)){
-		char buff[100];
-		sprintf(buff,"mkdir %s",ch2);
-		system(buff);
-	}
-	char * ch = hashToFile(hash);
-	cp(ch,file);
-	//setMode(777,ch);
+	char * hash = sha256file(file); //Récupère le hash du fichier
+	char * ch = hashToFile(hash); //S'occupe de créer le répertoire si besoin
+	cp(ch,file); //Copie le fichier file dans ch
 
 	free(ch);
 	free(hash);
