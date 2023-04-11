@@ -132,7 +132,7 @@ void blobFile(char* file){
 	}
 	char * ch = hashToPath(hash);
 	cp(ch,file);
-	setMode(getChmod(file),ch);
+	setMode(777,ch);
 
 	free(ch);
 	free(hash);

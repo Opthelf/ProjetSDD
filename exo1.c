@@ -23,6 +23,7 @@ char * sha256file(char * file){
 	FILE * ftest;
 	if ( ( ftest = fopen(file,"r")) == NULL){
 		printf("Le fichier n'existe pas !(sha256file)\n");
+		fclose(ftest);
 		return NULL;
 	}
 	else{

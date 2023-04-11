@@ -57,12 +57,12 @@ int isFile(const char *path){
 
 char * saveWorkTree(WorkTree *wt,char * path){
     char * absPath;
-    for(int i=0;i<wt->n;i++){
+    for(int i=0;i<wt->n-1;i++){
         absPath = concat_paths(path,wt->tab[i].name);
         if(isFile(absPath) == 1){
             blobFile(absPath);
             wt->tab[i].hash = sha256file(absPath);
-            wt->tab[i].mode = getChmod(absPath);        
+            wt->tab[i].mode = getChmod(absPath);
         }else{
             WorkTree *wt2 = initWorkTree();
             List * L = listdir(absPath);

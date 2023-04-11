@@ -169,7 +169,7 @@ Bloc 2 :
 	printf("isFile(\"Test\") = %d\n",isFile("Test"));
 	printf("isFile(\"exo10.c\") = %d\n",isFile("exo10.c"));	
 	*/
-	char * save= saveWorkTree(WT,"Test");
+	char * save= saveWorkTree(WT,".");
 	
 	free(path);
 	free(blob);
