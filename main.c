@@ -15,13 +15,14 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
+
 	return 0;
 }
 
 
 /*
-Update Simon : ex6 terminé tout marche (normalement) mais erreur du type :Invalid write of size n sur blobCommit à régler ) ;
-
+Update Simon : ex6 terminé plus de leak mais tu peux tjrs faire plus de tests ;
+exo8 terminé mais rien n'est testé ,en tout cas pour les fonctions que j'ai faites (à partir de printBranch)
 */
 
 

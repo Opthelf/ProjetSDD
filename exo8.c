@@ -59,5 +59,83 @@ char* getCurrentBranch(){
         return NULL;
     }
     sscanf(buff,"%s\n",buff);
+    fclose(f);
     return buff;
+}
+
+
+char * hashToPathCommit(char * hash){
+    char * buff = hashToPath(hash);
+    buff=realloc(buff,sizeof(char)*(strlen(buff)+3));
+    strcat(buff,".c");
+    strcat(buff,"\0");
+    return buff;
+}
+void printBranch(char * branch){
+    char * commit_hash = getRef(branch);
+    if (commit_hash == NULL){
+        printf("La branche %s n'existe pas -> printBranch\n",branch);
+        exit(EXIT_FAILURE);
+    }
+    char * hash = hashToPathCommit(commit_hash);
+    Commit * c = ftc(hash);
+    while (c!=NULL){
+         if(commitGet(c,"message")!=NULL){
+            printf("%s -> %s \n",commit_hash,commitGet(c,"message"));
+         }
+         else{
+            printf("%s \n",commit_hash);
+         }
+         if(commitGet(c,"predecessor")!=NULL){  //ce if à tester 
+            commit_hash = commitGet(c,"predecessor");
+            hash = hashToPathCommit(commit_hash);
+            c= ftc(hash);
+         }
+         else{
+            freeCommit(c);
+            c=NULL;
+         }
+    }
+free(hash);
+free(commit_hash);
+
+}
+List * branchList(char * branch){
+    List * L = initList();
+    char * commit_hash = getRef(branch);
+    char * hash = hashToPathCommit(commit_hash);
+    Commit * c = ftc(hash);
+    while(c!=NULL){
+        insertFirst(L,buildCell(commit_hash));
+        if(commitGet(c,"predecessor")!=NULL){
+            commit_hash = commitGet(c,"predecessor");
+            hash = hashToPathCommit(commit_hash);
+            c= ftc(hash);
+        }
+        else{
+            freeCommit(c);
+            c=NULL;
+        }
+    }
+    return L;
+}
+
+List * getAllCommits(){
+    List * L = initList();
+    List * content = listdir(".refs");
+    for(Cell * ptr =*content ; ptr !=NULL ; ptr = ptr->next){
+        if(ptr->data[0]=='.'){
+            continue;
+        }
+        List * list = branchList(ptr->data);
+        Cell * cell = *list;
+        while(cell!=NULL){
+            if(searchList(L,cell->data)==NULL){
+                insertFirst(L,buildCell(cell->data));
+            }
+            cell = cell->next;
+        }
+    }
+    return L;
+
 }

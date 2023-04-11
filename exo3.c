@@ -60,16 +60,15 @@ char * hashToPath(char *hash){ //Renvoie le hash sous forme de path (un / entre 
     }
 
 	int l = strlen(hash);
-	char * path = malloc(sizeof(char)*(l+2));
+	char * path = malloc(sizeof(char)*(l+10));
+    strcpy(path,"");
 	path[0] = hash[0];
 	path[1] = hash[1];
 	path[2] = '/';
-	int i = 3;
-	int j = 2;
-	while( hash[j]!='\0'){
-		path[i] = hash[j];
-		i++;
-		j++;
+	
+	int i;
+	for( i = 3;i<=l;i++){
+		path[i] = hash[i-1];
 	}
 	path[i]='\0';
 	return path;
