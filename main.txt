@@ -50,6 +50,16 @@ Bloc 2 :
 
     Tests :
 
+	file_exists ->
+		int exists = file_exists("test.txt");
+		printf("test.txt -> %d\n",exists);
+		exists = file_exists("nexistepas.txt");
+		printf("nexistepas.txt -> %d\n",exists);
+		exists = file_exists("Test");
+		printf("Test -> %d\n",exists);
+		exists = file_exists("test");
+		printf("test -> %d\n",exists);
+
 	char cwd[50];
 	List * L4 = listdir(".");
 	char * ltosL4=ltos(L4);
@@ -144,7 +154,7 @@ Bloc 2 :
 	printf("octalVersDecimal(777) = %d\n",o);
 	int gcm = getChmod("exo5.c");
 	printf("getChmod(\"exo5.c\") = %d\n",gcm);
-	setMode(420,"exo5.c");
+	setMode(720,"exo5.c");
 	gcm = getChmod("exo5.c");
 	printf("getChmod(\"exo5.c\") = %d\n",gcm);
 	char * hash = sha256file("exo5.c");

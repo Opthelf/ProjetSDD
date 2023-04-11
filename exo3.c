@@ -35,16 +35,39 @@ int octalVersDecimal(int octal){
 int getChmod(const char * path){
     struct stat ret;
     if(stat(path,&ret)==-1){
-        return -1;
+        printf("Le fichier %s n'existe pas -> getChmod\n",path);
+        exit(EXIT_FAILURE);
     }
     int octal = (ret.st_mode & S_IRUSR)|(ret.st_mode & S_IWUSR)|(ret.st_mode & S_IXUSR)|(ret.st_mode & S_IRGRP)|(ret.st_mode & S_IWGRP)|(ret.st_mode & S_IXGRP)|(ret.st_mode & S_IROTH)|(ret.st_mode & S_IWOTH)|(ret.st_mode & S_IXOTH);
-    return octalVersDecimal(octal);
+    int res = octalVersDecimal(octal);
+    return res;
 }
 
 void setMode(int mode, char * path){
+    if (mode < 0 || mode > 777){
+        printf("Mode %d non valable\n",mode);
+        exit(EXIT_FAILURE);
+    }
     char buff[100];
     sprintf(buff,"chmod %d %s",mode,path);
     system(buff);
+}
+
+char * hashToPath(char *hash){
+	int l = strlen(hash);
+	char * path = malloc(sizeof(char)*(l+2));
+	path[0] = hash[0];
+	path[1] = hash[1];
+	path[2] = '/';
+	int i = 3;
+	int j = 2;
+	while( hash[j]!='\0'){
+		path[i] = hash[j];
+		i++;
+		j++;
+	}
+	path[i]='\0';
+	return path;
 }
 
 char * hashToFile(char *hash){
@@ -52,7 +75,7 @@ char * hashToFile(char *hash){
     ch2[2]='\0';
     struct stat st={0};
     if(stat(ch2,&st) == -1){
-        mkdir(ch2,0700);
+        mkdir(ch2,700);
     }
     free(ch2);
     return hashToPath(hash);
@@ -87,23 +110,6 @@ int file_exists (char *file){
 	return (stat(file, &buffer) == 0);
 }
 
-char * hashToPath(char *hash){
-	int l = strlen(hash);
-	char * path = malloc(sizeof(char)*(l+2));
-	path[0] = hash[0];
-	path[1] = hash[1];
-	path[2] = '/';
-	int i = 3;
-	int j = 2;
-	while( hash[j]!='\0'){
-		path[i] = hash[j];
-		i++;
-		j++;
-	}
-	path[i]='\0';
-	return path;
-}
-
 void cp(char* to, char* from){
     if (file_exists(from) == 0){
         printf("Le fichier entré en paramètre n'est pas dans ce répertoire !(cp)\n");
@@ -130,9 +136,9 @@ void blobFile(char* file){
 		sprintf(buff,"mkdir %s",ch2);
 		system(buff);
 	}
-	char * ch = hashToPath(hash);
+	char * ch = hashToFile(hash);
 	cp(ch,file);
-	setMode(777,ch);
+	//setMode(777,ch);
 
 	free(ch);
 	free(hash);

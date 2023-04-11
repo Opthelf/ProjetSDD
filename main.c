@@ -30,9 +30,9 @@ int main(int argc, char ** argv){
 	char * htf = hashToFile(hash);
 	printf("hashToFile(\"exo5.c\") = %s\n",htf);*/
 	
-	WorkTree * WT= initWorkTree();
-	appendWorkTree(WT,"Test",NULL,777);
-	appendWorkTree(WT,"test.txt",NULL,777); 
+	//WorkTree * WT= initWorkTree();
+	//appendWorkTree(WT,"Test",NULL,777);
+	//appendWorkTree(WT,"test.txt",NULL,777); 
 	/*char * blob = blobWorkTree(WT);
 	printf("blobWorkTree(\"exo5.c\") = %s\n",blob);*/
 
@@ -44,16 +44,27 @@ int main(int argc, char ** argv){
 	printf("isFile(\"Test\") = %d\n",isFile("Test"));
 	printf("isFile(\"exo10.c\") = %d\n",isFile("exo10.c"));*/
 	
-	char * save= saveWorkTree(WT,".");
+	//char * save= saveWorkTree(WT,".");
 	
 	//free(path);
 	//free(blob);
 	//free(hash);
 	//free(htf);
-	freeWorkTree(WT);
-	free(save);
+	//freeWorkTree(WT);
+	//free(save);
 	//free(h1);
 	//free(h2);
+	/*int gcm = getChmod("exo5.txt");
+	printf("getChmod(\"exo5.txt\") = %d\n",gcm);*/
+
+	int exists = file_exists("test.txt");
+	printf("test.txt -> %d\n",exists);
+	exists = file_exists("nexistepas.txt");
+	printf("nexistepas.txt -> %d\n",exists);
+	exists = file_exists("Test");
+	printf("Test -> %d\n",exists);
+	exists = file_exists("test");
+	printf("test -> %d\n",exists);
 	return 0;
 }
 
