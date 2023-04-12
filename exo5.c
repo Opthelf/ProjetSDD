@@ -95,11 +95,9 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
         }
 
         if (etat_file == 1){ //Teste si le WorkFile est un fichier
-            printf("Le fichier  est un fichier -> saveWorkTree\n");
             blobFile(absPath);
-            printf("Le hash du fichier est : %s\n",wt->tab[i].hash);
-            //wt->tab[i].hash = sha256file(absPath);
-            //wt->tab[i].mode = getChmod(absPath);
+            wt->tab[i].hash = sha256file(absPath);
+            wt->tab[i].mode = getChmod(absPath);
         }
 
         if (etat_file == 0){ //Teste si le WorkFile est un dossier

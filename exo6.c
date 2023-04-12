@@ -19,7 +19,7 @@ kvp * createKeyVal(char *key,char *val){ //Crée une instance de la structure kv
         exit(EXIT_FAILURE);
     }
 
-    kvp * k =malloc(sizeof(kvp));
+    kvp * k = malloc(sizeof(kvp));
     k->key = strdup(key);
     if (val == NULL){
         k->value = malloc(sizeof(char)*7);
@@ -86,9 +86,8 @@ void freeCommit(Commit *c){ //Libère la mémoire d'un commit
         printf("Pas besoin de free le commit, il est NULL -> freeCommit\n");
         return;
     }
-
-    for(int i=0 ; i < c->size ; i++){
-        if(c->T[i]!=NULL){
+    for(int i = 0 ; i < c->size ; i++){
+        if(c->T[i] != NULL){
             freeKeyVal(c->T[i]);
         }
     }
@@ -150,12 +149,12 @@ char * commitGet(Commit *c,char *key){ //Récupère la valeur de clé key dans l
 
     while(c->T[p] != NULL && attempt < c->size){
         if(strcmp(c->T[p]->key,key) == 0){ //Si il s'agit de la bonne clé, on retourne la valeur associé
-            return c->T[p]->value;
+            char * value = strdup(c->T[p]->value);
+            return value;
         }
         p = (p+1)%c->size;
         attempt++;
     }
-    printf("Valeur non trouvée, retourne NULL attention -> commitGet\n");
     return NULL;
 }
 

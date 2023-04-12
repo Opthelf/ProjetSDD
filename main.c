@@ -15,20 +15,11 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	WorkTree * WT1 = initWorkTree();
-	char * h1 = sha256file("ctest.c");
-	char * h2 = sha256file("ctest2.c");
-	appendWorkTree(WT1,"ctest1.c",h1,777);
-	appendWorkTree(WT1,"ctest2.c",h2,777);
-	afficheWT(WT1);
+	List * L = getAllCommits();
+	char * chaine = ltos(L);
+	printf("chaine -> \n%s\n",chaine);
 
-	/*free(h1);
-	free(h2);
-	free(h3);
-	free(h4);
-	free(h5);*/
-	freeWorkTree(WT1);
-	
+	FreeList(L);
 	return 0;
 }
 
