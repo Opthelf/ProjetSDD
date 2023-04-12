@@ -85,7 +85,7 @@ void myGitAdd(char* file_or_folder){
     else{
         printf("Le fichier ou répertoire %s n'existe pas !(myGitAdd)",file_or_folder);
     }
-    //freeWorkTree(wt); Il faudra enlever le commentaire mais freeWorkTree ne marche pas :/
+    freeWorkTree(wt);
 }
 
 void myGitCommit(char* branch_name, char* message){
