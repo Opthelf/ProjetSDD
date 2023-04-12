@@ -56,12 +56,16 @@ char * concat_paths(char * path1,char * path2){ //Concatène les deux path entre
         printf("Erreur d'allocation mémoire\n");
         return NULL;
     } 
-
+    char * cp1=strdup(path1);
+    char * cp2=strdup(path2);
     strcpy(result,"");
-    strcat(result,path1);
+
+    strcat(result,cp1);
     strcat(result,"/");
-    strcat(result,path2);
+    strcat(result,cp2);
     strcat(result,"\0");
+    free(cp1);
+    free(cp2);
     return result;
 }
 
@@ -91,12 +95,15 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
         }
 
         if (etat_file == 1){ //Teste si le WorkFile est un fichier
+            printf("Le fichier  est un fichier -> saveWorkTree\n");
             blobFile(absPath);
-            wt->tab[i].hash = sha256file(absPath);
-            wt->tab[i].mode = getChmod(absPath);
+            printf("Le hash du fichier est : %s\n",wt->tab[i].hash);
+            //wt->tab[i].hash = sha256file(absPath);
+            //wt->tab[i].mode = getChmod(absPath);
         }
 
         if (etat_file == 0){ //Teste si le WorkFile est un dossier
+            printf("Le fichier  est un dossier -> saveWorkTree\n");
             WorkTree *wt2 = initWorkTree();
 
             //On récupère l'ensemble des fichiers et dossiers présents dans le dossier
@@ -120,6 +127,7 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
     //On retourne le hash du WorkTree, tout en créant un instantané de celui-ci
     return blobWorkTree(wt);
 }
+
 
 int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au hash d'un WorkTree
     if (hash == NULL){ //Teste si le paramètre est NULL
