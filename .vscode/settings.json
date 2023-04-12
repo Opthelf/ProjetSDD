@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "exo1.h": "c"
+        "exo1.h": "c",
+        "exo6.h": "c"
     }
 }

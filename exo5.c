@@ -110,6 +110,7 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
                 strcpy(buff,ptr->data);
                 appendWorkTree(wt2,buff,NULL,777);
             }
+            FreeList(L);
             wt->tab[i].hash = saveWorkTree(wt2,absPath);
             wt->tab[i].mode = getChmod(absPath);
             freeWorkTree(wt2);
