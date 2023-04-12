@@ -95,13 +95,24 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
         }
 
         if (etat_file == 1){ //Teste si le WorkFile est un fichier
+           
             blobFile(absPath);
-            wt->tab[i].hash = sha256file(absPath);
-            wt->tab[i].mode = getChmod(absPath);
+           
+            if(wt->tab[i].hash == NULL){
+                 wt->tab[i].hash = sha256file(absPath);
+                 wt->tab[i].mode = getChmod(absPath);
+                 
+
+            }
+            else{
+                free(wt->tab[i].hash);
+                wt->tab[i].hash = sha256file(absPath);
+                wt->tab[i].mode = getChmod(absPath);
+            }
         }
 
         if (etat_file == 0){ //Teste si le WorkFile est un dossier
-            printf("Le fichier  est un dossier -> saveWorkTree\n");
+         
             WorkTree *wt2 = initWorkTree();
 
             //On récupère l'ensemble des fichiers et dossiers présents dans le dossier
@@ -115,9 +126,16 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
                 strcpy(buff,ptr->data);
                 appendWorkTree(wt2,buff,NULL,777);
             }
+            if(wt->tab[i].hash == NULL){
+                wt->tab[i].hash = saveWorkTree(wt2,absPath);
+                wt->tab[i].mode = getChmod(absPath);
+            }
+            else{
+                free(wt->tab[i].hash);
+                wt->tab[i].hash = saveWorkTree(wt2,absPath);
+                wt->tab[i].mode = getChmod(absPath);
+            }
             FreeList(L);
-            wt->tab[i].hash = saveWorkTree(wt2,absPath);
-            wt->tab[i].mode = getChmod(absPath);
             freeWorkTree(wt2);
         }
         free(absPath);
@@ -133,9 +151,7 @@ int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au has
         exit(EXIT_FAILURE);
     }
 
-    char * path = malloc(sizeof(char)*300);
-    strcpy(path,"");
-    path = hashToPath(hash);
+    char * path = hashToPath(hash);
 
     if (file_exists(path)){
         free(path);
@@ -148,7 +164,7 @@ int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au has
         free(path);
         return 1;
     }
-
+    free(path);
     return -1; 
 }
 
@@ -188,9 +204,11 @@ void restoreWorkTree(WorkTree * wt, char * path){ //Restore les fichiers tels qu
             setMode(wt->tab[i].mode,absPath);
         }
         if (statut_WT == 1){ //Si il s'agit d'un WorkTree
-
+            
             //On récupère le WorkTree associé et on le restore, puis on met le mode du fichier
+            copyPath = realloc(copyPath,strlen(copyPath)+3);
             strcat(copyPath,".t");
+            strcat(copyPath,"\0");
             WorkTree * newwt = ftwt(copyPath);
             restoreWorkTree(newwt,absPath);
             setMode(getChmod(copyPath),absPath);
