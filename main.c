@@ -32,10 +32,9 @@ int main(int argc, char ** argv){
 	appendWorkTree(WT1,"ctest1.c",h1,777);
 	afficheWT(WT1);
 	char * h = saveWorkTree(WT1,".");
-	/*
+	printf(" isWorkTree -> %d\n",isWorkTree("ffeur"));	
 	
-	free(h4);
-	free(h5);*/
+
 	freeWorkTree(WT1);
 	//free(h3);
 	free(h1);

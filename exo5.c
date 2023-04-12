@@ -151,9 +151,7 @@ int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au has
         exit(EXIT_FAILURE);
     }
 
-    char * path = malloc(sizeof(char)*300);
-    strcpy(path,"");
-    path = hashToPath(hash);
+    char * path = hashToPath(hash);
 
     if (file_exists(path)){
         free(path);
@@ -166,7 +164,7 @@ int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au has
         free(path);
         return 1;
     }
-
+    free(path);
     return -1; 
 }
 
@@ -206,9 +204,11 @@ void restoreWorkTree(WorkTree * wt, char * path){ //Restore les fichiers tels qu
             setMode(wt->tab[i].mode,absPath);
         }
         if (statut_WT == 1){ //Si il s'agit d'un WorkTree
-
+            
             //On récupère le WorkTree associé et on le restore, puis on met le mode du fichier
+            copyPath = realloc(copyPath,strlen(copyPath)+3);
             strcat(copyPath,".t");
+            strcat(copyPath,"\0");
             WorkTree * newwt = ftwt(copyPath);
             restoreWorkTree(newwt,absPath);
             setMode(getChmod(copyPath),absPath);
