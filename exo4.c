@@ -76,9 +76,9 @@ WorkFile* stwf(char* ch){ //Transforme une chaine de caractère en un WokrTree
 }
 
 WorkTree * initWorkTree(){ //Initialise un WorkTree
-    WorkTree * WT = (WorkTree *)malloc(sizeof(WorkTree));
+    WorkTree * WT = (WorkTree *) malloc(sizeof(WorkTree));
     WT->size = TAILLE;
-    WT->tab = (WorkFile *)malloc(TAILLE*sizeof(WorkFile));
+    WT->tab = (WorkFile*) malloc(TAILLE * sizeof(WorkFile));
     WT->n = 0;
     return WT;
 }
@@ -113,21 +113,32 @@ int inWorkTree(WorkTree* wt, char* name){ //Vérifie si le fichier name est déj
     return -1;
 }
 
-int appendWorkTree(WorkTree* wt,char * n,char * h, int m){ //Rajoute un WorkFile au WorkTree en paramètre
-    int etat_WT = inWorkTree(wt,n); //Cas où wt est NULL traité dans inWorkTree
+int appendWorkTree(WorkTree* wt, char * n, char * h, int m){ //Rajoute un WorkFile au WorkTree en paramètre
+    
+    int etat_WT = inWorkTree(wt,n); 
+
+    //Cas où wt est NULL traité dans inWorkTree
     if ( etat_WT != -1){
         //printf("Le fichier %s est déjà dans le WorkTree !\n",n);
         return 0;
     }
-    if (wt->size > wt->n){
+
+    
+    if (wt->n < wt->size){
+
         wt->tab[wt->n].mode = m;
+        
         wt->tab[wt->n].name = strdup(n);
+
+        // test NULL hash
         if(h != NULL ){
-            wt->tab[wt->n++].hash = strdup(h);
+            wt->tab[wt->n].hash = strdup(h);
         }
         else{
-            wt->tab[wt->n++].hash = NULL;
+            wt->tab[wt->n].hash = NULL;
         }
+        wt->n += 1;
+        
         //free(n); // !!!Attention ça peut libérer des chaines en dehors de la fonction!!!
         //free(h); // !!!Attention ça peut libérer des chaines en dehors de la fonction!!!
         return 1;
@@ -135,7 +146,13 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){ //Rajoute un WorkFile
     printf("Le WorkTree est à sa taille maximale, le fichier %s n'a donc pas pu être ajouté\n",n);
     return 0;
 }
-
+void afficheWT(WorkTree* wt){
+    int i = 0;
+    while(i < wt->n){
+        printf("%s\t%s\t%d\n",wt->tab[i].name,wt->tab[i].hash,wt->tab[i].mode);
+        i++;
+    }
+}
 
 char* wtts(WorkTree* wt){ //Transforme un WorkTree en une chaine de caractère
     if (wt == NULL){ //Teste si le WorkTree est NULL
@@ -191,7 +208,9 @@ WorkTree* stwt(char* ch){ //Transforme une chaine de caractère en un WorkTree
 }
 
 int wttf(WorkTree* wt, char* file){ //Transforme un WorkTree en une chaine de carctère puis la met dans un fichier
+    
     int etat_file = isFile(file);
+    
     if (etat_file == 0){
         printf("Le fichier %s est un répertoire -> wttf\n",file);
         exit(EXIT_FAILURE);

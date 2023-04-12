@@ -65,7 +65,7 @@ int isFile(const char *path){
     struct stat path_stat;
     if (file_exists((char*)path) == 1){
         stat(path,&path_stat); 
-        return S_ISREG(path_stat.st_mode);   //1 si file 0 si pas file ou n'existe pas
+        return S_ISREG(path_stat.st_mode);   //1 si file 0 si pas file -1 si n'existe pas 
     }
     return -1;
 }
