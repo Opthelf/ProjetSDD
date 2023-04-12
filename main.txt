@@ -190,59 +190,39 @@ Bloc 2 :
 	free(h1);
 	free(h2);
 
-
 	!!!Test pour restoreWorkTree!!! -> DEMANDE MOI AVANT C'EST PAS JUSTE ÇA :
-
-	//int mode1 = getChmod("aa/d89ce5e2ab1e0d1ea0466fe19fcbfaafa0185442490a6bc254a172c43ba029.t");
-	//int mode2 = getChmod("Test/fichier1.txt");
-	//printf("mode1 : %d\n",mode1);
-	//printf("mode2 : %d\n",mode2);
-
 	
+	Pour tester restoreWorkTree ->
+		- Créer un WorkTree avec les dossiers/fichiers que l'on veut sauvegarder
+		- Sauvegarder le WorkTree et SE SOUVENIR DE SON HASH POUR LE RÉCUPÉRER PLUS TARD
+		- Modifier les fichiers enregistrés, puis sauvegarder de nouveau le WorkTree
+		- Récupérer le WorkTree correspondant à la première sauvegarde grâce à son hash et à la fonction ftwt
+		- Restorer le WorkTree
+		- On oublie pas de tester les modes des fichiers avant et après chaque appel de saveWorkTree et restoreWorkTree
+
+	int mode = getChmod("Test/Dossier");
+	printf("Mode de Dossier -> %d\n",mode);
+	mode = getChmod("Test/Dossier/Dfichier1.txt");
+	printf("Mode de Test/Dossier/Dfichier1.txt -> %d\n",mode);
+
 	WorkTree * WT = initWorkTree();
-	
 	/*appendWorkTree(WT,"Test",NULL,getChmod("Test"));
 	appendWorkTree(WT,"test.txt",NULL,getChmod("test.txt"));
-	char * hash = saveWorkTree(WT,".");*/
-
-	WT = ftwt("aa/d89ce5e2ab1e0d1ea0466fe19fcbfaafa0185442490a6bc254a172c43ba029.t");
+	
+	char * hashWT = saveWorkTree(WT,".");
+	printf("hashWT -> %s\n",hashWT);*/
+	WT = ftwt("ff/76bbfb3ef2e706a3d5b086426023b653a85887ef4cb359337f3b0b574fa386.t");
 	restoreWorkTree(WT,".");
 
-	//free(hash);
 
-	setMode(777,"Test");
-	setMode(777,"Test/Dossier");
-	setMode(777,"Test/fichier1.txt");
-	setMode(777,"Test/fichier2.txt");
-	setMode(777,"Test/Dossier/Dfichier1.txt");
-	setMode(777,"Test/Dossier/Dfichier2.txt");
+	mode = getChmod("Test/Dossier");
+	printf("Mode de Dossier -> %d\n",mode);
+	mode = getChmod("Test/Dossier/Dfichier1.txt");
+	printf("Mode de Test/Dossier/Dfichier1.txt -> %d\n",mode);
 
 
-	!!!Test pour restoreWorkTree!!! -> DEMANDE MOI AVANT C'EST PAS JUSTE ÇA :
-
-	//int mode1 = getChmod("aa/d89ce5e2ab1e0d1ea0466fe19fcbfaafa0185442490a6bc254a172c43ba029.t");
-	//int mode2 = getChmod("Test/fichier1.txt");
-	//printf("mode1 : %d\n",mode1);
-	//printf("mode2 : %d\n",mode2);
-
-	
-	WorkTree * WT = initWorkTree();
-	
-	/*appendWorkTree(WT,"Test",NULL,getChmod("Test"));
-	appendWorkTree(WT,"test.txt",NULL,getChmod("test.txt"));
-	char * hash = saveWorkTree(WT,".");*/
-
-	WT = ftwt("aa/d89ce5e2ab1e0d1ea0466fe19fcbfaafa0185442490a6bc254a172c43ba029.t");
-	restoreWorkTree(WT,".");
-
-	//free(hash);
-
-	setMode(777,"Test");
-	setMode(777,"Test/Dossier");
-	setMode(777,"Test/fichier1.txt");
-	setMode(777,"Test/fichier2.txt");
-	setMode(777,"Test/Dossier/Dfichier1.txt");
-	setMode(777,"Test/Dossier/Dfichier2.txt");
+	freeWorkTree(WT);
+	//free(hashWT);
 
 
 //Bloc 6 (ex6)
