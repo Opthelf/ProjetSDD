@@ -95,15 +95,24 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
         }
 
         if (etat_file == 1){ //Teste si le WorkFile est un fichier
-            printf("Le fichier  est un fichier -> saveWorkTree\n");
+           
             blobFile(absPath);
-            printf("Le hash du fichier est : %s\n",wt->tab[i].hash);
-            //wt->tab[i].hash = sha256file(absPath);
-            //wt->tab[i].mode = getChmod(absPath);
+           
+            if(wt->tab[i].hash == NULL){
+                 wt->tab[i].hash = sha256file(absPath);
+                 wt->tab[i].mode = getChmod(absPath);
+                 
+
+            }
+            else{
+                free(wt->tab[i].hash);
+                wt->tab[i].hash = sha256file(absPath);
+                wt->tab[i].mode = getChmod(absPath);
+            }
         }
 
         if (etat_file == 0){ //Teste si le WorkFile est un dossier
-            printf("Le fichier  est un dossier -> saveWorkTree\n");
+         
             WorkTree *wt2 = initWorkTree();
 
             //On récupère l'ensemble des fichiers et dossiers présents dans le dossier
@@ -117,9 +126,16 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
                 strcpy(buff,ptr->data);
                 appendWorkTree(wt2,buff,NULL,777);
             }
+            if(wt->tab[i].hash == NULL){
+                wt->tab[i].hash = saveWorkTree(wt2,absPath);
+                wt->tab[i].mode = getChmod(absPath);
+            }
+            else{
+                free(wt->tab[i].hash);
+                wt->tab[i].hash = saveWorkTree(wt2,absPath);
+                wt->tab[i].mode = getChmod(absPath);
+            }
             FreeList(L);
-            wt->tab[i].hash = saveWorkTree(wt2,absPath);
-            wt->tab[i].mode = getChmod(absPath);
             freeWorkTree(wt2);
         }
     free(absPath);

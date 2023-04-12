@@ -15,19 +15,32 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	WorkTree * WT1 = initWorkTree();
-	char * h1 = sha256file("ctest.c");
-	char * h2 = sha256file("ctest2.c");
-	appendWorkTree(WT1,"ctest1.c",h1,777);
-	appendWorkTree(WT1,"ctest2.c",h2,777);
-	afficheWT(WT1);
+	int mode = getChmod("Test/Dossier");
+	printf("Mode de Dossier -> %d\n",mode);
+	mode = getChmod("Test/Dossier/Dfichier1.txt");
+	printf("Mode de Test/Dossier/Dfichier1.txt -> %d\n",mode);
 
-	/*free(h1);
-	free(h2);
-	free(h3);
+	
+	
+	WorkTree * WT1 = initWorkTree();
+	char * h1 = sha256file("ctest1.c");
+	char * h2 = sha256file("ctest2.c");
+	//char * h3 = sha256file("teste");
+	//appendWorkTree(WT1,"ctest1.c",h1,777);
+	appendWorkTree(WT1,"ctest2.c",h2,777);
+	appendWorkTree(WT1,"Test",NULL,getChmod("Test"));
+	appendWorkTree(WT1,"ctest1.c",h1,777);
+	afficheWT(WT1);
+	char * h = saveWorkTree(WT1,".");
+	/*
+	
 	free(h4);
 	free(h5);*/
 	freeWorkTree(WT1);
+	//free(h3);
+	free(h1);
+	free(h2);
+	free(h);
 	
 	return 0;
 }
