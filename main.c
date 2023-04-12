@@ -15,20 +15,6 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	WorkFile * WF1 = createWorkFile("Test");
-	WorkFile * WF2 = createWorkFile("test.txt");
-	WorkTree * WT = initWorkTree();
-	appendWorkTree(WT,WF1->name,WF1->hash,WF1->mode);
-	appendWorkTree(WT,WF2->name,WF2->hash,WF2->mode);
-	char * chaine = wtts(WT);
-	printf("chaine -> \n%s\n",chaine);
-	char * hash = saveWorkTree(WT,".");
-
-	freeWorkFile(WF1);
-	freeWorkFile(WF2);
-	freeWorkTree(WT);
-	free(chaine);
-	free(hash);
 	return 0;
 }
 

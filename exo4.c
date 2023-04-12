@@ -67,7 +67,7 @@ WorkFile* stwf(char* ch){ //Transforme une chaine de caractère en un WokrTree
     }
 
     WorkFile * WF = createWorkFile(name);
-    WF->hash =strdup(hash);
+    WF->hash = strdup(hash);
     WF->mode = mode;
 
     free(hash);
@@ -128,8 +128,6 @@ int appendWorkTree(WorkTree* wt,char * n,char * h, int m){ //Rajoute un WorkFile
         else{
             wt->tab[wt->n++].hash = NULL;
         }
-        //free(n); // !!!Attention ça peut libérer des chaines en dehors de la fonction!!!
-        //free(h); // !!!Attention ça peut libérer des chaines en dehors de la fonction!!!
         return 1;
     }
     printf("Le WorkTree est à sa taille maximale, le fichier %s n'a donc pas pu être ajouté\n",n);

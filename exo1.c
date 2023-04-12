@@ -32,7 +32,7 @@ char * sha256file(char * file){ //Renvoie le hash du fichier
 	else{
 		fclose(ftest);
 	}
-	
+
 	
 	//Fichier temporaire
 	char static fname[1000];

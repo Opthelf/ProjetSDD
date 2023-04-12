@@ -115,7 +115,7 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
             wt->tab[i].mode = getChmod(absPath);
             freeWorkTree(wt2);
         }
-    free(absPath);
+        free(absPath);
     }
     //On retourne le hash du WorkTree, tout en créant un instantané de celui-ci
     return blobWorkTree(wt);
