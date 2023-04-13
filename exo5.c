@@ -14,7 +14,7 @@
 char * blobWorkTree(WorkTree *wt){ //Crée un instantanée d'un WorkTree
     if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL -> blobWorkTree\n");
-        exit(EXIT_FAILURE);
+       exit(EXIT_FAILURE);
     }
 
     //On crée le fichier temporaire
@@ -46,7 +46,7 @@ char * blobWorkTree(WorkTree *wt){ //Crée un instantanée d'un WorkTree
 char * concat_paths(char * path1,char * path2){ //Concatène les deux path entre eux, en mettant entre le premier et le deuxième un '\'
     if(path1 == NULL || path2 == NULL){
         printf("L'un des deux path, voir les deux sont NULL -> concat_paths\n");
-        exit(EXIT_FAILURE);
+       exit(EXIT_FAILURE);
     }
 
     int len = strlen(path1)+ strlen(path2)+2;
@@ -54,7 +54,7 @@ char * concat_paths(char * path1,char * path2){ //Concatène les deux path entre
     char * result = malloc(len*sizeof(char));
     if (result == NULL){
         printf("Erreur d'allocation mémoire\n");
-        return NULL;
+       exit(EXIT_FAILURE);
     } 
     char * cp1=strdup(path1);
     char * cp2=strdup(path2);
@@ -72,12 +72,12 @@ char * concat_paths(char * path1,char * path2){ //Concatène les deux path entre
 char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fichiers présents dans le WorkTree, dont la racine est à path
     if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL -> saveWorkTree\n");
-        exit(EXIT_FAILURE);
+       exit(EXIT_FAILURE);
     }
 
     if (path == NULL){ //Teste si le path est NULL
         printf("Le path est NULL -> saveWorkTree\n");
-        exit(EXIT_FAILURE);
+       exit(EXIT_FAILURE);
     }
 
     char * absPath;
@@ -91,6 +91,7 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
 
         if (etat_file == -1){ //Teste si le fichier n'existe pas
             printf("Le fichier %s n'existe pas à l'endroit indiqué (peut-être une erreur du paramètre path ?) -> saveWorkTree\n",absPath);
+            free(absPath);
             exit(EXIT_FAILURE);
         }
 
@@ -148,7 +149,7 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
 int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au hash d'un WorkTree
     if (hash == NULL){ //Teste si le paramètre est NULL
         printf("Le hash en paramètre est NULL -> isWorkTree\n");
-        exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE) ;
     }
 
     char * path = hashToPath(hash);
@@ -171,12 +172,12 @@ int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au has
 void restoreWorkTree(WorkTree * wt, char * path){ //Restore les fichiers tels qu'ils étaient dans wt
     if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL -> restoreWorkTree\n");
-        exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE) ;
     }
 
     if (path == NULL){ //Teste si le path est NULL
         printf("Le path est NULL -> restoreWorkTree\n");
-        exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE) ;
     }
 
     for(int i = 0 ; i < wt->n ; i ++){ //On parcourt les WorkFile de wt
@@ -194,7 +195,7 @@ void restoreWorkTree(WorkTree * wt, char * path){ //Restore les fichiers tels qu
 
         if (statut_WT == -1){
             printf("Le hash %s sous forme de path est introuvable\n",hash);
-            exit(EXIT_FAILURE);
+            exit(EXIT_FAILURE) ;
         }
 
         if (statut_WT == 0){ //Si il s'agit d'un WorkFile
