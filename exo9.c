@@ -168,6 +168,7 @@ void myGitCheckoutCommit(char* pattern){
     
     //Si la taille de la liste est supérieure à 1
     if (longueur > 1){
+        //Afficher toute la liste ici
         FreeList(AllCommits);
         FreeList(Commit_Pattern);
         printf("Votre pattern n'est pas assez précis, plusieurs possibilités : veuillez réessayer -> myGitCheckout\n");

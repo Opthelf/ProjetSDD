@@ -1,6 +1,6 @@
-all : exo9.o exo8.o exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o main.o myGit.o
-	gcc -g exo9.o exo8.o exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o main.o -o main 
-	gcc -g exo9.o exo8.o exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o myGit.o -o myGit
+all : exo10.o exo9.o exo8.o exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o main.o myGit.o
+	gcc -g exo10.o exo9.o exo8.o exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o main.o -o main 
+	gcc -g exo10.o exo9.o exo8.o exo7.o exo6.o exo5.o exo4.o exo3.o exo2.o exo1.o myGit.o -o myGit
 
 myGit.o : myGit.c exo9.h exo8.h exo7.h exo6.h exo5.h exo4.h exo3.h exo2.h exo1.h
 	gcc -g -c  myGit.c -o myGit.o
@@ -34,6 +34,9 @@ exo8.o : exo8.c exo1.h exo2.h exo3.h exo4.h exo5.h exo6.h exo7.h exo8.h
 
 exo9.o : exo9.c exo1.h exo2.h exo3.h exo4.h exo5.h exo6.h exo7.h exo8.h exo9.h
 	gcc -g -c exo9.c -o exo9.o
+
+exo10.o : exo10.c exo1.h exo2.h exo3.h exo4.h exo5.h exo6.h exo7.h exo8.h exo9.h exo10.h
+	gcc -g -c exo10.c -o exo10.o
 
 clean :
 	rm -f *.o all ; rm main ; rm myGit
