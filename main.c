@@ -16,13 +16,15 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	//myGitCheckoutCommit("04");
+
+
+
 	return 0;
 }
 
 
 /*
-Update Simon : ex7 et son main terminé plus de leak mais tu peux tjrs faire plus de tests ;
+Update Simon : tous les exos jusqu'à 7 inclus sont 0 leaks à priori 
 
 */
 
