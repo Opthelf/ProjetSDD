@@ -328,6 +328,8 @@ exo7 :
 	freeCommit(c1);
 	free(workTreeHash);
 	free(gr);
+
+	
 exo8 :
 
 	Tests :
