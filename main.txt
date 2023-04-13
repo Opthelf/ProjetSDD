@@ -347,3 +347,19 @@ exo8 :
 	printf("chaine -> \n%s\n",chaine);
 
 	FreeList(L);
+
+Exo 9 :
+
+	filterList -> 
+		char * chaine = "Nan|je|heureux|je|mes|NAn";
+		List * L = stol(chaine);
+		List * newL = filterList(L,"je");
+
+		char * res = ltos(newL);
+		printf("res -> %s\n",res);
+
+		FreeList(L);
+		FreeList(newL);
+		free(res);
+
+	

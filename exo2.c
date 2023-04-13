@@ -27,6 +27,23 @@ void FreeList(List * L){ //Libère l'espace mémoire de la liste passé en param
 
 }
 
+//Renvoie la taille de la liste
+int tailleList(List * L){
+	if (*L == NULL){
+		return 0;
+	}
+
+	Cell * temp = *L;
+	int i = 0;
+
+	while(temp != NULL){
+		i++;
+		temp = temp->next;
+	}
+
+	return i;
+}
+
 Cell * buildCell(char * ch){ //Initialise une cellule et lui attribue la chaine passée en paramètre
 	Cell * cell = (Cell*)malloc(sizeof(Cell));
 	cell->data = strdup(ch);

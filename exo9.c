@@ -91,9 +91,6 @@ void myGitCheckoutBranch(char * branch){
 
 //Retourne une sous-liste de L avec que des Cell dont les data commencent par le même pattern que pattern
 List * filterList(List * L, char * pattern){
-    //ATTENTION MESSAGE POUR SIMON (moi je sais déjà)
-    //-> Dans le main, il faudra libérer uniquement la liste en paramètre, pas celle retournée
-
 
     //Si L est NULL
     if (*L == NULL){
@@ -131,16 +128,56 @@ List * filterList(List * L, char * pattern){
         //On récupère les longueurs premiers caractères de data
         strncpy(debut_data,parcours->data,longueur);
         strcat(debut_data,"\0");
-        printf("debut_data -> %s\n",debut_data);
+
         //Si ces caractères sont les mêmes que pattern
         if (strcmp(debut_data,pattern) == 0){
-            printf("oui\n");
-            printf("cell -> %s\n",ctos(parcours));
-            insertFirst(newL,parcours);
+            insertFirst(newL,buildCell(parcours->data));
+            printf("Parcoursdata -> %s\n",parcours->data);
         }
-
 
         parcours = parcours->next;
     }
     return newL;
+}
+
+//Restaure les fichiers sauvegardés dans le commit dont le hash commence par pattern
+void myGitCheckoutCommit(char* pattern){
+    if (pattern == NULL){
+        printf("Le pattern a été oublié, par quoi commence votre hash du commit ? -> myGitChechkout\n");
+        exit(EXIT_FAILURE);
+    }
+
+    List * AllCommits = getAllCommits();
+
+    //Si aucun commit n'est récupéré
+    if (AllCommits == NULL){
+        printf("Aucun commit récupéré -> myGitChechkout\n");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("List ->\n%s\n",ltos(AllCommits));
+    List * Commit_Pattern = filterList(AllCommits,pattern);
+    int longueur = tailleList(Commit_Pattern);
+
+    //Si la liste récupéré est NULL
+    if (longueur < 1){
+        FreeList(AllCommits);
+        printf("Votre recherche de commit n'a pas abouti, Commit_Pattern est NULL -> myGitCheckout\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    //Si la taille de la liste est supérieure à 1
+    if (longueur > 1){
+        FreeList(AllCommits);
+        FreeList(Commit_Pattern);
+        printf("Votre pattern n'est pas assez précis, plusieurs possibilités : veuillez réessayer -> myGitCheckout\n");
+        exit(EXIT_FAILURE);
+    }
+
+    char * hash_commit = Commit_Pattern[0]->data;
+    createUpdateRef("HEAD",hash_commit);
+    restoreCommit(hash_commit);
+
+    FreeList(AllCommits);
+    FreeList(Commit_Pattern);
 }
