@@ -12,14 +12,18 @@
 #include "exo6.h"
 #include "exo7.h"
 #include "exo8.h"
+#include "exo9.h"
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	List * L = getAllCommits();
-	char * chaine = ltos(L);
-	printf("chaine -> \n%s\n",chaine);
+	/*char * chaine = "Nan|Je|heureux|dans|mes|NAn";
+	List * L = stol(chaine);
+	List * newL = filterList(L,"j");
+	char * res = ltos(newL);
+	printf("res -> %s\n",res);
 
 	FreeList(L);
+	free(res);*/
 	return 0;
 }
 
