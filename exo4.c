@@ -113,6 +113,19 @@ int inWorkTree(WorkTree* wt, char* name){ //Vérifie si le fichier name est déj
     return -1;
 }
 
+//Transforme un hash en path
+char * hashToPathWorkTree(char * hash){
+
+    //On transforme le hash en path
+    char * buff = hashToPath(hash);
+    buff = realloc(buff, sizeof(char) * (strlen(buff)+3) );
+
+    //On ajoute le .t des instantanés de WorkTree
+    strcat(buff,".t");
+    strcat(buff,"\0");
+    return buff;
+}
+
 int appendWorkTree(WorkTree* wt, char * n, char * h, int m){ //Rajoute un WorkFile au WorkTree en paramètre
     
     int etat_WT = inWorkTree(wt,n); 
@@ -146,6 +159,7 @@ int appendWorkTree(WorkTree* wt, char * n, char * h, int m){ //Rajoute un WorkFi
     printf("Le WorkTree est à sa taille maximale, le fichier %s n'a donc pas pu être ajouté\n",n);
     return 0;
 }
+
 void afficheWT(WorkTree* wt){
     int i = 0;
     while(i < wt->n){
@@ -175,8 +189,6 @@ char* wtts(WorkTree* wt){ //Transforme un WorkTree en une chaine de caractère
     strcat(res,"\0");
     return res;
 }
-
-
 
 WorkTree* stwt(char* ch){ //Transforme une chaine de caractère en un WorkTree
     if (ch == NULL){ //Teste si la chaine est NULL

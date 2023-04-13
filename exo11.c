@@ -74,3 +74,125 @@ WorkTree * mergeWorkTrees(WorkTree * wt1, WorkTree * wt2, List ** conflicts){
 
     return newWT;
 }
+
+
+//Retourne le WorkTree associé au dernier commit d'une branche
+WorkTree * branchToWorkTree(char * branch_name){
+
+    //Si la chaine de caractère est NULL
+    if (branch_name == NULL){
+        printf("Le nom de la branche à merge est NULL -> merge\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //Si la branche n'existe pas
+    if (branchExists(branch_name) == 0){
+        printf("La branche %s n'existe pas -> merge\n",branch_name);
+        exit(EXIT_FAILURE);
+    }
+
+    //On récupère le hash du dernier commit de la branche
+    char * hash = getRef(branch_name);
+
+    //On récupère le path vers le commit, puis le commit lui-même
+    char * path = hashToPathCommit(hash);
+    Commit * C = ftc(path);
+
+    //On récupère le hash du WorkTree dans le commit
+    char * hashWT = commitGet(C,"tree");
+
+    //On récupère le path vers ce WorkTree, puis le WorkTree lui-même
+    char * pathWT = hashToPathWorkTree(hashWT);
+    WorkTree * WT = ftwt(pathWT);
+
+    //On libère la mémoire alloué
+    free(hash);
+    free(path);
+    freeCommit(C);
+    free(hashWT);
+    free(pathWT);
+
+    return WT;
+}
+
+//La fonction merge la branche courante avec la branche en paramètre si il n'y a aucun conflict
+List* merge(char* remote_branch, char* message){
+
+    //Si la chaine de caractère est NULL
+    if (remote_branch == NULL){
+        printf("Le nom de la branche à merge est NULL -> merge\n");
+        exit(EXIT_FAILURE);
+    }
+
+    //Si la branche n'existe pas
+    if (branchExists(remote_branch) == 0){
+        printf("La branche %s n'existe pas -> merge\n",remote_branch);
+        exit(EXIT_FAILURE);
+    }
+
+    //On récupère la branche courante
+    char * current = getCurrentBranch();
+
+    //On récupère les WorkTree associés au dernier commit de la branche courante et remote
+    WorkTree * WT_current = branchToWorkTree(current);
+    WorkTree * WT_remote = branchToWorkTree(remote_branch);
+    
+    List * conflicts = initList();
+
+    WorkTree * merged_WT = mergeWorkTrees(WT_current,WT_remote,&conflicts);
+
+    freeWorkTree(WT_current);
+    freeWorkTree(WT_remote);
+
+    //Si il y a eu des conflits
+    if (conflicts != NULL){
+        
+        //On free la mémoire
+        free(current);
+
+        //Si le merged_WT n'est pas NULL on le free également
+        if (merged_WT != NULL){
+            freeWorkTree(merged_WT);
+        }
+
+        return conflicts;
+    }
+
+    char * hash_WT = blobWorkTree(merged_WT);
+
+    Commit * newCommit = createCommit(hash_WT);
+
+    char * hash_commit_current = getRef(current);
+    commitSet(newCommit,"predecessor_current",hash_commit_current);
+
+    char * hash_commit_old = getRef(remote_branch);
+    commitSet(newCommit,"predecessor_old",hash_commit_old);
+
+    free(hash_commit_current);
+    free(hash_commit_old);
+
+    if (message == NULL){
+        printf("Le message est NULL -> merge");
+    }
+
+    else{
+        commitSet(newCommit,"message",message);
+    }
+
+    char * hash_commit = blobCommit(newCommit);
+
+    freeCommit(newCommit);
+
+    createUpdateRef("HEAD",hash_commit);
+    createUpdateRef(current,hash_commit);
+
+    free(hash_commit);
+
+    deleteRef(remote_branch);
+
+    restoreWorkTree(merged_WT,".");
+
+    freeWorkTree(merged_WT);
+
+    return NULL;
+}

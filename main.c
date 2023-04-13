@@ -18,6 +18,13 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
+
+	WorkTree * WT = branchToWorkTree("master");
+	char * chaine_wt = wtts(WT);
+	printf("chaine ->\n%s\n",chaine_wt);
+
+	freeWorkTree(WT);
+	free(chaine_wt);
 	return 0;
 }
 
@@ -29,11 +36,9 @@ Update Simon : tous les exos jusqu'à 7 inclus sont 0 leaks à priori
 
 
 /*
-Update Nino -> restoreWorkTree fonctionne !!! demande pour tester c'est quand même particulier
--> exo8 commencé, pour l'instant OK, mais petit doute sur le fonctionnement de myGitCommit, à rechecker 
-
-Exo 1 à 4 revu, solidifié le code avec des tests, commentaires brefs pour expliquer ce que fait la fonction et testé jusqu'au milieu de l'exo 4 à peu près
-*/
-
-/* Leak -> appendWorkTree, saveWorkTree, restoreWorkTree, blobCommit
+Update Nino :
+-> exo 7, myGitCommit changé pour tester lorsque c'est le premier commit et donc qu'il n'y a rien dans HEAD et la branche à commit, semble fonctionner maintenant (sans leak)
+-> exo 11, fonction mergeWorkTrees testé un petit peu, semble fonctionner
+-> exo 11, fonction merge écrite avec attention, ajout de fonctions intermédiaires, mais non-testé
+-> exo 11, fonction branchToWorkTree testé et fonctionnelle sur un test dans main.txt (dépend de ce que tu as dans ta branche) 
 */
