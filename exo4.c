@@ -67,7 +67,7 @@ WorkFile* stwf(char* ch){ //Transforme une chaine de caractère en un WokrTree
     }
 
     WorkFile * WF = createWorkFile(name);
-    WF->hash =strdup(hash);
+    WF->hash = strdup(hash);
     WF->mode = mode;
 
     free(hash);

@@ -12,20 +12,25 @@
 #include "exo6.h"
 #include "exo7.h"
 #include "exo8.h"
-
-
-
+#include "exo9.h"
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
+	/*char * chaine = "Nan|Je|heureux|dans|mes|NAn";
+	List * L = stol(chaine);
+	List * newL = filterList(L,"j");
+	char * res = ltos(newL);
+	printf("res -> %s\n",res);
 
+	FreeList(L);
+	free(res);*/
 	return 0;
 }
 
 
 /*
 Update Simon : ex7 et son main terminé plus de leak mais tu peux tjrs faire plus de tests ;
-exo8 terminé mais rien n'est testé ,en tout cas pour les fonctions que j'ai faites (à partir de printBranch)
+
 */
 
 

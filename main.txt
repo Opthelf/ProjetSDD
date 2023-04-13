@@ -347,3 +347,9 @@ exo8 :
 	char * current_branch = getCurrentBranch();
 	printf("current_branch -> %s\n",current_branch);
 	free(current_branch);
+
+	List * L = getAllCommits();
+	char * chaine = ltos(L);
+	printf("chaine -> \n%s\n",chaine);
+
+	FreeList(L);
