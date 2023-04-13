@@ -232,16 +232,17 @@ WorkTree* ftwt(char* file){ //Récupère un WorkTree d'un fichier
     int etat_file = isFile(file);
     if (etat_file == -1){
         printf("Le fichier %s n'existe pas -> ftwt\n",file);
-        exit(EXIT_FAILURE);
+        return NULL;
     }
     if (etat_file == 0){
         printf("Le fichier %s est un répertoire -> ftwt\n",file);
-        exit(EXIT_FAILURE);
+        return NULL;
     }
     
     FILE * f = fopen(file,"r");
     if (f == NULL){
         printf("Problème d'ouverture du fichier %s -> (ftwt)\n",file);
+        exit(EXIT_FAILURE);
     }
 
     char * buff = malloc(sizeof(char)*1000);

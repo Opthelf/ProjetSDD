@@ -16,6 +16,7 @@
 int main(int argc,char * argv[]){
     if (argc < 2){
         printf("Pas assez d'argument !\n");
+        return 0;
     }
     if (strcmp(argv[1],"init") == 0){
         initRefs();
@@ -35,7 +36,6 @@ int main(int argc,char * argv[]){
                 }
                 temp = temp->next;
             }
-            //freeCell(temp); cause une segmentation fault, je ne sais pas si il y a une leak
             FreeList(L);
         }
         return 0;
@@ -57,6 +57,10 @@ int main(int argc,char * argv[]){
         return 0;
     }
     if (strcmp(argv[1],"add") == 0){
+        if (argc < 3){
+            printf("Pas assez d'argument pour add !\n");
+            return 0;
+        }
         int i = 2;
         while(i < argc){
             myGitAdd(argv[i]);
@@ -65,17 +69,27 @@ int main(int argc,char * argv[]){
         return 0;
     }
     if (strcmp(argv[1],"list-add") == 0){
+        if(argc != 2){
+            printf("Nombre d'arguments incorrects pour list-add\n");
+            return 0;
+        }
         if (file_exists(".add") == 0){
             printf("Aucun fichier dans la staging area\n");
         }
         else{
             WorkTree * WT = ftwt(".add");
-            printf("Added :\n%s\n",wtts(WT));
-            //freeWorkTree(WT); Pareil, pas sûr que ce soit nécessaire, erreur de segmentation si on essaye
+            char * str = wtts(WT);
+            printf("Added :\n%s\n",str);
+            freeWorkTree(WT); 
+            free(str);
         }
         return 0;
     }
     if (strcmp(argv[1],"clear-add") == 0){
+        if(argc != 2){
+            printf("Nombre d'arguments incorrects pour clear-add\n");
+            return 0;
+        }
         system("rm .add");
         return 0;
     }

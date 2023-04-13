@@ -82,7 +82,7 @@ void myGitAdd(char* file_or_folder){
         wttf(wt,".add");
     }
     else{
-        printf("Le fichier ou répertoire %s n'existe pas !(myGitAdd)",file_or_folder);
+        printf("Le fichier ou répertoire %s n'existe pas !(myGitAdd)\n",file_or_folder);
     }
     freeWorkTree(wt);
 }
@@ -110,6 +110,8 @@ void myGitCommit(char* branch_name, char* message){
     WorkTree * WT = ftwt(".add");
     system("rm .add");
     if (WT == NULL){
+        free(hashHEAD);
+        free(hashBranch_name);
         printf("Aucun fichier n'étaient présent dans le fichier .add -> (myGitCommit)\n");
         return;
     }
