@@ -14,6 +14,7 @@
 #include "exo8.h"
 #include "exo9.h"
 #include "exo10.h"
+#include "exo11.h"
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici

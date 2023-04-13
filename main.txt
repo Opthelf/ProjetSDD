@@ -362,4 +362,36 @@ Exo 9 :
 		FreeList(newL);
 		free(res);
 
+
+exo11 :
+
+	mergeWorkTrees ->
+
+		/*WorkTree * WT = initWorkTree();
+
+		appendWorkTree(WT,"Test",NULL,getChmod("Test"));
+		appendWorkTree(WT,"test.txt",NULL,getChmod("test.txt"));*/
+
+		WorkTree * WT1 = ftwt("5b/c3f96ae23504862b820d39e49f54af753e071a53dadc0c22ebaa9a547e7ba5.t");
+		WorkTree * WT2 = ftwt("9b/5bbc2f8f2782161b4d7379a191d7fa98d558c759f10afd4b539ac1c1a0d41c.t");
+
+		List * L = initList();
+
+		WorkTree * WT3 = mergeWorkTrees(WT1,WT2,&L);
+
+		/*char * hash_WT = saveWorkTree(WT,".");
+		printf("hash -> %s\n",hash_WT);*/
+
+		char * chaine_list = ltos(L);
+		printf("liste -> %s\n",chaine_list);
 	
+		char * chaine_WorkTree = wtts(WT3);
+		printf("WorkTree ->\n%s\n",chaine_WorkTree);
+
+		FreeList(L);
+		freeWorkTree(WT1);
+		freeWorkTree(WT2);
+		freeWorkTree(WT3);
+		free(chaine_list);
+		free(chaine_WorkTree);
+		//free(hash_WT);

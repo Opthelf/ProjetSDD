@@ -14,6 +14,7 @@
 #include "exo8.h"
 #include "exo9.h"
 #include "exo10.h"
+#include "exo11.h"
 
 //Commandes git
 int main(int argc,char * argv[]){
