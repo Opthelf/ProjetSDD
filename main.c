@@ -13,34 +13,60 @@
 #include "exo7.h"
 #include "exo8.h"
 
+
+
+
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	int mode = getChmod("Test/Dossier");
-	printf("Mode de Dossier -> %d\n",mode);
-	mode = getChmod("Test/Dossier/Dfichier1.txt");
-	printf("Mode de Test/Dossier/Dfichier1.txt -> %d\n",mode);
+	FILE * f1 = fopen("Test/fichier1.txt","w");
+	if (f1 == NULL){
+		printf("Error %d \n", errno);
+		return 0;
+	}
+	FILE * f2 = fopen("Test/fichier2.txt","w");
+	if (f2 == NULL){
+		printf("Error %d \n", errno);
+		return 0;
+	}
+	fprintf(f1,"Premier fichier\n");
+	fprintf(f2,"Deuxième fichier\n");
+	fclose(f1);
+	fclose(f2);
 
-	
-	
 	WorkTree * WT1 = initWorkTree();
-	char * h1 = sha256file("ctest1.c");
-	char * h2 = sha256file("ctest2.c");
-	//char * h3 = sha256file("teste");
-	//appendWorkTree(WT1,"ctest1.c",h1,777);
-	appendWorkTree(WT1,"ctest2.c",h2,777);
 	appendWorkTree(WT1,"Test",NULL,getChmod("Test"));
-	appendWorkTree(WT1,"ctest1.c",h1,777);
-	afficheWT(WT1);
-	char * h = saveWorkTree(WT1,".");
-	printf(" isWorkTree -> %d\n",isWorkTree("ffeur"));	
-	
+	char * workTreeHash = saveWorkTree(WT1,".");
 
+	Commit * c1 = initCommit();
+	commitSet(c1,"author","Nino");
+	commitSet(c1,"message","Sauvegarde Test");
+	commitSet(c1,"tree",workTreeHash);
+	commitSet(c1,"predecessor","null");
+
+	initRefs();
+	createUpdateRef("HEAD",commitGet(c1,"tree"));
+
+	/*createUpdateRef("branche1",commitGet(c1,"tree"));
+	deleteRef("branche1");*/
+
+	/*char * hash = getRef("branche1");
+	char * hash1 = getRef("HEAD");
+	char * hash2 = getRef("master");
+	printf("hash1 : %s\n",hash1);
+	printf("hash2 : %s\n",hash2);
+	free(hash);
+	free(hash1);
+	free(hash2);*/
+	myGitAdd("exo7.c");
+	myGitAdd("exo6.c");
+	myGitCommit("Head","Test de myGitCommit");
+	char * gr = getRef("HEAD");
+	printf("gr : %s\n",gr);
 	freeWorkTree(WT1);
-	//free(h3);
-	free(h1);
-	free(h2);
-	free(h);
-	
+	freeCommit(c1);
+	free(workTreeHash);
+	free(gr);
+
 	return 0;
 }
 

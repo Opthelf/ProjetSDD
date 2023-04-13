@@ -30,8 +30,7 @@ void createUpdateRef(char* ref_name, char* hash){
     strcpy(buff1,"");
     sprintf(buff,"echo %s > .refs/%s",hash,ref_name);
     system(buff);
-    sprintf(buff1,"echo %s > .refs/HEAD",hash);
-    system(buff1);
+  
 }
 
 void deleteRef(char* ref_name){
@@ -104,6 +103,8 @@ void myGitCommit(char* branch_name, char* message){
     char * hashBranch_name = getRef(branch_name);
     if (strcmp(hashHEAD,hashBranch_name) != 0){
         printf("HEAD doit pointer sur le dernier commit de la branche -> (myGitCommit)\n");
+        free(hashHEAD);
+        free(hashBranch_name);
         return;
     }
     WorkTree * WT = ftwt(".add");
@@ -129,9 +130,12 @@ void myGitCommit(char* branch_name, char* message){
     char * hashCommit = blobCommit(c);
     printf("hashCommit -> %s\n",hashCommit);
     createUpdateRef(branch_name,hashCommit);
+    createUpdateRef("HEAD",hashCommit);
 
     free(hashHEAD);
     free(hashBranch_name);
     free(hashWorkTree);
     free(hashCommit);
+    freeWorkTree(WT);
+    freeCommit(c);
 }
