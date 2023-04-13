@@ -171,7 +171,6 @@ List * branchList(char * branch){
     }
 
     char * path = hashToPathCommit(commit_hash);
-    printf("hash -> %s\n",path);
     Commit * c = ftc(path);
 
     //On parcourt notre liste de commit
@@ -183,6 +182,13 @@ List * branchList(char * branch){
         //Si le prédécessor existe on actualise la variable itérative
         if(commitGet(c,"predecessor") != NULL){
             commit_hash = commitGet(c,"predecessor");
+
+            if (strcmp(commit_hash,"null")){
+                freeCommit(c);
+                c = NULL;
+                continue;
+            }
+
             path = hashToPathCommit(commit_hash);
             c = ftc(path);
         }

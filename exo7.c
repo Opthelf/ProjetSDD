@@ -19,9 +19,9 @@ void initRefs(){
 
     //Si le dossier n'existe pas déjà
     if(!file_exists(".refs")){
-        system("mkdir .refs");
-        system("touch .refs/master");
-        system("touch .refs/HEAD");    
+        system("mkdir .refs");    
+        system("echo null > .refs/master");
+        system("echo null > .refs/HEAD");
     }
 }
 
@@ -68,6 +68,7 @@ char* getRef(char* ref_name){
     char buff[100];
     strcpy(buff,"");
     sprintf(buff,".refs/%s",ref_name);
+    printf("ici\n");
 
     //Si le fichier n'existe pas
     if (file_exists(buff) == 0){

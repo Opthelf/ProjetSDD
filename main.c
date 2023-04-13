@@ -16,14 +16,7 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	/*char * chaine = "Nan|Je|heureux|dans|mes|NAn";
-	List * L = stol(chaine);
-	List * newL = filterList(L,"j");
-	char * res = ltos(newL);
-	printf("res -> %s\n",res);
-
-	FreeList(L);
-	free(res);*/
+	//myGitCheckoutCommit("04");
 	return 0;
 }
 
