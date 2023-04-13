@@ -151,7 +151,9 @@ void myGitCommit(char* branch_name, char* message){
     //Si la ref HEAD ne pointe pas sur le même commit que la branche
     if (strcmp(hashHEAD,hashBranch_name) != 0){
         printf("HEAD doit pointer sur le dernier commit de la branche -> (myGitCommit)\n");
-        exit(EXIT_FAILURE);
+        free(hashHEAD);
+        free(hashBranch_name);
+        return;
     }
 
     WorkTree * WT = ftwt(".add");
@@ -193,9 +195,12 @@ void myGitCommit(char* branch_name, char* message){
 
     //On update la référence branch_name
     createUpdateRef(branch_name,hashCommit);
+    createUpdateRef("HEAD",hashCommit);
 
     free(hashHEAD);
     free(hashBranch_name);
     free(hashWorkTree);
     free(hashCommit);
+    freeWorkTree(WT);
+    freeCommit(c);
 }

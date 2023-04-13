@@ -322,10 +322,14 @@ exo7 :
 	myGitAdd("exo7.c");
 	myGitAdd("exo6.c");
 	myGitCommit("Head","Test de myGitCommit");
-
+	char * gr = getRef("HEAD");
+	printf("gr : %s\n",gr);
+	freeWorkTree(WT1);
 	freeCommit(c1);
 	free(workTreeHash);
+	free(gr);
 
+	
 exo8 :
 
 	Tests :
