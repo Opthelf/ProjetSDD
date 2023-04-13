@@ -204,12 +204,6 @@ Bloc 2 :
 	restoreWorkTree(WT,".");
 
 
-	mode = getChmod("Test/Dossier");
-	printf("Mode de Dossier -> %d\n",mode);
-	mode = getChmod("Test/Dossier/Dfichier1.txt");
-	printf("Mode de Test/Dossier/Dfichier1.txt -> %d\n",mode);
-
-
 	freeWorkTree(WT);
 	//free(hashWT);
 

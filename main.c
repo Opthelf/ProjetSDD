@@ -16,20 +16,15 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	/*char * chaine = "Nan|Je|heureux|dans|mes|NAn";
-	List * L = stol(chaine);
-	List * newL = filterList(L,"j");
-	char * res = ltos(newL);
-	printf("res -> %s\n",res);
 
-	FreeList(L);
-	free(res);*/
+
+
 	return 0;
 }
 
 
 /*
-Update Simon : ex7 et son main terminé plus de leak mais tu peux tjrs faire plus de tests ;
+Update Simon : tous les exos jusqu'à 7 inclus sont 0 leaks à priori 
 
 */
 
