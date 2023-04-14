@@ -23,6 +23,7 @@ char* wfts(WorkFile* wf);
 WorkFile* stwf(char* ch);
 
 int inWorkTree(WorkTree* wt, char* name);
+char * hashToPathWorkTree(char * hash);
 int appendWorkTree(WorkTree* wt,char * n,char * h, int m);
 void afficheWT(WorkTree * wt);
 char* wtts(WorkTree* wt);

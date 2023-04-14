@@ -20,8 +20,8 @@ void initRefs(){
     //Si le dossier n'existe pas déjà
     if(!file_exists(".refs")){
         system("mkdir .refs");    
-        system("echo null > .refs/master");
-        system("echo null > .refs/HEAD");
+        system("touch .refs/master");
+        system("touch .refs/HEAD");
     }
 }
 
@@ -38,11 +38,8 @@ void createUpdateRef(char* ref_name, char* hash){
     char buff[300];
     char buff1[300];
     strcpy(buff,"");
-    strcpy(buff1,"");
     sprintf(buff,"echo %s > .refs/%s",hash,ref_name);
-    sprintf(buff1,"echo %s > .refs/HEAD",hash);
     system(buff);
-    system(buff1);
 }
 
 //La fonction efface une référence
@@ -68,7 +65,6 @@ char* getRef(char* ref_name){
     char buff[100];
     strcpy(buff,"");
     sprintf(buff,".refs/%s",ref_name);
-    printf("ici\n");
 
     //Si le fichier n'existe pas
     if (file_exists(buff) == 0){
@@ -149,12 +145,28 @@ void myGitCommit(char* branch_name, char* message){
     char * hashHEAD = getRef("HEAD");
     char * hashBranch_name = getRef(branch_name);
 
-    //Si la ref HEAD ne pointe pas sur le même commit que la branche
-    if (strcmp(hashHEAD,hashBranch_name) != 0){
-        printf("HEAD doit pointer sur le dernier commit de la branche -> (myGitCommit)\n");
-        free(hashHEAD);
-        free(hashBranch_name);
-        return;
+    int first_commit = 0;
+    if (hashHEAD == NULL && hashBranch_name == NULL){
+        printf("Les deux références sont NULL, on suppose qu'il s'agit du premier commit -> myGitCommit\n");
+        first_commit = 1;
+    }
+
+    //Si l'un des hash seulement est NULL
+    if ( (hashHEAD == NULL || hashBranch_name == NULL) && first_commit == 0){
+        printf("L'une des deux branches pointe vers aucun commit -> myGitCommit\n");
+    }
+
+    //Si aucun des deux n'est NULL
+    if (first_commit == 0){
+
+        //Si la ref HEAD ne pointe pas sur le même commit que la branche
+        if (strcmp(hashHEAD,hashBranch_name) != 0){
+            printf("HEAD doit pointer sur le dernier commit de la branche -> (myGitCommit)\n");
+            printf("ici -> myGitCommit\n");
+            free(hashHEAD);
+            free(hashBranch_name);
+            return;
+        }
     }
 
     WorkTree * WT = ftwt(".add");
@@ -173,9 +185,10 @@ void myGitCommit(char* branch_name, char* message){
     Commit * c = createCommit(hashWorkTree);
 
     //Si la référence est une chaine de caractère vide
-    if (strlen(hashBranch_name) == 0){
-        printf("Le hash dans le fichier %s est vide -> (myGitCommit)\n",branch_name);
-    }
+    if (hashBranch_name != NULL){
+        if (strlen(hashBranch_name) == 0){
+            printf("Le hash dans le fichier %s est vide -> (myGitCommit)\n",branch_name);
+        }
 
     //Sinon on ajoute une paire predecessor-hash au commit
     else{
@@ -201,8 +214,14 @@ void myGitCommit(char* branch_name, char* message){
     createUpdateRef(branch_name,hashCommit);
     createUpdateRef("HEAD",hashCommit);
 
-    free(hashHEAD);
-    free(hashBranch_name);
+    if (hashHEAD != NULL){
+        free(hashHEAD);
+    }
+
+    if (hashBranch_name != NULL){
+        free(hashBranch_name);
+    }
+
     free(hashWorkTree);
     free(hashCommit);
     freeWorkTree(WT);
