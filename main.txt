@@ -363,19 +363,111 @@ exo8 :
 	free(refH);
 	free(refm);
 
+
+	Test getAllCommits/myGitCheckoutBranch :
+
+		//Première exécution, à mettre en commentaire ensuite
+		/*initRefs();
+		initBranch();
+		myGitAdd("test.txt");
+		myGitCommit("master","commit1");*/
+
+		//Deuxième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+		/*myGitAdd("test.txt");
+		myGitCommit("master","commit2");*/
+
+		//Troisième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+		/*createBranch("branche_test");
+		myGitCheckoutBranch("branche_test");
+		myGitAdd("test.txt");
+		myGitCommit("branche_test","commit2");*/
+
+		//Quatrième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+		/*myGitCheckoutBranch("master");
+		myGitAdd("test.txt");
+		myGitCommit("master","commit2");*/
+
+		//Cinquième exécution pour plus de clareté, à mettre en commentaire après exécution
+		/*List * Lcommit = getAllCommits();
+		char * chaine_commits = ltos(Lcommit);
+		printf("AllCommits ->\n%s\n",chaine_commits);
+
+		FreeList(Lcommit);
+		free(chaine_commits);*/
+
 Exo 9 :
+	/*initRefs();
+	initBranch();
+	*/
+	
+	//1ere exec
+	/*
+	myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	myGitCommit("Branche1","Commit1");*/
 
-	filterList -> 
-		char * chaine = "Nan|je|heureux|je|mes|NAn";
-		List * L = stol(chaine);
-		List * newL = filterList(L,"je");
+	//2eme exec après modif de f1.txt et f2.txt
+	/*myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	myGitCommit("Branche1","Commit2");*/
 
-		char * res = ltos(newL);
-		printf("res -> %s\n",res);
+	//3eme exec après modif de f1.txt et f2.txt
+	/*myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	myGitCommit("Branche1","Commit3");*/
 
-		FreeList(L);
-		FreeList(newL);
-		free(res);
+
+	/*char * h = getRef("HEAD");
+	restoreCommit(h);
+	printf("HEAD : %s \n",h);
+	free(h);*/
+	
+	
+	
+	/*myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	myGitCommit("master","Commit1surmaster");*/
+
+	//myGitCheckoutBranch("Branche1");
+	
+	/*myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	myGitCommit("Branche1","Commit1surBranche1");*/
+
+	//myGitCheckoutBranch("Branche1");
+	//myGitCheckoutBranch("master");
+	
+	char * c=getCurrentBranch();
+	//printf("Current branch : %s \n",c);
+	
+	free(c);
+
+
+
+
+	char * chaine = "Nan|jeUx|heureux|jetter|mes|NAn";
+	List * L = stol(chaine);
+	char * res1 = ltos(L);
+	printf("res -> %s\n",res1);
+	List * newL = filterList(L,"je");
+	char * res2 = ltos(newL);
+	printf("res -> %s\n",res2);
+	free(res1);
+	free(res2);
+	FreeList(newL);
+	
+	FreeList(L);
+
+	List * allc = getAllCommits();
+	char * c = ltos(allc);
+	printf("allc : %s \n",c);
+	free(c);
+	FreeList(allc);
+	myGitCheckoutCommit("7");
+	myGitCheckoutBranch("Branche1");
+	/*myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	myGitCommit("Branche1","Commit2surBranche2");*/
 
 
 exo11 :

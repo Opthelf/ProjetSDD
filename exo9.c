@@ -59,6 +59,14 @@ void restoreCommit(char * hash_commit){
 
 //Permet un passage de la branche courante vers la branche en paramètre
 void myGitCheckoutBranch(char * branch){
+    char * head = getRef("HEAD");
+    if (head == NULL){
+         char buff[300];
+        sprintf(buff,"echo %s > .current_branch",branch);
+        system(buff);
+        
+        return;
+    }
 
     //Si la chaine branch est NULL
     if (branch == NULL){
@@ -79,11 +87,18 @@ void myGitCheckoutBranch(char * branch){
 
     //On met à jour le fichier HEAD pour pointer sur le dernier commit de la nouvelle branche courante
     char * hash = getRef(branch);
+    
+    if (hash == NULL){
+        restoreCommit(hash);
+        free(head);
+        free(hash);
+        return;
+    }
     createUpdateRef("HEAD",hash);
 
     //On restaure les fichiers comme ils étaient lors du dernier commit
     restoreCommit(hash);
-
+    free(head);
     free(hash);
 
 }
@@ -125,13 +140,17 @@ List * filterList(List * L, char * pattern){
         }
 
         //On récupère les longueurs premiers caractères de data
-        strncpy(debut_data,parcours->data,longueur);
-        strcat(debut_data,"\0");
+        int i = 0;
+        while(i<longueur){
+            debut_data[i] = parcours->data[i];
+            i++;
+        }
+        debut_data[i] = '\0';
 
         //Si ces caractères sont les mêmes que pattern
         if (strcmp(debut_data,pattern) == 0){
             insertFirst(newL,buildCell(parcours->data));
-            printf("Parcoursdata -> %s\n",parcours->data);
+           // printf("Parcoursdata -> %s\n",parcours->data);
         }
 
         parcours = parcours->next;
@@ -142,7 +161,7 @@ List * filterList(List * L, char * pattern){
 //Restaure les fichiers sauvegardés dans le commit dont le hash commence par pattern
 void myGitCheckoutCommit(char* pattern){
     if (pattern == NULL){
-        printf("Le pattern a été oublié, par quoi commence votre hash du commit ? -> myGitChechkout\n");
+        printf("Le pattern a été oublié, par quoi commence votre hash du commit ? -> myGitChechkoutCommit\n");
         exit(EXIT_FAILURE);
     }
 
@@ -150,17 +169,19 @@ void myGitCheckoutCommit(char* pattern){
 
     //Si aucun commit n'est récupéré
     if (AllCommits == NULL){
-        printf("Aucun commit récupéré -> myGitChechkout\n");
+        printf("Aucun commit récupéré -> myGitChechkoutCommit\n");
         exit(EXIT_FAILURE);
     }
-
-    printf("List ->\n%s\n",ltos(AllCommits));
+    char * ls = ltos(AllCommits);
+    printf("List ->\n\n%s\n\n",ls);
+    free(ls);
     List * Commit_Pattern = filterList(AllCommits,pattern);
     int longueur = tailleList(Commit_Pattern);
 
     //Si la liste récupéré est NULL
     if (longueur < 1){
         FreeList(AllCommits);
+        FreeList(Commit_Pattern);
         printf("Votre recherche de commit n'a pas abouti, Commit_Pattern est NULL -> myGitCheckout\n");
         exit(EXIT_FAILURE);
     }
@@ -168,6 +189,9 @@ void myGitCheckoutCommit(char* pattern){
     //Si la taille de la liste est supérieure à 1
     if (longueur > 1){
         //Afficher toute la liste ici
+        char * list_commit_pattern = ltos(Commit_Pattern);
+        printf("Liste des commits correspondant au pattern : \n%s\n",list_commit_pattern);
+        free(list_commit_pattern);
         FreeList(AllCommits);
         FreeList(Commit_Pattern);
         printf("Votre pattern n'est pas assez précis, plusieurs possibilités : veuillez réessayer -> myGitCheckout\n");
@@ -177,7 +201,9 @@ void myGitCheckoutCommit(char* pattern){
     char * hash_commit = Commit_Pattern[0]->data;
     createUpdateRef("HEAD",hash_commit);
     restoreCommit(hash_commit);
-
+    char * head = getRef("HEAD");
+    printf("HEAD at -> %s\n",head);
+    free(head);
     FreeList(AllCommits);
     FreeList(Commit_Pattern);
 }

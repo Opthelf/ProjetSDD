@@ -117,9 +117,9 @@ Cell* listGet(List* L, int i){ //Récupère la cellule à la position i dans la 
 }
 
 Cell * searchList(List * L, char * str){ //Récupère la cellule dont la data associé est str dans la liste L
-	if(*L == NULL){
+	/*if(*L == NULL){
 		printf("Liste NULL(searchList)\n");
-	}
+	}*/
 	Cell * temp = *L;
 	while(temp != NULL){
 		if (strcmp(temp->data,str) == 0){
