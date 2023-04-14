@@ -26,12 +26,8 @@ int main(int argc, char ** argv){
 	//myGitCheckoutBranch("master");
 	/*myGitAdd("test.txt");
 	myGitCommit("master","nouvelleBranche");*/
-
-	List * L = getAllCommits();
-	char * chaine_commit = ltos(L);
-	printf("chaine ->\n%s\n",chaine_commit);
-
-	free(chaine_commit);
+	initRefs();
+	List * L = listdir(".refs");
 	FreeList(L);
 
 
