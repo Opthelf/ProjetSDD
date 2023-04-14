@@ -61,7 +61,6 @@ int main(int argc, char ** argv){
 	
 	free(refH);
 	free(refm);
-	_CrtDumpMemoryLeaks();
 	return 0;
 }
 
