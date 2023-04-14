@@ -219,6 +219,7 @@ List * getAllCommits(){
     
         char * tmp = strdup(ptr->data);
         List * list = branchList(tmp);
+        free(tmp);
         
 
         if (list == NULL){

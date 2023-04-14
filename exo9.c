@@ -44,8 +44,7 @@ void restoreCommit(char * hash_commit){
     strcat(path_WorkTree,".t");
 
     //On récupère le WorkTree à restorer dans le fichier
-    WorkTree * WT = initWorkTree();
-    WT = ftwt(path_WorkTree);
+    WorkTree * WT = ftwt(path_WorkTree);
 
     //On le restaure
     restoreWorkTree(WT,".");

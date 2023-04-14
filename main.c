@@ -20,15 +20,8 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	initRefs();
-	initBranch();
-	List * L = listdir(".refs");
-	char * s = ltos(L);
-	printf("%s\n	",s);
-	//List * L2 = getAllCommits();
-	//FreeList(L2);
-	FreeList(L);
-	free(s);
+	
+	
 	return 0;
 }
 
