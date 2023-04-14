@@ -24,7 +24,6 @@ void FreeList(List * L){ //Libère l'espace mémoire de la liste passé en param
 		freeCell(temp2);
 	}
 	free(L);
-
 }
 
 //Renvoie la taille de la liste

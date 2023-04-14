@@ -289,4 +289,3 @@ char * blobCommit(Commit *c){ //Crée un instantané du commit c dans le path de
     free(ch);
     return hash;
 }
-
