@@ -328,7 +328,7 @@ exo8 :
 
 	Tests :
 
-		initRefs();
+	initRefs();
 	initBranch();
 	char * refH=getRef("HEAD");
 	char * refm=getRef("master");
