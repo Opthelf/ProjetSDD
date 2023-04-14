@@ -116,7 +116,7 @@ WorkTree * branchToWorkTree(char * branch_name){
 }
 
 //La fonction merge la branche courante avec la branche en paramètre si il n'y a aucun conflict
-List* merge(char* remote_branch, char* message){
+List * merge(char * remote_branch, char * message){
 
     //Si la chaine de caractère est NULL
     if (remote_branch == NULL){
@@ -196,3 +196,52 @@ List* merge(char* remote_branch, char* message){
 
     return NULL;
 }
+
+
+//La fonction crée des commits de suppresion des conflits
+void createDeletionCommit(char * branch, List * conflicts, char * message){
+
+    //On récupère la branche courante
+    char * current = getCurrentBranch();
+
+    //On passe sur la branche en paramètre
+    myGitCheckoutBranch(branch);
+
+    
+    //On récupère le path vers le commit, puis le commit lui-même
+    char * hash_commit = getRef(branch);
+    char * path_commit = hashToPathCommit(hash_commit);
+    Commit * C = ftc(path_commit);
+
+    //On récupère le WorkTree associé au commit
+    WorkTree * WT_C = branchToWorkTree(branch);
+
+    //On clean add
+    system("rm .add");
+
+    //On parcours le WorkTree pour ajouter les fichiers sans conflits à notre branche
+    for(int i = 0 ; i < WT_C->n ; i++){
+
+        //On teste si le fichier/répertoire que l'on regarde n'est pas dans la liste des conflits
+        Cell * C = searchList(conflicts,WT_C->tab[i].name);
+        if (C == NULL){
+
+            //On ajoute les fichiers sans conflits dans .add
+            myGitAdd(C->data);
+        }
+    }
+
+    //On crée le commit de suppresion 
+    myGitCommit(branch,message);
+
+    //On revient sur la branche de départ
+    myGitCheckoutBranch(current);
+
+    //On oublie pas de libérer la mémoire allouée :)
+    free(current);
+    free(hash_commit);
+    free(path_commit);
+    freeCommit(C);
+    freeWorkTree(WT_C);
+}
+

@@ -38,11 +38,10 @@ void createUpdateRef(char* ref_name, char* hash){
         return;
     }
     //Insère le hash dans la ref
-    
-    char buff2[300];
-    strcpy(buff2,"");
-    sprintf(buff2,"echo %s > .refs/%s",hash,ref_name);
-    system(buff2);
+    char buff[300];
+    strcpy(buff,"");
+    sprintf(buff,"echo %s > .refs/%s",hash,ref_name);
+    system(buff);
 }
 
 //La fonction efface une référence
