@@ -79,8 +79,8 @@ char* getCurrentBranch(){
     }
 
     sscanf(buff,"%s\n",buff);
-    fclose(f);
 
+    fclose(f);
     return buff;
 }
 

@@ -19,8 +19,28 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-
+	initRefs();
+	initBranch();
 	
+	/*myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	myGitCommit("master","firstCommit");*/
+
+
+
+	/*myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	myGitCommit("Branche1","firstCommitsurBranche1");*/
+	char * current_b2= getCurrentBranch();
+	printf("current branch : %s \n",current_b2);
+	free(current_b2);
+	//free(current_b);
+	myGitCheckoutBranch("master");
+	myGitCheckoutCommit("1d");
+	//myGitCheckoutBranch("master");
+	char * current_b= getCurrentBranch();
+	printf("current branch : %s \n",current_b);
+	free(current_b);
 	
 	return 0;
 }
@@ -28,7 +48,7 @@ int main(int argc, char ** argv){
 
 /*
 Update Simon : tous les exos jusqu'à 9 inclus sont 0 leaks,erreurs à priori mais message pas bien traité cad que si le message contient des espaces alors seul le premier mot sera gardé pb venant de stc .
-
+	j'ai implémenté le detached head mais même pb que stc ne garde que le 1er mot de current_branch
 */
 
 
