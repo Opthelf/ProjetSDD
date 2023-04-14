@@ -179,6 +179,7 @@ void myGitCommit(char* branch_name, char* message){
 
     //Sinon on ajoute une paire predecessor-hash au commit
     else{
+        printf("hashBranch_name -> %s\n",hashBranch_name);
         commitSet(c,"predecessor",hashBranch_name);
     }
 

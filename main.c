@@ -20,6 +20,12 @@ int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
 	initBranch();	
 	initRefs();
+	myGitAdd("f1.txt");
+	myGitAdd("f2.txt");
+	createBranch("commit1");
+
+	myGitCommit("commit1", NULL);
+
 	return 0;
 }
 
