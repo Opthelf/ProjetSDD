@@ -286,6 +286,67 @@ int main(int argc,char * argv[]){
         return 0;
     }
 
+    //Si l'utilisateur veut merge une branche avec sa branche courante
+    if (strcmp(argv[1],"merge") == 0){
+
+        //Si le nombre d'arguments est incorrect
+        if (argc != 4){
+            printf("Le nombre d'arguments ne permet pas de merge\n");
+            exit(EXIT_FAILURE);
+        }
+
+        List * conflicts = merge(argv[2],argv[3]);
+
+        //Si il n'y a pas eu de conflits
+        if (conflicts == NULL){
+            printf("La fusion s'est déroulé à merveille !\n");
+            return 0;
+        }
+
+        //On récupère la branche courante
+        char * current = getCurrentBranch();
+
+        int choix;
+
+        printf("Il y a des collisions, la fusion a été annulé.\n");
+        printf("Veuillez choisir entre les options suivantes ->\n");
+        printf("1-Garder la branche %s\n",current);
+        printf("2-Garder la branche %s\n",argv[2]);
+        printf("3-Choisir manuellement pour chaque fichier en conlit la version de quelle branche vous souhaitez\n");
+        scanf("%i",&choix);
+
+        //On sélectionne le choix de l'utilisateur
+        switch (choix){
+
+            //On récupère uniquement les fichiers sans conflits avec la branche courante
+            case 1 :
+                createDeletionCommit(argv[2],conflicts,argv[3]);
+                merge(argv[2],argv[3]);
+                break;
+
+            //On récupère uniquement les fichiers sans conflits avec la branche en paramètre
+            case 2 :
+                myGitCheckoutBranch(argv[2]);
+                createDeletionCommit(current,conflicts,argv[3]);
+                merge(current,argv[3]);
+                break;
+
+            case 3 :
+                printf("Bon euh option un peu complexe j'y reviendrai quand on aura fini le reste -> ne fait rien pour l'instant\n");
+                break;
+
+            default :
+                printf("La valeur entrée n'est pas accepté -> abort fusion request\n");
+                exit(EXIT_FAILURE);
+        }
+
+        //On libère la mémoire allouée
+        FreeList(conflicts);
+        free(current);
+
+        return 0;
+    }
+
     //Si l'utilisateur ne fait aucune des commandes précédentes, le programme affiche toutes les commandes possibles
     printf("Votre commande n'a pas été trouvé.\nVoici une liste des commandes que vous pouvez taper :\n\n");
     affiche_commande();

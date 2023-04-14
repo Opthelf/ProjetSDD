@@ -36,7 +36,6 @@ void createUpdateRef(char* ref_name, char* hash){
 
     //Insère le hash dans la ref
     char buff[300];
-    char buff1[300];
     strcpy(buff,"");
     sprintf(buff,"echo %s > .refs/%s",hash,ref_name);
     system(buff);
