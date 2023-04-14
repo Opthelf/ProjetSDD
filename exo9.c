@@ -59,9 +59,10 @@ void restoreCommit(char * hash_commit){
 
 //Permet un passage de la branche courante vers la branche en paramètre
 void myGitCheckoutBranch(char * branch){
+
     char * head = getRef("HEAD");
     if (head == NULL){
-         char buff[300];
+        char buff[300];
         sprintf(buff,"echo %s > .current_branch",branch);
         system(buff);
         
@@ -89,18 +90,22 @@ void myGitCheckoutBranch(char * branch){
     char * hash = getRef(branch);
     
     if (hash == NULL){
-        restoreCommit(hash);
+        char * current = getCurrentBranch();
+        char * hash_c = getRef(current);
+        createUpdateRef(branch,hash_c);
         free(head);
         free(hash);
+        free(current);
+        free(hash_c);
         return;
     }
+
     createUpdateRef("HEAD",hash);
 
     //On restaure les fichiers comme ils étaient lors du dernier commit
     restoreCommit(hash);
     free(head);
     free(hash);
-
 }
 
 //Retourne une sous-liste de L avec que des Cell dont les data commencent par le même pattern que pattern
@@ -168,12 +173,13 @@ void myGitCheckoutCommit(char* pattern){
     List * AllCommits = getAllCommits();
 
     //Si aucun commit n'est récupéré
-    if (AllCommits == NULL){
+    if (*AllCommits == NULL){
         printf("Aucun commit récupéré -> myGitChechkoutCommit\n");
+        free(AllCommits);
         exit(EXIT_FAILURE);
     }
+
     char * ls = ltos(AllCommits);
-    printf("List ->\n\n%s\n\n",ls);
     free(ls);
     List * Commit_Pattern = filterList(AllCommits,pattern);
     int longueur = tailleList(Commit_Pattern);
@@ -202,8 +208,6 @@ void myGitCheckoutCommit(char* pattern){
     createUpdateRef("HEAD",hash_commit);
     restoreCommit(hash_commit);
     char * head = getRef("HEAD");
-    printf("HEAD at -> %s\n",head);
-
 
     //peut être mieux implémenté
     char buff1[100]= "HEAD detached at ";
@@ -214,6 +218,7 @@ void myGitCheckoutCommit(char* pattern){
     char buff2[300];
     sprintf(buff2,"echo %s > .current_branch",buff1);
     system(buff2);
+
     free(head);
     FreeList(AllCommits);
     FreeList(Commit_Pattern);
