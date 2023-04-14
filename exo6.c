@@ -14,7 +14,7 @@
 #define TAILLE 10
 
 kvp * createKeyVal(char *key,char *val){ //Crée une instance de la structure kvp, initialisé avec key et value
-    printf("%s cKv \n",val) ;
+
     if (key == NULL){ //Teste si l'un des paramètres est NULL
         printf("La clé est NULL ce qui va créer une segmentation fault -> createKeyVal\n");
         exit(EXIT_FAILURE);
@@ -106,7 +106,7 @@ unsigned long hash(unsigned char *str){ //Hash le contenu
 }
 
 void commitSet(Commit *c, char *key, char *val){ //Rajoute une paire key-value dans le commit
-    printf("%s dans commitSet\n",val);
+    
     if (c == NULL){ //Teste si le commit est NULL
         printf("Le commit c est NULL -> commitSet\n");
         exit(EXIT_FAILURE);

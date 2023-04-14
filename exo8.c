@@ -117,14 +117,14 @@ void printBranch(char * branch){
     //Récupère le path vers ce commit, puis le commit lui-même
     char * path = hashToPathCommit(commit_hash);
     Commit * c = ftc(path);
-    printf("là %s\n",cts(c));
+    
 
     //Tant que il y a un predecessor on continue
     while (c != NULL){
 
         //Si le message n'est pas NULL on l'affiche avec le hash du commit
         char * message = commitGet(c,"message");
-        //printf("message :%s\n",message);
+        
         if(message != NULL){ 
             printf("%s -> %s \n",commit_hash,message);
             free(message);

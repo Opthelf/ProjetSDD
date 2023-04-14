@@ -202,7 +202,7 @@ void myGitCommit(char* branch_name, char* message){
     }
     //Si le message n'est pas NULL on ajoute une paire message-"message"
     else{
-        printf("ms : %s mG\n ",message);
+        
         commitSet(c,"message",message);
     }
     //On crée un instantané du commit
