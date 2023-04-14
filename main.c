@@ -18,20 +18,14 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	initBranch();	
-	initRefs();
-	myGitAdd("f1.txt");
-	myGitAdd("f2.txt");
-	createBranch("commit1");
 
-	myGitCommit("commit1", NULL);
 
 	return 0;
 }
 
 
 /*
-Update Simon : tous les exos jusqu'à 7 inclus sont 0 leaks à priori 
+Update Simon : tous les exos jusqu'à 8 inclus sont 0 leaks à priori mais message pas bien traité cad que si le message contient des espaces alors seul le premier mot sera gardé pb venant de stc .
 
 */
 

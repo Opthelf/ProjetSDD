@@ -14,6 +14,7 @@
 #define TAILLE 10
 
 kvp * createKeyVal(char *key,char *val){ //Crée une instance de la structure kvp, initialisé avec key et value
+    printf("%s cKv \n",val) ;
     if (key == NULL){ //Teste si l'un des paramètres est NULL
         printf("La clé est NULL ce qui va créer une segmentation fault -> createKeyVal\n");
         exit(EXIT_FAILURE);
@@ -26,6 +27,7 @@ kvp * createKeyVal(char *key,char *val){ //Crée une instance de la structure kv
         strcpy(k->value,"(null)");
     }
     else{
+        
         k->value = strdup(val);
     }
     return k;
@@ -104,6 +106,7 @@ unsigned long hash(unsigned char *str){ //Hash le contenu
 }
 
 void commitSet(Commit *c, char *key, char *val){ //Rajoute une paire key-value dans le commit
+    printf("%s dans commitSet\n",val);
     if (c == NULL){ //Teste si le commit est NULL
         printf("Le commit c est NULL -> commitSet\n");
         exit(EXIT_FAILURE);
@@ -149,6 +152,7 @@ char * commitGet(Commit *c,char *key){ //Récupère la valeur de clé key dans l
 
     while(c->T[p] != NULL && attempt < c->size){
         if(strcmp(c->T[p]->key,key) == 0){ //Si il s'agit de la bonne clé, on retourne la valeur associé
+            //printf("%s dans commitGet\n",c->T[p]->value);
             char * value = strdup(c->T[p]->value);
             return value;
         }
@@ -201,9 +205,13 @@ Commit * stc(char *str){ //Transforme une chaine de caractère en commit
     strcpy(resvalue,"");
     int i=0;
     while(str-1!=NULL){
+        
         sscanf(str,"%s : %s",reskey,resvalue);
         strcat(reskey,"\0");
+        printf("dans stc\n%s : %s\n",reskey,resvalue);
+
         strcat(resvalue,"\0");
+        //printf("dans stc\n%s : %s\n",reskey,resvalue);
         commitSet(c,reskey,resvalue);
         str = strchr(str,'\n')+1;
     }
@@ -257,11 +265,12 @@ Commit * ftc(char *file){ //Récupère un commit depuis un fichier
     strcpy(str,"");
     char * buff = malloc(sizeof(char)*100);
     strcpy(buff,"");
-    while(fgets(buff,100,f)!=NULL){
+    while(fgets(buff,1000,f)!=NULL){
         strcat(str,buff);
     }
     free(buff);
     fclose(f);
+    printf("dans ftc \n %s\n",str);
     Commit * c = stc(str);
     free(str);
     return c;

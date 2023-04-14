@@ -29,17 +29,20 @@ void initRefs(){
 void createUpdateRef(char* ref_name, char* hash){
 
     //Si le hash est NULL
-    if (hash == NULL){ 
-        printf("Le hash est NULL -> createUpdateRef\n");
-        exit(EXIT_FAILURE);
+    if (hash == NULL){
+        printf("Le hash est NULL !(createUpdateRef)\n");
+        char buff1[300];
+        strcpy(buff1,"");
+        sprintf(buff1,"touch .refs/%s",ref_name);
+        system(buff1);
+        return;
     }
-
     //Insère le hash dans la ref
-    char buff[300];
-    char buff1[300];
-    strcpy(buff,"");
-    sprintf(buff,"echo %s > .refs/%s",hash,ref_name);
-    system(buff);
+    
+    char buff2[300];
+    strcpy(buff2,"");
+    sprintf(buff2,"echo %s > .refs/%s",hash,ref_name);
+    system(buff2);
 }
 
 //La fonction efface une référence
@@ -86,6 +89,8 @@ char* getRef(char* ref_name){
     //On récupère le hash dans le fichier
     if (fgets(recup,256,f) == NULL){
         //printf("Le fichier %s est vide !(getRef)\n",buff);
+        free(recup);
+        fclose(f);
         return NULL;
     }
 
@@ -125,23 +130,20 @@ void myGitAdd(char* file_or_folder){
 
 //Commit dans une branche
 void myGitCommit(char* branch_name, char* message){
-
+    
     //Si le fichier .refs n'existe pas
     if (file_exists(".refs") == 0){
         printf("Initialiser d'abord les références du projet -> (myGitCommit)\n");
         exit(EXIT_FAILURE);
     }
-
     char buff[100];
     strcpy(buff,"");
     sprintf(buff,".refs/%s",branch_name);
-
     //Si la référence n'existe pas
     if (file_exists(buff) == 0){
         printf("La branche %s n'existe pas -> (myGitCommit)\n",branch_name);
         exit(EXIT_FAILURE);
     }
-
     char * hashHEAD = getRef("HEAD");
     char * hashBranch_name = getRef(branch_name);
 
@@ -168,10 +170,9 @@ void myGitCommit(char* branch_name, char* message){
             return;
         }
     }
-
+    
     WorkTree * WT = ftwt(".add");
     system("rm .add");
-
     //Si le WorkTree récupéré du fichier .add est NULL
     if (WT == NULL){
         free(hashHEAD);
@@ -179,7 +180,7 @@ void myGitCommit(char* branch_name, char* message){
         printf("Aucun fichier n'étaient présent dans le fichier .add -> (myGitCommit)\n");
         return;
     }
-
+    
     //On save le WorkTree récupéré
     char * hashWorkTree = saveWorkTree(WT,".");
     Commit * c = createCommit(hashWorkTree);
@@ -190,26 +191,24 @@ void myGitCommit(char* branch_name, char* message){
             printf("Le hash dans le fichier %s est vide -> (myGitCommit)\n",branch_name);
         }
 
-    //Sinon on ajoute une paire predecessor-hash au commit
-    else{
-        printf("hashBranch_name -> %s\n",hashBranch_name);
-        commitSet(c,"predecessor",hashBranch_name);
+        //Sinon on ajoute une paire predecessor-hash au commit
+        else{
+            commitSet(c,"predecessor",hashBranch_name);
+        }
     }
 
     //Si le message est NULL on le signale simplement
     if (message == NULL){
         printf("Le message est NULL -> (myGitCommit)\n");
     }
-
     //Si le message n'est pas NULL on ajoute une paire message-"message"
     else{
+        printf("ms : %s mG\n ",message);
         commitSet(c,"message",message);
     }
-
     //On crée un instantané du commit
     char * hashCommit = blobCommit(c);
     printf("hashCommit -> %s\n",hashCommit);
-
     //On update la référence branch_name
     createUpdateRef(branch_name,hashCommit);
     createUpdateRef("HEAD",hashCommit);

@@ -117,27 +117,31 @@ void printBranch(char * branch){
     //Récupère le path vers ce commit, puis le commit lui-même
     char * path = hashToPathCommit(commit_hash);
     Commit * c = ftc(path);
+    printf("là %s\n",cts(c));
 
     //Tant que il y a un predecessor on continue
     while (c != NULL){
 
         //Si le message n'est pas NULL on l'affiche avec le hash du commit
         char * message = commitGet(c,"message");
+        //printf("message :%s\n",message);
         if(message != NULL){ 
             printf("%s -> %s \n",commit_hash,message);
-            //free(message); -> apparement n'a pas été malloc 
+            free(message);
         }
 
         //Sinon on affiche simplement le hash du commit
         else{
             printf("%s \n",commit_hash);
         }
-
+        free(commit_hash);
         commit_hash = commitGet(c,"predecessor");
 
         //Si le predecessor n'est pas NULL on récupère le predecessor
         if(commit_hash != NULL){
+            free(path);
             path = hashToPathCommit(commit_hash);
+            freeCommit(c);
             c = ftc(path);
         }
 
@@ -180,16 +184,13 @@ List * branchList(char * branch){
         insertFirst(L,buildCell(commit_hash));
 
         //Si le prédécessor existe on actualise la variable itérative
-        if(commitGet(c,"predecessor") != NULL){
-            commit_hash = commitGet(c,"predecessor");
+        free(commit_hash);
+        commit_hash = commitGet(c,"predecessor");
 
-            if (strcmp(commit_hash,"null")){
-                freeCommit(c);
-                c = NULL;
-                continue;
-            }
-
+        if(commit_hash != NULL){
+            free(path);
             path = hashToPathCommit(commit_hash);
+            freeCommit(c);
             c = ftc(path);
         }
 
