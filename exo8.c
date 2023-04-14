@@ -220,13 +220,11 @@ List * getAllCommits(){
         char * tmp = strdup(ptr->data);
         List * list = branchList(tmp);
         
-        free(tmp);
+
         if (list == NULL){
             continue;
         }
-        char * t2 = ltos(list);
-        //printf("là\n%s\n",t2);
-        free(t2);
+      
         
         Cell * cell = *list;
         while(cell != NULL){
