@@ -188,6 +188,7 @@ int main(int argc,char * argv[]){
         //Si le nombre d'arguments est incorrect
         if (argc != 2){
             printf("Nombre d'arguments incorrects pour afficher la branche courante\n");
+            return 0;
         }
 
         //On la récupère puis on l'affiche
