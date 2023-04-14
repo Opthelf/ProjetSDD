@@ -208,10 +208,10 @@ Commit * stc(char *str){ //Transforme une chaine de caractère en commit
         
         sscanf(str,"%s : %s",reskey,resvalue);
         strcat(reskey,"\0");
-        printf("dans stc\n%s : %s\n",reskey,resvalue);
+       
 
         strcat(resvalue,"\0");
-        //printf("dans stc\n%s : %s\n",reskey,resvalue);
+       
         commitSet(c,reskey,resvalue);
         str = strchr(str,'\n')+1;
     }
@@ -270,7 +270,7 @@ Commit * ftc(char *file){ //Récupère un commit depuis un fichier
     }
     free(buff);
     fclose(f);
-    printf("dans ftc \n %s\n",str);
+  
     Commit * c = stc(str);
     free(str);
     return c;

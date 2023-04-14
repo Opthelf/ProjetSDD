@@ -216,19 +216,29 @@ List * getAllCommits(){
         if(ptr->data[0]=='.'){
             continue;
         }
-        List * list = branchList(ptr->data);
-
+    
+        char * tmp = strdup(ptr->data);
+        List * list = branchList(tmp);
+        
+        free(tmp);
         if (list == NULL){
             continue;
         }
-
+        char * t2 = ltos(list);
+        //printf("là\n%s\n",t2);
+        free(t2);
+        
         Cell * cell = *list;
         while(cell != NULL){
             if(searchList(L,cell->data) == NULL){
-                insertFirst(L,buildCell(cell->data));
+                Cell * c = buildCell(cell->data);
+                insertFirst(L,c);
             }
+
             cell = cell->next;
+            
         }
+        
         FreeList(list);
     }
     FreeList(content);

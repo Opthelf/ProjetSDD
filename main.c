@@ -15,11 +15,53 @@
 #include "exo9.h"
 #include "exo10.h"
 #include "exo11.h"
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
+	initRefs();
+	initBranch();
+	char * refH=getRef("HEAD");
+	char * refm=getRef("master");
+	printf("refH null:%d\n",refH==NULL);
+	printf("refm null:%d\n",refm==NULL); 
+	createBranch("Branche1");
+	printBranch("Branche1");
+	//system("rm  .refs/HEAD");
+	List * L = branchList("Branche1");
+	char * Lb1= ltos(L);
+	printf("Liste de Branche1 : %s\n",Lb1);
+	FreeList(L);
+	free(Lb1);
 
-
+	List * L3 = getAllCommits();
+	
+	char * Lb3= ltos(L3);
+	printf("Liste de tous les commits : %s\n",Lb3);
+	
+	free(Lb3);
+	FreeList(L3);
+	
+/*
+	
+	List * L2 = branchList("master");
+	
+	char * Lb2= ltos(L2);
+	
+	printf("Liste de master : %s\n",Lb2);
+	
+	printBranch("master");
+	
+	FreeList(L2);
+	
+	free(Lb2);
+*/
+	
+	free(refH);
+	free(refm);
+	_CrtDumpMemoryLeaks();
 	return 0;
 }
 
