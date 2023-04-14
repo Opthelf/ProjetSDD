@@ -19,18 +19,13 @@
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
 
-	WorkTree * WT = branchToWorkTree("master");
-	char * chaine_wt = wtts(WT);
-	printf("chaine ->\n%s\n",chaine_wt);
 
-	freeWorkTree(WT);
-	free(chaine_wt);
 	return 0;
 }
 
 
 /*
-Update Simon : tous les exos jusqu'à 7 inclus sont 0 leaks à priori 
+Update Simon : tous les exos jusqu'à 8 inclus sont 0 leaks à priori mais message pas bien traité cad que si le message contient des espaces alors seul le premier mot sera gardé pb venant de stc .
 
 */
 

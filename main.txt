@@ -328,25 +328,40 @@ exo8 :
 
 	Tests :
 
-	initRefs();
+		initRefs();
 	initBranch();
-	printf("HEAeD : %d\n",branchExists("HEAeD"));
-	printf("HEAD : %d\n",branchExists("HEAD"));
-	myGitAdd("Test");
-	myGitAdd("test.txt");
-	myGitCommit("branche2",NULL);
-
-	//createBranch("branche2");
-
-	char * current_branch = getCurrentBranch();
-	printf("current_branch -> %s\n",current_branch);
-	free(current_branch);
-
-	List * L = getAllCommits();
-	char * chaine = ltos(L);
-	printf("chaine -> \n%s\n",chaine);
-
+	char * refH=getRef("HEAD");
+	char * refm=getRef("master");
+	printf("refH null:%d\n",refH==NULL);
+	printf("refm null:%d\n",refm==NULL); 
+	createBranch("Branche1");
+	printBranch("Branche1");
+	//system("rm  .refs/HEAD");
+	
+/*
+	List * L = branchList("Branche1");
+	List * L2 = branchList("master");
+	char * Lb1= ltos(L);
+	char * Lb2= ltos(L2);
+	printf("Liste de Branche1 : %s\n",Lb1);
+	printf("Liste de master : %s\n",Lb2);
+	
+	printBranch("master");
 	FreeList(L);
+	FreeList(L2);
+	free(Lb1);
+	free(Lb2);
+*/
+	//List * L3 = getAllCommits();
+	//char * Lb3= ltos(L3);
+	//printf("Liste de tous les commits : %s\n",Lb3);
+
+	
+	//FreeList(L3);
+	
+	//free(Lb3);
+	free(refH);
+	free(refm);
 
 Exo 9 :
 
