@@ -72,6 +72,24 @@ WorkTree * mergeWorkTrees(WorkTree * wt1, WorkTree * wt2, List ** conflicts){
         j = 0;
     }
 
+    //On parcourt le premier WorkTree pour rajouter les fichiers qui ne sont pas dans l'autre WorkTree
+    for(int k = 0 ; k < wt1->n ; k++){
+
+        //Si le fichier n'est pas dans le deuxième WorkTree
+        if (inWorkTree(wt2,wt1->tab[k].name) == -1){
+            appendWorkTree(newWT,wt1->tab[k].name,wt1->tab[k].hash,wt1->tab[k].mode);
+        }
+    }
+
+    //On parcourt le deuxième WorkTree pour rajouter les fichiers qui ne sont pas dans l'autre WorkTree
+    for(int k = 0 ; k < wt1->n ; k++){
+
+        //Si le fichier n'est pas dans le premier WorkTree
+        if (inWorkTree(wt1,wt2->tab[k].name) == -1){
+            appendWorkTree(newWT,wt2->tab[k].name,wt2->tab[k].hash,wt2->tab[k].mode);
+        }
+    }
+    
     return newWT;
 }
 
