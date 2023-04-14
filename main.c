@@ -19,51 +19,36 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	/*initRefs();
-	initBranch();*/
 
-	//createBranch("branche_test");
-	//myGitCheckoutBranch("master");
-	/*myGitAdd("test.txt");
-	myGitCommit("master","nouvelleBranche");*/
+	//Première exécution, à mettre en commentaire ensuite
 	initRefs();
-	List * L = listdir(".refs");
-	FreeList(L);
+	initBranch();
+	myGitAdd("test.txt");
+	myGitCommit("master","commit1");
 
+	//Deuxième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+	/*myGitAdd("test.txt");
+	myGitCommit("master","commit2");*/
 
-	/*createBranch("Branche1");
-	printBranch("Branche1");
-	List * L = branchList("Branche1");
-	char * Lb1= ltos(L);
-	printf("Liste de Branche1 : %s\n",Lb1);
-	FreeList(L);
-	free(Lb1);
+	//Troisième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+	/*createBranch("branche_test");
+	myGitCheckoutBranch("branche_test");
+	myGitAdd("test.txt");
+	myGitCommit("branche_test","commit2");*/
 
-	List * L3 = getAllCommits();
-	
-	char * Lb3= ltos(L3);
-	printf("Liste de tous les commits : %s\n",Lb3);
-	
-	free(Lb3);
-	FreeList(L3);*/
-	
-	/*
-	
-	List * L2 = branchList("master");
-	
-	char * Lb2= ltos(L2);
-	
-	printf("Liste de master : %s\n",Lb2);
-	
-	printBranch("master");
-	
-	FreeList(L2);
-	
-	free(Lb2);
-	*/
-	
-	//free(refH);
-	//free(refm);
+	//Quatrième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+	/*myGitCheckoutBranch("master");
+	myGitAdd("test.txt");
+	myGitCommit("master","commit2");*/
+
+	//Cinquième exécution pour plus de clareté, à mettre en commentaire après exécution
+	/*List * Lcommit = getAllCommits();
+	char * chaine_commits = ltos(Lcommit);
+	printf("AllCommits ->\n%s\n",chaine_commits);
+
+	FreeList(Lcommit);
+	free(chaine_commits);*/
+
 	return 0;
 }
 

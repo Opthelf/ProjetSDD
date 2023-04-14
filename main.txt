@@ -363,6 +363,38 @@ exo8 :
 	free(refH);
 	free(refm);
 
+
+	Test getAllCommits/myGitCheckoutBranch :
+
+		//Première exécution, à mettre en commentaire ensuite
+		/*initRefs();
+		initBranch();
+		myGitAdd("test.txt");
+		myGitCommit("master","commit1");*/
+
+		//Deuxième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+		/*myGitAdd("test.txt");
+		myGitCommit("master","commit2");*/
+
+		//Troisième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+		/*createBranch("branche_test");
+		myGitCheckoutBranch("branche_test");
+		myGitAdd("test.txt");
+		myGitCommit("branche_test","commit2");*/
+
+		//Quatrième exécution, changer le fichier test.txt, à mettre en commentaire après exécution
+		/*myGitCheckoutBranch("master");
+		myGitAdd("test.txt");
+		myGitCommit("master","commit2");*/
+
+		//Cinquième exécution pour plus de clareté, à mettre en commentaire après exécution
+		/*List * Lcommit = getAllCommits();
+		char * chaine_commits = ltos(Lcommit);
+		printf("AllCommits ->\n%s\n",chaine_commits);
+
+		FreeList(Lcommit);
+		free(chaine_commits);*/
+
 Exo 9 :
 
 	filterList -> 

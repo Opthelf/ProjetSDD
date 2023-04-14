@@ -1,1 +1,1 @@
-Ceci est un test du fichier test.txt version 3.0
+Ceci est un test du fichier test.txt version 1.0
