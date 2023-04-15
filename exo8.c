@@ -187,7 +187,13 @@ List * branchList(char * commit_hash){
     while(c != NULL){
 
         //On insère dans la liste la valeur
-        insertFirst(L,buildCell(commit_pred));
+        Cell * C1 = buildCell(commit_pred);
+
+        if (strcmp(commit_pred,commit_hash) != 0){
+            free(commit_pred);
+        }
+        
+        insertFirst(L,C1);
 
         //Si le prédécessor existe on actualise la variable itérative
         commit_pred = commitGet(c,"predecessor");
@@ -224,7 +230,11 @@ List * branchList(char * commit_hash){
         }
         
     }
-    free(commit_pred);
+
+    if (c != NULL){
+        freeCommit(c);
+    }
+
     free(path);
 
     return L;
@@ -236,6 +246,7 @@ List * getAllCommits(){
 
     List * L = initList();
     List * content = listdir(".refs");
+
     for(Cell * ptr = *content ; ptr != NULL ; ptr = ptr->next){
         if(ptr->data[0]=='.'){
             continue;
@@ -246,13 +257,12 @@ List * getAllCommits(){
         //Si la branche n'existe pas
         if (branchExists(tmp) == 0){
             printf("La branche %s n'existe pas -> branchList\n",tmp);
-        exit(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
         }
 
         char * commit_hash = getRef(tmp);
 
         List * list = branchList(commit_hash);
-
         free(tmp);
         
         if(commit_hash != NULL){
@@ -266,6 +276,7 @@ List * getAllCommits(){
 
         Cell * cell = *list;
         while(cell != NULL){
+
             if(searchList(L,cell->data) == NULL){
                 Cell * c = buildCell(cell->data);
                 insertFirst(L,c);
@@ -276,6 +287,8 @@ List * getAllCommits(){
         }
         FreeList(list);
     }
+
     FreeList(content);
+
     return L;
 }

@@ -55,14 +55,12 @@ int main(int argc, char ** argv){
 	FreeList(L1);
 	free(L2);*/
 
-	//char * chaine = getRef("master");
 	List * commits = getAllCommits();
 	char * chaine_commits = ltos(commits);
 
 	printf("commits ->\n%s\n",chaine_commits);
 
 	free(chaine_commits);
-	//free(chaine);
 	FreeList(commits);
 	return 0;
 }
@@ -75,5 +73,5 @@ Update Simon : 0 leak error jusqu'à createDeletionCommit inclus
 
 /*
 Update Nino :
--> merge n'est donc pas un pb, test dans main.txt
+-> branchList & getAllCommits sans problème, leak résolu (pas testé quand il y a des predecessor old)
 */

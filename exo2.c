@@ -221,9 +221,7 @@ void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 
 		*conflicts = (*conflicts)->next;
 	}
-	printf("maissss\n");
 	if (L_current == NULL){
-		printf("voici le pb\n");
 	}
 	char * chaine = ltos(*L_current);
 	printf("%s\n",chaine);
