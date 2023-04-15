@@ -344,13 +344,18 @@ int main(int argc,char * argv[]){
 
                 createDeletionCommit(current,L_branch,argv[3]);
                 createDeletionCommit(argv[2],L_current,argv[3]);
-                
+
                 merge(argv[2],argv[3]);
                 printf("Fin de la fusion par choix ! C'est un succès\n");
+
+                FreeList(L_current);
+                FreeList(L_branch);
                 break;
 
             default :
                 printf("La valeur entrée n'est pas accepté -> abort fusion request\n");
+                free(current);
+                FreeList(conflicts);
                 exit(EXIT_FAILURE);
         }
 

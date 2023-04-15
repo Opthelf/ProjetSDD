@@ -19,6 +19,36 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
+	List * L = initList();
+	Cell * C_1 = buildCell("f1.txt");
+	Cell * C_2 = buildCell("f2.txt");
+	Cell * C_3 = buildCell("f3.txt");
+	insertLast(L,C_1);
+	insertLast(L,C_2);
+	insertLast(L,C_3);
+
+	List * L_current = initList();
+	List * L_branch = initList();
+	tri_par_choix(L,&L_current,&L_branch);
+
+	if (L_current == NULL){
+		printf("voici le pb\n");
+	}
+	char * chaine_current = ltos(L_current);
+	printf("chaine_current -> %s\n",chaine_current);
+
+	char * chaine_branch = ltos(L_branch);
+	printf("chaine_branche -> %s\n",chaine_branch);
+
+
+	free(chaine_current);
+	free(chaine_branch);
+	freeCell(C_1);
+	freeCell(C_2);
+	freeCell(C_3);
+	FreeList(L);
+	FreeList(L_current);
+	FreeList(L_branch);
 	return 0;
 }
 
