@@ -29,4 +29,5 @@ void affiche_commande(){
     printf("Pour afficher les commit d'une branche -> ./myGit print-branch <branch_name>\n\n");
     printf("Pour restaurer les fichiers depuis une branche -> ./myGit checkout-branch <branch_name>\n\n");
     printf("Pour restaurer les fichiers depuis un commit -> ./myGit checkout-commit <pattern_hash_commit>\n\n");
+    printf("Pour merge une branche dans la branche courante -> ./myGit merge <branch_name>\n\n");
 }

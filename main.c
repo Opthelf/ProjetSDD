@@ -20,50 +20,14 @@
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
 	system("./myGit init");
-	system("echo \"master 1\" > f1.txt");
-	system("echo \"master 3\" > f3.txt");
-	system("echo \"master 4\" > f4.txt");
-	system("./myGit add f1.txt");
-	system("./myGit add f3.txt");
-	system("./myGit add f4.txt");
-	system("./myGit commit master -m \"commit1 sur master\"");
 	
-	system("./myGit branch Branche");
-	system("./myGit checkout-branch Branche");
-	
-	system("echo \"Branche 1\" > f1.txt");
-	/*
-	
-	system("echo \"Branche 3\" > f3.txt");
-	system("echo \"Branche 4\" > f4.txt");*/
+	printBranch("master");
+	//system("rm -f -r */ ; rm -f -r .refs ; rm .current_branch  ");	
+
 
 	
-	system("./myGit add f4.txt");
-	system("./myGit add f3.txt");
-	system("./myGit add f1.txt");
-	system("./myGit add f2.txt");
-	system("./myGit commit Branche -m \"commit1 sur Branche\"");
-	
-	system("./myGit checkout-branch master");
-
-	system("./myGit get-current-branch");
-
-	List * conflicts = merge("Branche","fusion master et branche");
-	
-	if(conflicts != NULL){
-		char * str = ltos(conflicts);
-		printf("\nconflicts : %s\n",str);
-		free(str);
-		FreeList(conflicts);
-	}
 	
 
-	
-	/*createDeletionCommit("Branche",conflicts,"commit suppression conflit ");
-    merge("Branche","fusion master et branche");*/
-
-	//system("rm -f -r */ ; rm -f -r .refs ; rm .current_branch  ");
-	//	//FreeList(conflicts2);
 	return 0;
 }
 

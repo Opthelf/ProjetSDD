@@ -209,8 +209,30 @@ Commit * stc(char *str){ //Transforme une chaine de caractère en commit
         sscanf(str,"%s : %s",reskey,resvalue);
         strcat(reskey,"\0");
        
-
+        int l1 = strlen(resvalue);
         strcat(resvalue,"\0");
+        /*str = strchr(str,' ');
+        int j = 0;
+        while(*str !='\n'&& *str != '\0'){
+
+            if(*str ==' '){
+                str++;
+            }
+            else{
+                int l2 = l1+j;
+                resvalue= realloc(resvalue,sizeof(char)*(l2+1));
+                
+                resvalue[l2] = *str;
+                
+                str++;
+                j++;
+                if(*(str+1)==' '){
+                    strcat(resvalue," ");
+                    j++;
+                }
+            }
+        }*/
+    
        
         commitSet(c,reskey,resvalue);
         str = strchr(str,'\n')+1;
