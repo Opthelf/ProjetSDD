@@ -537,12 +537,12 @@ exo11 :
 	system("./myGit add f3.txt");
 	system("./myGit commit Branche -m \"commit1 sur Branche\"");
 	system("./myGit checkout-branch master");
-	system("./myGit checkout-branch Branche");
-	system("echo \"master 3\" > f3.txt");
-	system("./myGit add f3.txt");
-	system("./myGit commit Branche -m \"commit2 sur Branche\"");
-	
 
+	/*system("echo \"master 3\" > f3.txt");
+	system("./myGit add f3.txt");
+	system("./myGit commit Branche -m \"commit2 sur Branche\"");*/
+	
+	
 	WorkTree * bTW= branchToWorkTree("master");
 	//afficheWT(bTW);
 	freeWorkTree(bTW);
@@ -551,8 +551,17 @@ exo11 :
 	if (Lc!=NULL){
 		char * c = ltos(Lc);
 		printf("conflicts : %s\n",c);
+		createDeletionCommit("Branche",Lc,"commit de suppression des conflits");
+		List * Lc2= merge("Branche","BRANCHEFUSION");
 		free(c);
 		FreeList(Lc);
+		if (Lc2!=NULL){
+			FreeList(Lc2);
+			printf("erreur : conflits non résolus\n");
+			exit(EXIT_FAILURE);
+		}
+
 	}
+	
 	
 	

@@ -204,24 +204,19 @@ void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 		scanf("%d",&choix);
 
 		//Si le choix ne correspond à aucune des options
-		if (choix != 1 && choix != 2){
+		if (choix != 1 || choix != 2){
 			printf("%d n'est pas une option ! Résolution des conflits annulés\n",choix);
 			exit(EXIT_FAILURE);
 		}
 
 		//Si il choisit 1, qui correspond à la branche courante
 		if (choix == 1){
-			Cell * C_temp = buildCell((*conflicts)->data);
-			printf("%s\n",C_temp->data);
-			insertFirst(*L_current,C_temp);
-			freeCell(C_temp);
+			insertLast(*L_current,*conflicts);
 		}
 
 		//Si il choisit 2, qui correspond à la branche à merge
 		if (choix == 2){
-			Cell * C_temp = buildCell((*conflicts)->data);
-			insertFirst(*L_branch,C_temp);
-			freeCell(C_temp);
+			insertLast(*L_branch,*conflicts);
 		}
 
 		*conflicts = (*conflicts)->next;
