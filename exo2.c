@@ -219,11 +219,12 @@ void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 			insertLast(*L_branch,*conflicts);
 		}
 
-		//Si le choix ne correspond à aucune des options
-		else{
-			printf("%d n'est pas une option ! Résolution des conflits annulés\n",choix);
-			exit(EXIT_FAILURE);
-		}
 		*conflicts = (*conflicts)->next;
 	}
+	printf("maissss\n");
+	if (L_current == NULL){
+		printf("voici le pb\n");
+	}
+	char * chaine = ltos(*L_current);
+	printf("%s\n",chaine);
 }
