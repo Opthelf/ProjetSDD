@@ -33,13 +33,15 @@ int main(int argc, char ** argv){
 	system("./myGit add f3.txt");
 	system("./myGit commit Branche -m \"commit1 sur Branche\"");
 	
+	system("./myGit checkout-branch master");
+	
 	/*
 	system("echo \"master 1\" > f1.txt");
 	system("echo \"master 3\" > f3.txt");
 	system("./myGit add f3.txt");
 	system("./myGit add f1.txt");
 	system("./myGit commit Branche -m \"commit2 sur Branche\"");
-	system("./myGit checkout-branch master");*/
+	*/
 	
 	
 	WorkTree * bTW= branchToWorkTree("master");
