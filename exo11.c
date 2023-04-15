@@ -294,7 +294,7 @@ void createDeletionCommit(char * branch, List * conflicts, char * message){
         if (C == NULL){
 
             //On ajoute les fichiers sans conflits dans .add
-            myGitAdd(C->data);
+            myGitAdd(WT_C->tab[i].name);
         }
     }
 

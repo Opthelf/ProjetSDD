@@ -19,7 +19,6 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-
 	return 0;
 }
 
@@ -31,6 +30,5 @@ Update Simon : 0 leak error jusqu'à merge inclus
 
 /*
 Update Nino :
--> nom dans current branch quand commit fix -> HEAD at detached <premiers_caractères_hash_commit>
--> message prend maintenant tout les mots
+-> merge n'est donc pas un pb, test dans main.txt
 */

@@ -537,9 +537,10 @@ exo11 :
 	system("./myGit add f3.txt");
 	system("./myGit commit Branche -m \"commit1 sur Branche\"");
 	system("./myGit checkout-branch master");
-	//system("./myGit checkout-branch Branche");
-	//system("echo \"master 3\" > f3.txt");
-
+	system("./myGit checkout-branch Branche");
+	system("echo \"master 3\" > f3.txt");
+	system("./myGit add f3.txt");
+	system("./myGit commit Branche -m \"commit2 sur Branche\"");
 	
 
 	WorkTree * bTW= branchToWorkTree("master");

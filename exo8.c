@@ -17,7 +17,11 @@
 
 //Initialise un fichier qui donne le nom de la branche courante
 void initBranch(){
-    system("echo master > .current_branch");
+
+    //Si le fichier n'existe pas déjà
+    if (!file_exists(".current_branch")){
+        system("echo master > .current_branch");
+    }
 }
 
 //Vérifie qu'une branche existe
@@ -47,6 +51,12 @@ void createBranch(char* branch){
 
     //On récupère le dernier commit dans HEAD et on le copie dans la nouvelle branche
     char * chaine = getRef("HEAD");
+
+    if (chaine == NULL){
+        printf("On ne peut pas créer de branches si il n'y a eu aucun commit au départ !\n");
+        exit(EXIT_FAILURE);
+    }
+
     createUpdateRef(branch,chaine);
     free(chaine);
 }
