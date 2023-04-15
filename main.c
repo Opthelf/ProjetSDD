@@ -20,6 +20,35 @@
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
 	
+
+
+	WorkTree * bTW= branchToWorkTree("master");
+	afficheWT(bTW);
+	List * Lc= merge("Branche1","BRANCHEFUSION");
+	if (Lc!=NULL){
+		char * c = ltos(Lc);
+		printf("conflicts : %s\n",c);
+		free(c);
+	}
+	FreeList(Lc);
+	
+	freeWorkTree(bTW);
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 	return 0;
 }
