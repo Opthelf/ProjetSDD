@@ -184,7 +184,7 @@ List * merge(char * remote_branch, char * message){
     freeWorkTree(WT_remote);
 
     //Si il y a eu des conflits
-    if (conflicts != NULL){
+    if (*conflicts != NULL){
         
         //On free la mémoire
         free(current);
@@ -207,6 +207,7 @@ List * merge(char * remote_branch, char * message){
     char * hash_commit_old = getRef(remote_branch);
     commitSet(newCommit,"predecessor_old",hash_commit_old);
 
+    free(hash_WT);
     free(hash_commit_current);
     free(hash_commit_old);
 
@@ -227,11 +228,17 @@ List * merge(char * remote_branch, char * message){
 
     free(hash_commit);
 
+    FreeList(conflicts);
+
+    free(current);
+
     deleteRef(remote_branch);
 
     restoreWorkTree(merged_WT,".");
 
     freeWorkTree(merged_WT);
+
+    
 
     return NULL;
 }

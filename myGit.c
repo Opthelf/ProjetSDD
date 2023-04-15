@@ -299,7 +299,7 @@ int main(int argc,char * argv[]){
         List * conflicts = merge(argv[2],argv[3]);
 
         //Si il n'y a pas eu de conflits
-        if (conflicts == NULL){
+        if (*conflicts == NULL){
             printf("La fusion s'est déroulé à merveille !\n");
             return 0;
         }

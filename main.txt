@@ -519,3 +519,39 @@ exo11 :
 	free(hash2);
 	free(hash3);
 	free(hash4);
+
+
+
+
+
+	system("./myGit init");
+	system("./myGit add f1.txt");
+	system("./myGit add f3.txt");
+	system("./myGit commit master -m \"commit1 sur master\"");
+	system("./myGit branch Branche");
+	system("./myGit checkout-branch Branche");
+	system("echo \"Branche 1\" > f1.txt");
+	system("echo \"Branche 3\" > f3.txt");
+	system("./myGit add f1.txt");
+	system("./myGit add f2.txt");
+	system("./myGit add f3.txt");
+	system("./myGit commit Branche -m \"commit1 sur Branche\"");
+	system("./myGit checkout-branch master");
+	//system("./myGit checkout-branch Branche");
+	//system("echo \"master 3\" > f3.txt");
+
+	
+
+	WorkTree * bTW= branchToWorkTree("master");
+	//afficheWT(bTW);
+	freeWorkTree(bTW);
+
+	List * Lc= merge("Branche","BRANCHEFUSION");
+	if (Lc!=NULL){
+		char * c = ltos(Lc);
+		printf("conflicts : %s\n",c);
+		free(c);
+		FreeList(Lc);
+	}
+	
+	
