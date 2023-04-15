@@ -215,6 +215,7 @@ void myGitCheckoutCommit(char* pattern){
     for(int i=0;i<7;i++){
         buff1[i+17]=head[i];
     }
+    
     char buff2[300];
     sprintf(buff2,"echo %s > .current_branch",buff1);
     system(buff2);

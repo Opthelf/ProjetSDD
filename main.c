@@ -26,15 +26,12 @@ int main(int argc, char ** argv){
 
 
 /*
-Update Simon : tous les exos jusqu'à 10 inclus sont 0 leaks,erreurs à priori mais message pas bien traité cad que si le message contient des espaces alors seul le premier mot sera gardé pb venant de stc .
-	j'ai implémenté le detached head mais même pb que stc ne garde que le 1er mot de current_branch
+Update Simon :
 */
 
 
 /*
 Update Nino :
--> exo 7, myGitCommit changé pour tester lorsque c'est le premier commit et donc qu'il n'y a rien dans HEAD et la branche à commit, semble fonctionner maintenant (sans leak)
--> exo 11, fonction mergeWorkTrees testé un petit peu, semble fonctionner
--> exo 11, fonction merge écrite avec attention, ajout de fonctions intermédiaires, mais non-testé
--> exo 11, fonction branchToWorkTree testé et fonctionnelle sur un test dans main.txt (dépend de ce que tu as dans ta branche) 
+-> nom dans current branch quand commit fix -> HEAD at detached <premiers_caractères_hash_commit>
+-> message prend maintenant tout les mots
 */

@@ -76,8 +76,10 @@ char* getCurrentBranch(){
         printf("Le fichier .current_branch est vide -> getCurrentBranch\n");
         return NULL;
     }
-
-    sscanf(buff,"%s\n",buff);
+    
+    if( buff[strlen(buff)-1] == '\n' ){
+        buff[strlen(buff)-1] = 0;
+    }
 
     fclose(f);
     return buff;

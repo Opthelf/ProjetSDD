@@ -160,7 +160,7 @@ int main(int argc,char * argv[]){
     if (strcmp(argv[1],"commit") == 0){
 
         //Si le nombre d'arguments est incorrect
-        if ((argc < 3) || (argc == 4)){
+        if ((argc < 3) || (argc == 4) || (argc > 5)){
             printf("Nombre d'arguments incorrects pour réaliser un commit\n");
             return 0;
         }
@@ -174,8 +174,8 @@ int main(int argc,char * argv[]){
         //Si il y a un message
         if (argc == 5){
 
-            //Si il y a bien l'option -m qui précise le message
-            if (strcmp(argv[4],"-m")){
+            //Si il y a bien l'option -m qui précise qu'il y a un message
+            if (strcmp(argv[3],"-m") == 0){
                 myGitCommit(argv[2],argv[4]);
                 return 0;
             }
