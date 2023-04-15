@@ -228,3 +228,8 @@ void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 	char * chaine = ltos(*L_current);
 	printf("%s\n",chaine);
 }
+
+//Fusionne la deuxième liste dans la première
+void fusionList(List ** first, List * second){
+	insertLast(*first,*second);
+}

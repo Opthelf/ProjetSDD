@@ -19,63 +19,51 @@
 
 int main(int argc, char ** argv){
 	//Tout les anciens tests sont dans main.txt bien triés pour faire de la place ici
-	List * L = initList();
-	Cell * C_1 = buildCell("f1.txt");
-	Cell * C_2 = buildCell("f2.txt");
-	Cell * C_3 = buildCell("f3.txt");
-	insertLast(L,C_1);
-	insertLast(L,C_2);
-	insertLast(L,C_3);
+	/*List * L1 = initList();
+	List * L2 = initList();
 
-	List * L_current = initList();
-	List * L_branch = initList();
-	tri_par_choix(L,&L_current,&L_branch);
+	Cell * C1 = buildCell("first");
+	Cell * C2 = buildCell("second");
+	Cell * C3 = buildCell("third");
 
-	if (L_current == NULL){
-		printf("voici le pb\n");
-	}
-	char * chaine_current = ltos(L_current);
-	printf("chaine_current -> %s\n",chaine_current);
+	insertLast(L1,C1);
+	insertLast(L1,C2);
+	insertLast(L1,C3);
 
-	char * chaine_branch = ltos(L_branch);
-	printf("chaine_branche -> %s\n",chaine_branch);
+	Cell * C4 = buildCell("forth");
+	Cell * C5 = buildCell("fifth");
+	Cell * C6 = buildCell("sixth");
 
+	insertLast(L2,C4);
+	insertLast(L2,C5);
+	insertLast(L2,C6);
 
-	free(chaine_current);
-	free(chaine_branch);
-	freeCell(C_1);
-	freeCell(C_2);
-	freeCell(C_3);
-	FreeList(L);
-	FreeList(L_current);
-	FreeList(L_branch);
-	system("./myGit init");
-	system("./myGit add f1.txt");
-	system("./myGit add f3.txt");
-	system("./myGit commit master -m \"commit1 sur master\"");
-	system("./myGit branch Branche");
+	char * chaine_1 = ltos(L1);
+	printf("chaine 1 -> %s\n",chaine_1);
 
-	system("./myGit checkout-branch Branche");
-	system("echo \"Branche 1\" > f1.txt");
-	system("echo \"Branche 3\" > f3.txt");
-	system("./myGit add f1.txt");
-	system("./myGit add f2.txt");
-	system("./myGit add f3.txt");
-	system("./myGit commit Branche -m \"commit1 sur Branche\"");
-	
-	system("./myGit checkout-branch master");
-	
-	/*
-	system("echo \"master 1\" > f1.txt");
-	system("echo \"master 3\" > f3.txt");
-	system("./myGit add f3.txt");
-	system("./myGit add f1.txt");
-	system("./myGit commit Branche -m \"commit2 sur Branche\"");
-	*/
-	
+	char * chaine_2 = ltos(L2);
+	printf("chaine 2 -> %s\n",chaine_2);
 
-	
-	
+	fusionList(&L1,L2);
+	char * chaine_3 = ltos(L1);
+	printf("chaine 3 -> %s\n",chaine_3);
+
+	free(chaine_1);
+	free(chaine_2);
+	free(chaine_3);
+
+	FreeList(L1);
+	free(L2);*/
+
+	//char * chaine = getRef("master");
+	List * commits = getAllCommits();
+	char * chaine_commits = ltos(commits);
+
+	printf("commits ->\n%s\n",chaine_commits);
+
+	free(chaine_commits);
+	//free(chaine);
+	FreeList(commits);
 	return 0;
 }
 
