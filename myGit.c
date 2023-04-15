@@ -333,7 +333,20 @@ int main(int argc,char * argv[]){
                 break;
 
             case 3 :
-                printf("Bon euh option un peu complexe j'y reviendrai quand on aura fini le reste -> ne fait rien pour l'instant\n");
+                printf("Vous allez choisir manuellement pour chaque fichier posant problème la version de quelle branche vous souhaitez garder.\n");
+                printf("1 -> branche %s\n",current);
+                printf("2 -> branche %s\n",argv[2]);
+
+                List * L_current = initList();
+                List * L_branch = initList();
+
+                tri_par_choix(conflicts,&L_current,&L_branch);
+
+                createDeletionCommit(current,L_branch,argv[3]);
+                createDeletionCommit(argv[2],L_current,argv[3]);
+                
+                merge(argv[2],argv[3]);
+                printf("Fin de la fusion par choix ! C'est un succès\n");
                 break;
 
             default :
