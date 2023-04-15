@@ -13,6 +13,8 @@
 #include "exo5.h"
 #include "exo6.h"
 #include "exo7.h"
+#include "exo8.h"
+#include "exo9.h"
 
 //La fonction crée le répertoire .refs et les fichiers master et HEAD dedans si ce n'est pas déjà fait
 void initRefs(){ 
@@ -102,6 +104,19 @@ char* getRef(char* ref_name){
 void myGitAdd(char* file_or_folder){
     WorkTree * wt;
 
+    char * current = getCurrentBranch();
+    if (strlen(current) >= 4){
+        char buff[5] = {current[0],current[1],current[2],current[3],'\0'};
+
+        if (strcmp(buff,"HEAD") == 0){
+            printf("Vous ne pouvez pas ajouter de fichiers à add car vous êtes actuellement sur un commit, essayez de checkout sur une branche -> myGitAdd\n");
+            free(current);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    free(current);
+
     //Si le fichier .add n'existe pas
     if (file_exists(".add") == 0){
         system("touch .add");
@@ -138,15 +153,35 @@ void myGitCommit(char* branch_name, char* message){
     char buff[100];
     strcpy(buff,"");
     sprintf(buff,".refs/%s",branch_name);
+
     //Si la référence n'existe pas
     if (file_exists(buff) == 0){
         printf("La branche %s n'existe pas -> (myGitCommit)\n",branch_name);
         exit(EXIT_FAILURE);
     }
+
+    //Si le fichier .add n'existe pas
+    if (file_exists(".add") == 0){
+        printf("Aucun fichier n'a été ajouté à add, il n'existe pas, impossible de commit -> myGitCommit\n");
+        exit(EXIT_FAILURE);
+    }
+
+    char * current = getCurrentBranch();
+    
+    if (strcmp(current,branch_name) != 0){
+        printf("Vous essayez de commit sur une branche qui n'est pas la branche courante, opération impossible -> myGitCommit\n");
+        if (current != NULL){
+            free(current);
+        }
+        exit(EXIT_FAILURE);
+    }
+
     char * hashHEAD = getRef("HEAD");
     char * hashBranch_name = getRef(branch_name);
 
     int first_commit = 0;
+
+    //Si il s'agit du premier commit
     if (hashHEAD == NULL && hashBranch_name == NULL){
         printf("Les deux références sont NULL, on suppose qu'il s'agit du premier commit -> myGitCommit\n");
         first_commit = 1;
@@ -155,6 +190,7 @@ void myGitCommit(char* branch_name, char* message){
     //Si l'un des hash seulement est NULL
     if ( (hashHEAD == NULL || hashBranch_name == NULL) && first_commit == 0){
         printf("L'une des deux branches pointe vers aucun commit -> myGitCommit\n");
+        exit(EXIT_FAILURE);
     }
 
     //Si aucun des deux n'est NULL
@@ -163,7 +199,6 @@ void myGitCommit(char* branch_name, char* message){
         //Si la ref HEAD ne pointe pas sur le même commit que la branche
         if (strcmp(hashHEAD,hashBranch_name) != 0){
             printf("HEAD doit pointer sur le dernier commit de la branche -> (myGitCommit)\n");
-            printf("ici -> myGitCommit\n");
             free(hashHEAD);
             free(hashBranch_name);
             return;
@@ -200,14 +235,16 @@ void myGitCommit(char* branch_name, char* message){
     if (message == NULL){
         printf("Le message est NULL -> (myGitCommit)\n");
     }
+
     //Si le message n'est pas NULL on ajoute une paire message-"message"
     else{
-        
         commitSet(c,"message",message);
     }
+
     //On crée un instantané du commit
     char * hashCommit = blobCommit(c);
     printf("hashCommit -> %s\n",hashCommit);
+
     //On update la référence branch_name
     createUpdateRef(branch_name,hashCommit);
     createUpdateRef("HEAD",hashCommit);
@@ -220,6 +257,7 @@ void myGitCommit(char* branch_name, char* message){
         free(hashBranch_name);
     }
 
+    free(current);
     free(hashWorkTree);
     free(hashCommit);
     freeWorkTree(WT);

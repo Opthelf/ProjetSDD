@@ -36,7 +36,6 @@ int branchExists(char* branch){
 
     //Si la branche n'existe pas
     if (file_exists(buff) == 0){
-        printf("La branche %s n'existe pas -> branchExists\n",branch);
         return 0;
     }
 
@@ -237,7 +236,6 @@ List * getAllCommits(){
             cell = cell->next;
             
         }
-        
         FreeList(list);
     }
     FreeList(content);

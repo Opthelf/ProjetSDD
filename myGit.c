@@ -224,7 +224,7 @@ int main(int argc,char * argv[]){
     }
 
     //Si l'utilisateur veut afficher tout les commit d'une branche
-    if (strcmp(argv[1],"branch-print") == 0){
+    if (strcmp(argv[1],"print-branch") == 0){
 
         //Si le nombre d'arguments est incorrect
         if (argc != 3){

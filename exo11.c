@@ -151,6 +151,27 @@ List * merge(char * remote_branch, char * message){
     //On récupère la branche courante
     char * current = getCurrentBranch();
 
+    //Si la branche courante est un commit
+    if (strlen(current) >= 4){
+        char buff[5] = {current[0],current[1],current[2],current[3],'\0'};
+
+        if (strcmp(buff,"HEAD") == 0){
+            printf("Vous ne pouvez pas merge car vous êtes actuellement sur un commit (yet), essayez de checkout sur une branche -> merge\n");
+            free(current);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    //Si la branche à merge est un commit
+    if (strlen(remote_branch) >= 4){
+        char buff[5] = {remote_branch[0],remote_branch[1],remote_branch[2],remote_branch[3],'\0'};
+
+        if (strcmp(buff,"HEAD") == 0){
+            printf("Vous ne pouvez pas merge avec un commit (yet), essayez de checkout sur une branche -> merge\n");
+            exit(EXIT_FAILURE);
+        }
+    }
+
     //On récupère les WorkTree associés au dernier commit de la branche courante et remote
     WorkTree * WT_current = branchToWorkTree(current);
     WorkTree * WT_remote = branchToWorkTree(remote_branch);
@@ -221,6 +242,27 @@ void createDeletionCommit(char * branch, List * conflicts, char * message){
 
     //On récupère la branche courante
     char * current = getCurrentBranch();
+
+    //Si la branche courante est un commit
+    if (strlen(current) >= 4){
+        char buff[5] = {current[0],current[1],current[2],current[3],'\0'};
+
+        if (strcmp(buff,"HEAD") == 0){
+            printf("Vous ne pouvez pas merge car vous êtes actuellement sur un commit (yet), essayez de checkout sur une branche -> createDeletionCommit\n");
+            free(current);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    //Si la branche à merge est un commit
+    if (strlen(branch) >= 4){
+        char buff[5] = {branch[0],branch[1],branch[2],branch[3],'\0'};
+
+        if (strcmp(buff,"HEAD") == 0){
+            printf("Vous ne pouvez pas merge avec un commit (yet), essayez de checkout sur une branche -> createDeletionCommit\n");
+            exit(EXIT_FAILURE);
+        }
+    }
 
     //On passe sur la branche en paramètre
     myGitCheckoutBranch(branch);
