@@ -191,3 +191,39 @@ List * ftol(char * path){ //Récupère une chaine de caractère d'un fichier pui
 	fclose(f);
 	return stol(buff);
 }
+
+//Modifie les deux listes L_current et L_branch selon les choix de l'utilisateur sur les fichiers dans conflicts
+void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
+	int choix;
+
+	//On parcourt la liste des conflits
+	while (*conflicts != NULL){
+
+		//On récupère le choix de l'utilisateur de la version à garder
+		printf("Quel est votre choix pour %s ?\n",(*conflicts)->data);
+		scanf("%d",&choix);
+
+		//Si le choix ne correspond à aucune des options
+		if (choix != 1 || choix != 2){
+			printf("%d n'est pas une option ! Résolution des conflits annulés\n");
+			exit(EXIT_FAILURE);
+		}
+
+		//Si il choisit 1, qui correspond à la branche courante
+		if (choix == 1){
+			insertLast(*L_current,(*conflicts)->data);
+		}
+
+		//Si il choisit 2, qui correspond à la branche à merge
+		if (choix == 2){
+			insertLast(*L_branch,(*conflicts)->data);
+		}
+
+		//Si le choix ne correspond à aucune des options
+		else{
+			printf("%d n'est pas une option ! Résolution des conflits annulés\n");
+			exit(EXIT_FAILURE);
+		}
+		*conflicts = (*conflicts)->next;
+	}
+}
