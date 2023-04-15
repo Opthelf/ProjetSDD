@@ -75,5 +75,5 @@ Update Simon : 0 leak error jusqu'à createDeletionCommit inclus
 
 /*
 Update Nino :
--> merge n'est donc pas un pb, test dans main.txt
+-> branchList & getAllCommits sans problème, leak résolu (pas testé quand il y a des predecessor old)
 */

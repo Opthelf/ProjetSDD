@@ -196,14 +196,7 @@ List * ftol(char * path){ //Récupère une chaine de caractère d'un fichier pui
 void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 	int choix;
 	Cell * temp = *conflicts;
-	/*
-	char * chaine1 = ltos(*L_current);
-	char * chaine2 = ltos(*L_branch);
-	printf("L_current : %s\n",chaine1);
-	printf("L_branch :%s\n",chaine2);
-	free(chaine1);
-	free(chaine2);*/
-
+	
 	//On parcourt la liste des conflits
 	while (temp != NULL){
 
@@ -235,4 +228,9 @@ void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 		temp = temp->next;
 	}
 
+}
+
+//Fusionne la deuxième liste dans la première
+void fusionList(List ** first, List * second){
+	insertLast(*first,*second);
 }

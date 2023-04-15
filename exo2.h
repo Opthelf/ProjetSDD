@@ -24,5 +24,6 @@ List * stol(char* s);
 void ltof(List * L,char * path);
 List * ftol(char * path);
 void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch);
+void fusionList(List ** first, List * second);
 
 #endif

@@ -168,17 +168,10 @@ void printBranch(char * branch){
 }
 
 
-//Retourne une liste de tout les commit dans la branche
-List * branchList(char * branch){
-
-    //Si la branche n'existe pas
-    if (branchExists(branch) == 0){
-        printf("La branche %s n'existe pas -> branchList\n",branch);
-        exit(EXIT_FAILURE);
-    }
+//Retourne une liste de tout les commit dans la branche dont le dernier commit est passé en paramètre
+List * branchList(char * commit_hash){
 
     List * L = initList();
-    char * commit_hash = getRef(branch);
 
     //Si il n'y a pas de hash dans la branche, donc pas de commit
     if (commit_hash == NULL){
@@ -188,19 +181,44 @@ List * branchList(char * branch){
     char * path = hashToPathCommit(commit_hash);
     Commit * c = ftc(path);
 
+    char * commit_pred = commit_hash;
+
     //On parcourt notre liste de commit
     while(c != NULL){
 
         //On insère dans la liste la valeur
-        insertFirst(L,buildCell(commit_hash));
+        Cell * C1 = buildCell(commit_pred);
+
+        if (strcmp(commit_pred,commit_hash) != 0){
+            free(commit_pred);
+        }
+        
+        insertFirst(L,C1);
 
         //Si le prédécessor existe on actualise la variable itérative
-        free(commit_hash);
-        commit_hash = commitGet(c,"predecessor");
+        commit_pred = commitGet(c,"predecessor");
 
-        if(commit_hash != NULL){
+        char * commit_hash_old = commitGet(c,"predecessor_old");
+
+        if (commit_hash_old != NULL){
+            List * old = branchList(commit_hash_old);
+            free(commit_hash_old);
+            fusionList(&L,old);
+            free(old);
+        }
+
+        char * commit_hash_current = commitGet(c,"predecessor_current");
+
+        if (commit_hash_current != NULL){
+            List * current = branchList(commit_hash_current);
+            free(commit_hash_current);
+            fusionList(&L,current);
+            free(current);
+        }
+
+        if(commit_pred != NULL){
             free(path);
-            path = hashToPathCommit(commit_hash);
+            path = hashToPathCommit(commit_pred);
             freeCommit(c);
             c = ftc(path);
         }
@@ -210,8 +228,13 @@ List * branchList(char * branch){
             freeCommit(c);
             c = NULL;
         }
+        
     }
-    free(commit_hash);
+
+    if (c != NULL){
+        freeCommit(c);
+    }
+
     free(path);
 
     return L;
@@ -223,23 +246,37 @@ List * getAllCommits(){
 
     List * L = initList();
     List * content = listdir(".refs");
+
     for(Cell * ptr = *content ; ptr != NULL ; ptr = ptr->next){
         if(ptr->data[0]=='.'){
             continue;
         }
     
         char * tmp = strdup(ptr->data);
-        List * list = branchList(tmp);
+
+        //Si la branche n'existe pas
+        if (branchExists(tmp) == 0){
+            printf("La branche %s n'existe pas -> branchList\n",tmp);
+            exit(EXIT_FAILURE);
+        }
+
+        char * commit_hash = getRef(tmp);
+
+        List * list = branchList(commit_hash);
         free(tmp);
         
+        if(commit_hash != NULL){
+            free(commit_hash);
+        }
 
-        if (list == NULL){
+        if (*list == NULL){
+            free(list);
             continue;
         }
-      
-        
+
         Cell * cell = *list;
         while(cell != NULL){
+
             if(searchList(L,cell->data) == NULL){
                 Cell * c = buildCell(cell->data);
                 insertFirst(L,c);
@@ -250,6 +287,8 @@ List * getAllCommits(){
         }
         FreeList(list);
     }
+
     FreeList(content);
+
     return L;
 }
