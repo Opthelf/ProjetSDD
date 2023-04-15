@@ -36,7 +36,7 @@ WorkTree * mergeWorkTrees(WorkTree * wt1, WorkTree * wt2, List ** conflicts){
         return wt1;
     }
 
-    List * temp_conflicts = *conflicts; 
+   List * temp_conflicts = *conflicts; 
     WorkTree * newWT = initWorkTree();
 
     int i = 0;
@@ -82,7 +82,7 @@ WorkTree * mergeWorkTrees(WorkTree * wt1, WorkTree * wt2, List ** conflicts){
     }
 
     //On parcourt le deuxième WorkTree pour rajouter les fichiers qui ne sont pas dans l'autre WorkTree
-    for(int k = 0 ; k < wt1->n ; k++){
+    for(int k = 0 ; k < wt2->n ; k++){
 
         //Si le fichier n'est pas dans le premier WorkTree
         if (inWorkTree(wt1,wt2->tab[k].name) == -1){

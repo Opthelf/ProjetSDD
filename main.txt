@@ -472,33 +472,50 @@ Exo 9 :
 
 exo11 :
 
-	mergeWorkTrees ->
 
-		/*WorkTree * WT = initWorkTree();
-
-		appendWorkTree(WT,"Test",NULL,getChmod("Test"));
-		appendWorkTree(WT,"test.txt",NULL,getChmod("test.txt"));*/
-
-		WorkTree * WT1 = ftwt("5b/c3f96ae23504862b820d39e49f54af753e071a53dadc0c22ebaa9a547e7ba5.t");
-		WorkTree * WT2 = ftwt("9b/5bbc2f8f2782161b4d7379a191d7fa98d558c759f10afd4b539ac1c1a0d41c.t");
-
-		List * L = initList();
-
-		WorkTree * WT3 = mergeWorkTrees(WT1,WT2,&L);
-
-		/*char * hash_WT = saveWorkTree(WT,".");
-		printf("hash -> %s\n",hash_WT);*/
-
-		char * chaine_list = ltos(L);
-		printf("liste -> %s\n",chaine_list);
+	WorkTree * WT1 = initWorkTree();
+	WorkTree * WT2 = initWorkTree();
+	system("echo 1 > f1.txt");
 	
-		char * chaine_WorkTree = wtts(WT3);
-		printf("WorkTree ->\n%s\n",chaine_WorkTree);
 
-		FreeList(L);
-		freeWorkTree(WT1);
-		freeWorkTree(WT2);
-		freeWorkTree(WT3);
-		free(chaine_list);
-		free(chaine_WorkTree);
-		//free(hash_WT);
+	char * hash = sha256file("f1.txt");
+	appendWorkTree(WT1,"f1.txt",hash,getChmod("f1.txt"));
+	afficheWT(WT1);
+
+	system("echo 2 > f1.txt");
+	
+	char * hash2 = sha256file("f1.txt");
+	appendWorkTree(WT2,"f1.txt",hash2,getChmod("f1.txt"));
+	
+	printf("\n");
+
+	char * hash3 = sha256file("f2.txt");
+	char * hash4 = sha256file("f3.txt");
+
+	appendWorkTree(WT2,"f3.txt",hash4,getChmod("f3.txt"));
+	appendWorkTree(WT2,"f2.txt",hash3,getChmod("f2.txt"));
+
+	afficheWT(WT2);
+
+	List * L = initList();
+	WorkTree * WTM = mergeWorkTrees(WT1,WT2,&L);
+	char * lts= ltos(L);
+	
+	printf("\n");
+
+	afficheWT(WTM);
+	printf("Liste des conflits : %s \n",lts);
+	
+	printf("\n");
+	
+	freeWorkTree(WT1);
+	freeWorkTree(WT2);
+	freeWorkTree(WTM);
+	freeWorkTree(bTW);
+
+	FreeList(L);
+	free(lts);
+	free(hash);
+	free(hash2);
+	free(hash3);
+	free(hash4);
