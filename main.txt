@@ -569,6 +569,11 @@ exo11 :
 	
 	printf("fini\n");
 
+
+
+
+
+
 	
 	
 	
