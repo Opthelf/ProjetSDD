@@ -272,43 +272,46 @@ void createDeletionCommit(char * branch, List * conflicts, char * message){
     }
 
     //On passe sur la branche en paramètre
-    myGitCheckoutBranch(branch);
+    if(file_exists(branch)==1){
+        myGitCheckoutBranch(branch);
 
     
-    //On récupère le path vers le commit, puis le commit lui-même
-    char * hash_commit = getRef(branch);
-    char * path_commit = hashToPathCommit(hash_commit);
-    Commit * C = ftc(path_commit);
+        //On récupère le path vers le commit, puis le commit lui-même
+        char * hash_commit = getRef(branch);
+        char * path_commit = hashToPathCommit(hash_commit);
+        Commit * C = ftc(path_commit);
 
-    //On récupère le WorkTree associé au commit
-    WorkTree * WT_C = branchToWorkTree(branch);
+        //On récupère le WorkTree associé au commit
+        WorkTree * WT_C = branchToWorkTree(branch);
 
-    //On clean add
-    system("rm .add");
+        //On clean add
+        system("rm .add");
 
-    //On parcours le WorkTree pour ajouter les fichiers sans conflits à notre branche
-    for(int i = 0 ; i < WT_C->n ; i++){
+        //On parcours le WorkTree pour ajouter les fichiers sans conflits à notre branche
+        for(int i = 0 ; i < WT_C->n ; i++){
 
         //On teste si le fichier/répertoire que l'on regarde n'est pas dans la liste des conflits
-        Cell * C = searchList(conflicts,WT_C->tab[i].name);
-        if (C == NULL){
+            Cell * C = searchList(conflicts,WT_C->tab[i].name);
+            if (C == NULL){
 
-            //On ajoute les fichiers sans conflits dans .add
-            myGitAdd(WT_C->tab[i].name);
+                //On ajoute les fichiers sans conflits dans .add
+                myGitAdd(WT_C->tab[i].name);
+            }
         }
-    }
 
     //On crée le commit de suppresion 
-    myGitCommit(branch,message);
+        myGitCommit(branch,message);
 
     //On revient sur la branche de départ
-    myGitCheckoutBranch(current);
-
+        myGitCheckoutBranch(current);
+    
     //On oublie pas de libérer la mémoire allouée :)
-    free(current);
+    
     free(hash_commit);
     free(path_commit);
     freeCommit(C);
     freeWorkTree(WT_C);
+    }
+    free(current);
 }
 
