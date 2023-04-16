@@ -280,25 +280,22 @@ Commit * stc(char *str){
         exit(EXIT_FAILURE);
     }
 
-    //On initialise le commit
     Commit * c = initCommit();
-
-    //On alloue l'espace mémoire pour la clé et la valeur
     char * reskey = malloc(sizeof(char)*100);
     strcpy(reskey,"");
     char * resvalue = malloc(sizeof(char)*100);
     strcpy(resvalue,"");
-
     int i = 0;
 
-    //Tant que la chaine n'arrive pas à la fin
-    while(str-1!=NULL){
+    //On parcourt la chaine de caractère
+    while(str-1 != NULL){
         
         sscanf(str,"%s : %s",reskey,resvalue);
         strcat(reskey,"\0");
-
-        strcat(resvalue,"\0");
        
+        int l1 = strlen(resvalue);
+        strcat(resvalue,"\0");
+
         commitSet(c,reskey,resvalue);
         str = strchr(str,'\n')+1;
     }
@@ -306,7 +303,6 @@ Commit * stc(char *str){
     //On libère la mémoire allouée
     free(reskey);
     free(resvalue);
-
     return c;
 }
 

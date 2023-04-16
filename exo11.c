@@ -249,7 +249,7 @@ List * merge(char * remote_branch, char * message){
     return NULL;
 }
 
-
+//Done
 //La fonction crée des commits de suppresion des conflits
 void createDeletionCommit(char * branch, List * conflicts, char * message){
 

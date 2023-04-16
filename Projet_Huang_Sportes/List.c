@@ -318,32 +318,37 @@ List * ftol(char * path){
 //Modifie les deux listes L_current et L_branch selon les choix de l'utilisateur sur les fichiers dans conflicts
 void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 	int choix;
-
+	Cell * temp = *conflicts;
+	
 	//On parcourt la liste des conflits
-	while (*conflicts != NULL){
+	while (temp != NULL){
 
 		//On récupère le choix de l'utilisateur de la version à garder
-		printf("Quel est votre choix pour %s ?\n",(*conflicts)->data);
+		printf("Quel est votre choix pour %s ?\n",temp->data);
 		scanf("%d",&choix);
 
 		//Si le choix ne correspond à aucune des options
-		if (choix != 1 || choix != 2){
+		if (choix != 1 && choix != 2){
 			printf("%d n'est pas une option ! Résolution des conflits annulés\n",choix);
-			exit(EXIT_FAILURE);
+			//exit(EXIT_FAILURE);
+			return;
 		}
 
 		//Si il choisit 1, qui correspond à la branche courante
 		if (choix == 1){
-			insertLast(*L_current,*conflicts);
+			Cell * cell = buildCell(temp->data);
+			insertLast(*L_current,cell);
+			//freeCell(cell);
 		}
 
 		//Si il choisit 2, qui correspond à la branche à merge
 		if (choix == 2){
-			insertLast(*L_branch,*conflicts);
+			Cell * cell = buildCell(temp->data);
+			insertLast(*L_branch,cell);
 		}
-
-		*conflicts = (*conflicts)->next;
+		temp = temp->next;
 	}
+
 }
 
 //Fusionne la deuxième liste dans la première

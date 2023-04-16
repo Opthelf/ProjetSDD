@@ -27,6 +27,7 @@ void affiche_commande(){
     printf("Pour afficher les commit d'une branche -> ./myGit print-branch <branch_name>\n\n");
     printf("Pour restaurer les fichiers depuis une branche -> ./myGit checkout-branch <branch_name>\n\n");
     printf("Pour restaurer les fichiers depuis un commit -> ./myGit checkout-commit <pattern_hash_commit>\n\n");
+    printf("Pour merge une branche dans la branche courante -> ./myGit merge <branch_name>\n\n");
 }
 
 //La fonction retourne un WorkTree des fichiers/dossier sans conflict et change une liste en y mettant les noms des fichier/dossier en conflict
@@ -124,7 +125,11 @@ List * merge(char * remote_branch, char * message){
 
     //On récupère la branche courante
     char * current = getCurrentBranch();
-
+    if(strcmp(current,remote_branch) == 0){
+        printf("Vous ne pouvez pas merge une branche avec elle même -> merge\n");
+        free(current);
+        exit(EXIT_FAILURE);
+    }
     //Si la branche courante est un commit
     if (strlen(current) >= 4){
         char buff[5] = {current[0],current[1],current[2],current[3],'\0'};
@@ -152,10 +157,8 @@ List * merge(char * remote_branch, char * message){
     
     List * conflicts = initList();
 
-    //On fusionne les WorkTree
     WorkTree * merged_WT = mergeWorkTrees(WT_current,WT_remote,&conflicts);
 
-    //On libère la mémoire des WorkTree non-nécessaires à la suite
     freeWorkTree(WT_current);
     freeWorkTree(WT_remote);
 
@@ -173,24 +176,20 @@ List * merge(char * remote_branch, char * message){
         return conflicts;
     }
 
-    //On récupère le hash du WorkTree
     char * hash_WT = blobWorkTree(merged_WT);
 
     Commit * newCommit = createCommit(hash_WT);
 
-    //On rajoute au commit deux précédents, un pour chaque branche fusionné
     char * hash_commit_current = getRef(current);
     commitSet(newCommit,"predecessor_current",hash_commit_current);
 
     char * hash_commit_old = getRef(remote_branch);
     commitSet(newCommit,"predecessor_old",hash_commit_old);
 
-    //On libère la mémoire allouée
     free(hash_WT);
     free(hash_commit_current);
     free(hash_commit_old);
 
-    //Si le message est NULL
     if (message == NULL){
         printf("Le message est NULL -> merge");
     }
@@ -199,25 +198,20 @@ List * merge(char * remote_branch, char * message){
         commitSet(newCommit,"message",message);
     }
 
-    //On crée un instantané du Commit
     char * hash_commit = blobCommit(newCommit);
 
     freeCommit(newCommit);
 
-    //On met à jour les branches
     createUpdateRef("HEAD",hash_commit);
     createUpdateRef(current,hash_commit);
 
-    //On efface la branche et on restaure le WorkTree
-    deleteRef(remote_branch);
-    restoreWorkTree(merged_WT,".");
-
-    //On libère la mémoire allouée
     free(hash_commit);
     FreeList(conflicts);
     free(current);
-    freeWorkTree(merged_WT);
 
+    deleteRef(remote_branch);
+    restoreWorkTree(merged_WT,".");
+    freeWorkTree(merged_WT);
     return NULL;
 }
 
@@ -249,7 +243,7 @@ void createDeletionCommit(char * branch, List * conflicts, char * message){
     }
 
     //On passe sur la branche en paramètre
-    if(file_exists(branch)==1){
+    
         myGitCheckoutBranch(branch);
 
     
@@ -280,12 +274,11 @@ void createDeletionCommit(char * branch, List * conflicts, char * message){
 
         //On revient sur la branche de départ
         myGitCheckoutBranch(current);
-        
-        //On oublie pas de libérer la mémoire allouée :)
-        free(hash_commit);
-        free(path_commit);
-        freeCommit(C);
-        freeWorkTree(WT_C);
-    }
+    
+    //On oublie pas de libérer la mémoire allouée :)
+    free(hash_commit);
+    free(path_commit);
+    freeCommit(C);
+    freeWorkTree(WT_C);
     free(current);
 }

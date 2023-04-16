@@ -167,7 +167,7 @@ int main(int argc,char * argv[]){
             return 0;
         }
 
-        //Si il y a un message -> ATTENTION, message tout attaché uniquement (sinon ne retient que le premier mot)
+        //Si il y a un message
         if (argc == 5){
 
             //Si il y a bien l'option -m qui précise qu'il y a un message
@@ -295,7 +295,7 @@ int main(int argc,char * argv[]){
         List * conflicts = merge(argv[2],argv[3]);
 
         //Si il n'y a pas eu de conflits
-        if (*conflicts == NULL){
+        if (conflicts == NULL){
             printf("La fusion s'est déroulé à merveille !\n");
             return 0;
         }
@@ -319,6 +319,7 @@ int main(int argc,char * argv[]){
             case 1 :
                 createDeletionCommit(argv[2],conflicts,argv[3]);
                 merge(argv[2],argv[3]);
+        
                 break;
 
             //On récupère uniquement les fichiers sans conflits avec la branche en paramètre
@@ -326,6 +327,8 @@ int main(int argc,char * argv[]){
                 myGitCheckoutBranch(argv[2]);
                 createDeletionCommit(current,conflicts,argv[3]);
                 merge(current,argv[3]);
+                
+
                 break;
 
             case 3 :
@@ -335,17 +338,22 @@ int main(int argc,char * argv[]){
 
                 List * L_current = initList();
                 List * L_branch = initList();
-
                 tri_par_choix(conflicts,&L_current,&L_branch);
-
+                
                 createDeletionCommit(current,L_branch,argv[3]);
                 createDeletionCommit(argv[2],L_current,argv[3]);
-
                 merge(argv[2],argv[3]);
                 printf("Fin de la fusion par choix ! C'est un succès\n");
-
                 FreeList(L_current);
                 FreeList(L_branch);
+                
+                /*
+
+                
+                
+                
+                */
+                
                 break;
 
             default :
