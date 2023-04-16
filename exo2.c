@@ -6,11 +6,14 @@
 #include "exo2.h"
 #include "exo1.h"
 
+//Done
 List * initList(){ //Initialise une liste
 	List * L = malloc(sizeof(List));
 	* L = NULL;
 	return L;
 }
+
+//Done
 void FreeList(List * L){ //Libère l'espace mémoire de la liste passé en paramètre
 	if (*L == NULL){
 		printf("Liste NULL(FreeList)\n");
@@ -26,6 +29,7 @@ void FreeList(List * L){ //Libère l'espace mémoire de la liste passé en param
 	free(L);
 }
 
+//Done
 //Renvoie la taille de la liste
 int tailleList(List * L){
 	if (*L == NULL){
@@ -43,6 +47,7 @@ int tailleList(List * L){
 	return i;
 }
 
+//Done
 Cell * buildCell(char * ch){ //Initialise une cellule et lui attribue la chaine passée en paramètre
 	Cell * cell = (Cell*)malloc(sizeof(Cell));
 	cell->data = strdup(ch);
@@ -50,16 +55,19 @@ Cell * buildCell(char * ch){ //Initialise une cellule et lui attribue la chaine 
 	return cell;
 }
 
+//Done
 void freeCell(Cell * C){ //Libère de la mémoire la cellule passé en paramètre
 	free(C->data);
 	free(C);
 }
 
+//Done
 void insertFirst(List * L, Cell * C){ //Insère une cellule dans une liste en première position
 	C->next = *L;
 	*L = C;
 }
 
+//Done
 void insertLast(List * L, Cell * C){ //Inère une cellule dans une liste en dernière position
 	if (*L == NULL){
 		*L = C;
@@ -72,10 +80,12 @@ void insertLast(List * L, Cell * C){ //Inère une cellule dans une liste en dern
 	temp->next = C;
 }
 
+//Done
 char * ctos(Cell * c){ //Renvoie la chaine de caractère associé à une cellule
 	return c->data;
 }
 
+//Done
 char * ltos(List * L){ //Convertit une liste en chaine de caractère et la renvoie
 	if (*L == NULL){
 		printf("Liste NULL(ltos)\n");
@@ -99,6 +109,7 @@ char * ltos(List * L){ //Convertit une liste en chaine de caractère et la renvo
 	return res;
 }
 
+//Done
 Cell* listGet(List* L, int i){ //Récupère la cellule à la position i dans la liste L
 	if(*L == NULL){
 		printf("Liste NULL(listGet)\n");
@@ -116,6 +127,7 @@ Cell* listGet(List* L, int i){ //Récupère la cellule à la position i dans la 
 	return temp;
 }
 
+//Done
 Cell * searchList(List * L, char * str){ //Récupère la cellule dont la data associé est str dans la liste L
 	/*if(*L == NULL){
 		printf("Liste NULL(searchList)\n");
@@ -131,7 +143,7 @@ Cell * searchList(List * L, char * str){ //Récupère la cellule dont la data as
 	return NULL;
 }
 
-
+//Done
 List * stol(char * s){ //Convertit une chaine de caractère en une liste
 	int pos = 0;
 	int n_pos = 0;
@@ -157,6 +169,7 @@ List * stol(char * s){ //Convertit une chaine de caractère en une liste
 	return L;
 }
 
+//done
 void ltof(List * L, char * path){ //Convertit la liste en chaine de cractère, puis la met dans le fichier path
 	if(*L == NULL){
 		printf("Liste NULL(ltof)\n");
@@ -174,6 +187,7 @@ void ltof(List * L, char * path){ //Convertit la liste en chaine de cractère, p
 	free(chaine);
 }
 
+//done
 List * ftol(char * path){ //Récupère une chaine de caractère d'un fichier puis la convertit en liste
 	if (file_exists(path) == 0){ //Teste si le fichier existe
 		printf("Le fichier %s n'existe pas -> ftol\n",path);
@@ -192,6 +206,7 @@ List * ftol(char * path){ //Récupère une chaine de caractère d'un fichier pui
 	return stol(buff);
 }
 
+//Done
 //Modifie les deux listes L_current et L_branch selon les choix de l'utilisateur sur les fichiers dans conflicts
 void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 	int choix;
@@ -227,6 +242,7 @@ void tri_par_choix(List * conflicts, List ** L_current, List ** L_branch){
 	printf("%s\n",chaine);
 }
 
+//Done
 //Fusionne la deuxième liste dans la première
 void fusionList(List ** first, List * second){
 	insertLast(*first,*second);

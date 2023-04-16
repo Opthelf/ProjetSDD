@@ -13,6 +13,7 @@
 #include "exo6.h"
 #define TAILLE 10
 
+//Done
 kvp * createKeyVal(char *key,char *val){ //Crée une instance de la structure kvp, initialisé avec key et value
 
     if (key == NULL){ //Teste si l'un des paramètres est NULL
@@ -33,6 +34,7 @@ kvp * createKeyVal(char *key,char *val){ //Crée une instance de la structure kv
     return k;
 }
 
+//Done
 void freeKeyVal(kvp *kv){ //Libère la mémoire du paramètre
     if (kv == NULL){ //Teste si kv est NULL pour éviter une segmentation fault
         printf("La paire key-value est NULL, pas besoin de la libérer -> freeKeyVal\n");
@@ -44,6 +46,7 @@ void freeKeyVal(kvp *kv){ //Libère la mémoire du paramètre
     free(kv);
 }
 
+//Done
 char * kvts(kvp* k){ //Convertit le paramètre en chaine de caractère
     if (k == NULL){ //Teste si l'un des paramètres est NULL
         printf("Le paramètre est NULL ce qui va créer une segmentation fault -> kvts\n");
@@ -56,6 +59,7 @@ char * kvts(kvp* k){ //Convertit le paramètre en chaine de caractère
     return buff;
 }
 
+//Done
 kvp *stkv(char * ch){ //Convertit une chaine de caractère en key-value strcuture
     if (ch == NULL){ //Teste si la chaine est NULL
         printf("La chaine de caractère est NULL -> stkv\n");
@@ -72,6 +76,7 @@ kvp *stkv(char * ch){ //Convertit une chaine de caractère en key-value strcutur
     return createKeyVal(key,val);
 }
 
+//Done
 Commit* initCommit(){ //Initialise un Commit
     Commit * c = malloc(sizeof(Commit));
     c->T = malloc(sizeof(kvp*)*TAILLE);
@@ -83,6 +88,7 @@ Commit* initCommit(){ //Initialise un Commit
     return c;
 }
 
+//Done
 void freeCommit(Commit *c){ //Libère la mémoire d'un commit
     if (c == NULL){ //Teste si le commit est NULL pour éviter une segmentation fault
         printf("Pas besoin de free le commit, il est NULL -> freeCommit\n");
@@ -97,6 +103,7 @@ void freeCommit(Commit *c){ //Libère la mémoire d'un commit
     free(c);
 }
 
+//Done
 unsigned long hash(unsigned char *str){ //Hash le contenu
     unsigned long hash = 5381;
     int c;
@@ -105,6 +112,8 @@ unsigned long hash(unsigned char *str){ //Hash le contenu
     return hash;
 }
 
+
+//Done
 void commitSet(Commit *c, char *key, char *val){ //Rajoute une paire key-value dans le commit
     
     if (c == NULL){ //Teste si le commit est NULL
@@ -125,6 +134,7 @@ void commitSet(Commit *c, char *key, char *val){ //Rajoute une paire key-value d
     c->n++;
 }
 
+//Done
 Commit * createCommit(char* hash){ //Crée un commit avec une paire tree-hash
     if (hash == NULL){
         printf("Le hash est NULL -> createCommit\n");
@@ -136,6 +146,7 @@ Commit * createCommit(char* hash){ //Crée un commit avec une paire tree-hash
     return c;
 }
 
+//Done
 char * commitGet(Commit *c,char *key){ //Récupère la valeur de clé key dans le commit c
     if (c == NULL){ //Teste si le commit est NULL
         printf("Le commit c est NULL -> commitGet\n");
@@ -162,6 +173,8 @@ char * commitGet(Commit *c,char *key){ //Récupère la valeur de clé key dans l
     return NULL;
 }
 
+
+//Done
 char * cts(Commit *c){ //Transforme un commit en chaine de caractère
     if (c == NULL){ //Teste si le commit est NULL
         printf("Le commit est NULL -> cts\n");
@@ -187,6 +200,7 @@ char * cts(Commit *c){ //Transforme un commit en chaine de caractère
     return res;
 }
 
+//Done
 Commit * stc(char *str){ //Transforme une chaine de caractère en commit
     if (str == NULL){ //Teste si la chaine est NULL
         printf("La chaine de caractère est NULL -> stc\n");
@@ -220,6 +234,7 @@ Commit * stc(char *str){ //Transforme une chaine de caractère en commit
     return c;
 }
 
+//Done
 void ctf(Commit *c,char *file){ //Ecrit la chaine de caractère d'un commit dans un fichier
     int statut_file = isFile(file);
 
@@ -240,6 +255,8 @@ void ctf(Commit *c,char *file){ //Ecrit la chaine de caractère d'un commit dans
     fclose(f);    
 }
 
+
+//Done
 Commit * ftc(char *file){ //Récupère un commit depuis un fichier
     int statut_file = isFile(file);
 
@@ -276,6 +293,7 @@ Commit * ftc(char *file){ //Récupère un commit depuis un fichier
     return c;
 }
 
+//Done
 char * blobCommit(Commit *c){ //Crée un instantané du commit c dans le path de son hash
     if (c == NULL){ //Teste si le commit est NULL
         printf("Le commit en paramètre est NULL -> blobCommit\n");

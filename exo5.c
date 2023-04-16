@@ -11,6 +11,8 @@
 #include "exo4.h"
 #include "exo5.h"
 
+
+//Done
 char * blobWorkTree(WorkTree *wt){ //Crée un instantanée d'un WorkTree
     if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL -> blobWorkTree\n");
@@ -42,7 +44,7 @@ char * blobWorkTree(WorkTree *wt){ //Crée un instantanée d'un WorkTree
     return hash;
 }
 
-
+//Done
 char * concat_paths(char * path1,char * path2){ //Concatène les deux path entre eux, en mettant entre le premier et le deuxième un '\'
     if(path1 == NULL || path2 == NULL){
         printf("L'un des deux path, voir les deux sont NULL -> concat_paths\n");
@@ -69,6 +71,7 @@ char * concat_paths(char * path1,char * path2){ //Concatène les deux path entre
     return result;
 }
 
+//Done
 char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fichiers présents dans le WorkTree, dont la racine est à path
     if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL -> saveWorkTree\n");
@@ -145,7 +148,7 @@ char * saveWorkTree(WorkTree *wt,char * path){ //La fonction sauvegarde les fich
     return blobWorkTree(wt);
 }
 
-
+//Done
 int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au hash d'un WorkTree
     if (hash == NULL){ //Teste si le paramètre est NULL
         printf("Le hash en paramètre est NULL -> isWorkTree\n");
@@ -169,6 +172,7 @@ int isWorkTree(char* hash){ //Vérifie si le hash en parmètre correspond au has
     return -1; 
 }
 
+//Done
 void restoreWorkTree(WorkTree * wt, char * path){ //Restore les fichiers tels qu'ils étaient dans wt
     if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL -> restoreWorkTree\n");

@@ -16,6 +16,7 @@
 #include "exo8.h"
 #include "exo9.h"
 
+//Done
 //La fonction crée le répertoire .refs et les fichiers master et HEAD dedans si ce n'est pas déjà fait
 void initRefs(){ 
 
@@ -27,6 +28,7 @@ void initRefs(){
     }
 }
 
+//Done
 //La fonction update une référence en y insérant un nouveau hash
 void createUpdateRef(char* ref_name, char* hash){
 
@@ -46,6 +48,7 @@ void createUpdateRef(char* ref_name, char* hash){
     system(buff);
 }
 
+//Done
 //La fonction efface une référence
 void deleteRef(char* ref_name){
 
@@ -63,6 +66,7 @@ void deleteRef(char* ref_name){
     system(buff);
 }
 
+//Done
 //Récupère le hash d'une référence
 char* getRef(char* ref_name){
 
@@ -100,6 +104,7 @@ char* getRef(char* ref_name){
     return recup;
 }
 
+//Done
 //Ajoute le fichier/dossier dans le fichier .add sous forme de WorkFile/WorkTree
 void myGitAdd(char* file_or_folder){
     WorkTree * wt;
@@ -141,7 +146,7 @@ void myGitAdd(char* file_or_folder){
     freeWorkTree(wt);
 }
 
-
+//Done
 //Commit dans une branche
 void myGitCommit(char* branch_name, char* message){
     

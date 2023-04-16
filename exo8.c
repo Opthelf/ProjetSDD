@@ -15,6 +15,8 @@
 #include "exo7.h"
 #include "exo8.h"
 
+
+//Done
 //Initialise un fichier qui donne le nom de la branche courante
 void initBranch(){
 
@@ -24,6 +26,7 @@ void initBranch(){
     }
 }
 
+//Done
 //Vérifie qu'une branche existe
 int branchExists(char* branch){
 
@@ -61,6 +64,7 @@ void createBranch(char* branch){
     free(chaine);
 }
 
+//Done
 //Renvoie la branche courante
 char* getCurrentBranch(){
 
@@ -95,6 +99,7 @@ char* getCurrentBranch(){
     return buff;
 }
 
+//Done
 //Transforme le hash d'un commit en path vers son instantané
 char * hashToPathCommit(char * hash){
 
@@ -108,6 +113,7 @@ char * hashToPathCommit(char * hash){
     return buff;
 }
 
+//Done
 //Affiche la liste des commit d'une branche
 void printBranch(char * branch){
 
@@ -167,7 +173,7 @@ void printBranch(char * branch){
     free(commit_hash);
 }
 
-
+//Done
 //Retourne une liste de tout les commit dans la branche dont le dernier commit est passé en paramètre
 List * branchList(char * commit_hash){
 
@@ -240,7 +246,7 @@ List * branchList(char * commit_hash){
     return L;
 }
 
-
+//Done
 //Récupère le commit de toutes les branches
 List * getAllCommits(){
 

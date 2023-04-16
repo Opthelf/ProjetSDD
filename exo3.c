@@ -10,6 +10,7 @@
 #include "exo2.h"
 #include "exo3.h"
 
+//Done
 int octalVersDecimal(int octal){
     int decimal = 0;
     int i = 0;
@@ -32,6 +33,7 @@ int octalVersDecimal(int octal){
     return decimal;
 }
 
+//Done
 int getChmod(const char * path){ //Récupère le mode d'accès du fichier passé en paramètre
     struct stat ret;
     if(stat(path,&ret)==-1){
@@ -43,6 +45,7 @@ int getChmod(const char * path){ //Récupère le mode d'accès du fichier passé
     return res;
 }
 
+//Done
 void setMode(int mode, char * path){ //Applique le mode d'accès en paramètre au fichier en paramètre
     if (mode < 0 || mode > 777){ //On regarde si le mode a du sens 
         printf("Mode %d non valable\n",mode);
@@ -53,6 +56,7 @@ void setMode(int mode, char * path){ //Applique le mode d'accès en paramètre a
     system(buff);
 }
 
+//Done
 char * hashToPath(char *hash){ //Renvoie le hash sous forme de path (un / entre le deuxième et le troisème caractère)
     if (hash == NULL){ //On vérifie que le hash n'est pas NULL, auquel cas il y a eu un souci avant donc on exit complètement
         printf("Le hash est NULL -> hashToPath\n");
@@ -74,6 +78,7 @@ char * hashToPath(char *hash){ //Renvoie le hash sous forme de path (un / entre 
 	return path;
 }
 
+//Done
 char * hashToFile(char *hash){ //Crée le directory avec les deux premiers caractères du hash, puis retourne le path
     char * ch2 = strdup(hash);
     ch2[2]='\0'; //On dit que le chaine s'arrête là
@@ -85,6 +90,7 @@ char * hashToFile(char *hash){ //Crée le directory avec les deux premiers carac
     return hashToPath(hash);
 }
 
+//Done
 List * listdir(char * root_dir){
 	DIR *dp;
 	struct dirent *ep;
@@ -107,7 +113,7 @@ List * listdir(char * root_dir){
 
 struct stat st = {0};
 
-
+//Done
 void cp(char* to, char* from){
     int etat = isFile(from);
     if (etat == -1){ //Si le fichier qu'on veut copier n'existe pas
@@ -136,6 +142,7 @@ void cp(char* to, char* from){
     fclose(f_arrivee);
 }
 
+//Done
 void blobFile(char* file){ //Crée une copie du fichier au path du hash de ce fichier (avec hashToPath)
     int etat_file = isFile(file);
     if (etat_file == 0){ //Si le fichier est un directory

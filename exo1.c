@@ -7,6 +7,7 @@
 #include <sys/stat.h> 
 #include <stdbool.h>
 
+//Done
 int hashFile(char * source, char * dest){ //Ecrit le hash du fichier source dans le fichier destination
 	char buff[1000];
 	sprintf(buff,"cat %s | sha256sum > resultat.txt",source);	
@@ -22,6 +23,7 @@ int hashFile(char * source, char * dest){ //Ecrit le hash du fichier source dans
 	return 0;
 }
 
+//Done
 char * sha256file(char * file){ //Renvoie le hash du fichier 
 	//Cas où le fichier n'existe pas
 	FILE * ftest;
@@ -56,11 +58,13 @@ char * sha256file(char * file){ //Renvoie le hash du fichier
 	return hash;
 }
 
+//done
 int file_exists (char *file){ 
 	struct stat buffer;
 	return (stat(file, &buffer) == 0);
 }
 
+//done
 int isFile(const char *path){
     struct stat path_stat;
     if (file_exists((char*)path) == 1){

@@ -14,7 +14,7 @@
 #include "exo8.h"
 #include "exo9.h"
 
-
+//Done
 //La fonction restaure les fichiers sauvegardés via le commit
 void restoreCommit(char * hash_commit){
 
@@ -57,6 +57,7 @@ void restoreCommit(char * hash_commit){
     freeWorkTree(WT);
 }
 
+//Done
 //Permet un passage de la branche courante vers la branche en paramètre
 void myGitCheckoutBranch(char * branch){
 
@@ -108,6 +109,7 @@ void myGitCheckoutBranch(char * branch){
     free(hash);
 }
 
+//Done
 //Retourne une sous-liste de L avec que des Cell dont les data commencent par le même pattern que pattern
 List * filterList(List * L, char * pattern){
 
@@ -163,6 +165,7 @@ List * filterList(List * L, char * pattern){
     return newL;
 }
 
+//Done
 //Restaure les fichiers sauvegardés dans le commit dont le hash commence par pattern
 void myGitCheckoutCommit(char* pattern){
     if (pattern == NULL){

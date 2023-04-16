@@ -10,7 +10,7 @@
 #include "exo4.h"
 #define TAILLE 10
 
-
+//Done
 WorkFile* createWorkFile(char* name){ //Crée un WorkFile et initialise son hash à NULL et son nom à name et le mode à 0
     if (name == NULL){ //Teste si name est NULL
         printf("Le nom du fichier est NULL -> createWorkFile\n");
@@ -23,6 +23,7 @@ WorkFile* createWorkFile(char* name){ //Crée un WorkFile et initialise son hash
     return WF;
 }
 
+//Done
 void freeWorkFile(WorkFile * WF){ //Libère un WorkFile de la mémoire
     if(WF == NULL){
         printf("WorkFile NULL(freeWorkFile)\n");
@@ -38,6 +39,7 @@ void freeWorkFile(WorkFile * WF){ //Libère un WorkFile de la mémoire
     free(WF);
 }
 
+//Done
 char* wfts(WorkFile* wf){ //Transforme un WokrFile sous forme de chaine de caractère
     if (wf == NULL){ //Teste si le WorkFile est NULL
         printf("Le WorkFile est NULL -> wfts\n");
@@ -55,6 +57,7 @@ char* wfts(WorkFile* wf){ //Transforme un WokrFile sous forme de chaine de carac
     return res;
 }
 
+//Done
 WorkFile* stwf(char* ch){ //Transforme une chaine de caractère en un WokrTree
     int mode;
     char * name = malloc(sizeof(char)*1000);
@@ -75,6 +78,7 @@ WorkFile* stwf(char* ch){ //Transforme une chaine de caractère en un WokrTree
     return WF;
 }
 
+//Done
 WorkTree * initWorkTree(){ //Initialise un WorkTree
     WorkTree * WT = (WorkTree *) malloc(sizeof(WorkTree));
     WT->size = TAILLE;
@@ -83,6 +87,7 @@ WorkTree * initWorkTree(){ //Initialise un WorkTree
     return WT;
 }
 
+//Done
 void freeWorkTree(WorkTree* wt){ //Libère un WorkTree de la mémoire
     int i = 0;
     while(i < wt->n){
@@ -94,7 +99,7 @@ void freeWorkTree(WorkTree* wt){ //Libère un WorkTree de la mémoire
     free(wt);
 }
 
-
+//Done
 int inWorkTree(WorkTree* wt, char* name){ //Vérifie si le fichier name est déjà enregistré dans le WorkTree et renvoie sa position si il y est
     if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL(inWorkTree)\n");
@@ -113,6 +118,7 @@ int inWorkTree(WorkTree* wt, char* name){ //Vérifie si le fichier name est déj
     return -1;
 }
 
+//Done
 //Transforme un hash en path
 char * hashToPathWorkTree(char * hash){
 
@@ -126,6 +132,7 @@ char * hashToPathWorkTree(char * hash){
     return buff;
 }
 
+//Done
 int appendWorkTree(WorkTree* wt, char * n, char * h, int m){ //Rajoute un WorkFile au WorkTree en paramètre
     
     int etat_WT = inWorkTree(wt,n); 
@@ -160,6 +167,7 @@ int appendWorkTree(WorkTree* wt, char * n, char * h, int m){ //Rajoute un WorkFi
     return 0;
 }
 
+//Done
 void afficheWT(WorkTree* wt){
     int i = 0;
     while(i < wt->n){
@@ -168,6 +176,7 @@ void afficheWT(WorkTree* wt){
     }
 }
 
+//Done
 char* wtts(WorkTree* wt){ //Transforme un WorkTree en une chaine de caractère
     if (wt == NULL){ //Teste si le WorkTree est NULL
         printf("Le WorkTree est NULL(wtts)\n");
@@ -190,6 +199,7 @@ char* wtts(WorkTree* wt){ //Transforme un WorkTree en une chaine de caractère
     return res;
 }
 
+//Done
 WorkTree* stwt(char* ch){ //Transforme une chaine de caractère en un WorkTree
     if (ch == NULL){ //Teste si la chaine est NULL
         printf("La chaine est NULL -> stwt\n");
@@ -219,6 +229,7 @@ WorkTree* stwt(char* ch){ //Transforme une chaine de caractère en un WorkTree
 
 }
 
+//Done
 int wttf(WorkTree* wt, char* file){ //Transforme un WorkTree en une chaine de carctère puis la met dans un fichier
     
     int etat_file = isFile(file);
@@ -240,6 +251,7 @@ int wttf(WorkTree* wt, char* file){ //Transforme un WorkTree en une chaine de ca
     return 0;
 }
 
+//Done
 WorkTree* ftwt(char* file){ //Récupère un WorkTree d'un fichier
     int etat_file = isFile(file);
     if (etat_file == -1){
