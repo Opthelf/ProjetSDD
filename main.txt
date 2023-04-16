@@ -473,101 +473,48 @@ Exo 9 :
 exo11 :
 
 
-	WorkTree * WT1 = initWorkTree();
-	WorkTree * WT2 = initWorkTree();
-	system("echo 1 > f1.txt");
-	
-
-	char * hash = sha256file("f1.txt");
-	appendWorkTree(WT1,"f1.txt",hash,getChmod("f1.txt"));
-	afficheWT(WT1);
-
-	system("echo 2 > f1.txt");
-	
-	char * hash2 = sha256file("f1.txt");
-	appendWorkTree(WT2,"f1.txt",hash2,getChmod("f1.txt"));
-	
-	printf("\n");
-
-	char * hash3 = sha256file("f2.txt");
-	char * hash4 = sha256file("f3.txt");
-
-	appendWorkTree(WT2,"f3.txt",hash4,getChmod("f3.txt"));
-	appendWorkTree(WT2,"f2.txt",hash3,getChmod("f2.txt"));
-
-	afficheWT(WT2);
-
-	List * L = initList();
-	WorkTree * WTM = mergeWorkTrees(WT1,WT2,&L);
-	char * lts= ltos(L);
-	
-	printf("\n");
-
-	afficheWT(WTM);
-	printf("Liste des conflits : %s \n",lts);
-	
-	printf("\n");
-	
-	freeWorkTree(WT1);
-	freeWorkTree(WT2);
-	freeWorkTree(WTM);
-	freeWorkTree(bTW);
-
-	FreeList(L);
-	free(lts);
-	free(hash);
-	free(hash2);
-	free(hash3);
-	free(hash4);
-
-
-
-
-
 	system("./myGit init");
 	system("echo \"master 1\" > f1.txt");
 	system("echo \"master 3\" > f3.txt");
+	system("echo \"master 4\" > f4.txt");
 	system("./myGit add f1.txt");
 	system("./myGit add f3.txt");
+	system("./myGit add f4.txt");
 	system("./myGit commit master -m \"commit1 sur master\"");
 	
 	system("./myGit branch Branche");
-
 	system("./myGit checkout-branch Branche");
+	
 	system("echo \"Branche 1\" > f1.txt");
+	/*
+	
 	system("echo \"Branche 3\" > f3.txt");
+	system("echo \"Branche 4\" > f4.txt");*/
+
+	
+	system("./myGit add f4.txt");
+	system("./myGit add f3.txt");
 	system("./myGit add f1.txt");
 	system("./myGit add f2.txt");
-	system("./myGit add f3.txt");
 	system("./myGit commit Branche -m \"commit1 sur Branche\"");
-
-	
-	
-	system("echo \"master 1\" > f1.txt");
-	system("echo \"master 3\" > f3.txt");
-	system("./myGit add f3.txt");
-	system("./myGit add f1.txt");
-	system("./myGit commit Branche -m \"commit2 sur Branche\"");
 	
 	system("./myGit checkout-branch master");
-	
-	
 
-	List * Lc= merge("Branche","BRANCHEFUSION");
-	createDeletionCommit("Branche",Lc,"commit de suppression des conflits");
-	/*
-	FreeList(Lc);
-	List * Lc2= merge("Branche","BRANCHEFUSION");
-	if(Lc2!=NULL){
-		char * c = ltos(Lc2);
-		printf("conflicts : %s\n",c);
-		free(c);
-		FreeList(Lc2);
-		
-	}*/
+	system("./myGit get-current-branch");
+
+	List * conflicts = merge("Branche","fusion master et branche");
 	
-	
-	printf("fini\n");
+	if(conflicts != NULL){
+		char * str = ltos(conflicts);
+		printf("\nconflicts : %s\n",str);
+		free(str);
+		FreeList(conflicts);
+
+	}
+system("rm -f -r */ ; rm -f -r .refs ; rm .current_branch  ");	
+
+
+
 
 	
 	

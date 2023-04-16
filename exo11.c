@@ -152,7 +152,11 @@ List * merge(char * remote_branch, char * message){
 
     //On récupère la branche courante
     char * current = getCurrentBranch();
-
+    if(strcmp(current,remote_branch) == 0){
+        printf("Vous ne pouvez pas merge une branche avec elle même -> merge\n");
+        free(current);
+        exit(EXIT_FAILURE);
+    }
     //Si la branche courante est un commit
     if (strlen(current) >= 4){
         char buff[5] = {current[0],current[1],current[2],current[3],'\0'};
@@ -274,7 +278,7 @@ void createDeletionCommit(char * branch, List * conflicts, char * message){
     }
 
     //On passe sur la branche en paramètre
-    if(file_exists(branch)==1){
+    
         myGitCheckoutBranch(branch);
 
     
@@ -313,7 +317,7 @@ void createDeletionCommit(char * branch, List * conflicts, char * message){
     free(path_commit);
     freeCommit(C);
     freeWorkTree(WT_C);
-    }
+    
     free(current);
 }
 
